@@ -11,6 +11,7 @@ def norm_state():
         "age": 40,
         "bmi": 22.00,
         "ethnicity": "South Asian",
+        "answer": 0,
         "predict": False,
         "predict_normal": False
     }
@@ -26,7 +27,7 @@ st.set_page_config(page_title="ADChronotype")
 
 @st.dialog("Welcome to ADChronotype!")
 def consent():
-    st.write("**Enter consent info!**")
+    st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
         st.rerun()
@@ -94,7 +95,15 @@ if st.session_state.page=="input":
         st.session_state.bmi=round(bmi,2)
         st.session_state.ethnicity=ethnicity
         #---Verify Everything Answered---#
-        st.markdown("<span style='color: green; font-weight: bold;'>Answers Successfully Saved!</span>", unsafe_allow_html=True)
+        if st.session_state.answer==0:
+            st.markdown("<span style='color: green; font-weight: bold;'>Answers Successfully Saved!</span>", unsafe_allow_html=True)
+            st.session_state.answer=1
+        elif st.session_state.answer==1:
+            st.markdown("<span style='color: blue; font-weight: bold;'>Answers Successfully Saved!</span>", unsafe_allow_html=True)
+            st.session_state.answer=2
+        elif st.session_state.answer==2:
+            st.markdown("<span style='color: red; font-weight: bold;'>Answers Successfully Saved!</span>", unsafe_allow_html=True)
+            st.session_state.answer=0
     col1, col2, col3=st.columns([1,5,1])
     with col1:
         if st.button("**Exit**"):
