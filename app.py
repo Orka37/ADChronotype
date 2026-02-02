@@ -113,32 +113,34 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown(f"""
-        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 25px;">
-            <h4 style="margin: 0;">Alzheimer's Risk Prediction Platform</h4>
-            <span style="font-size: 24px; color: #6366F1; font-weight: bold;">—</span>
-            <style>
-                /* This targets the button inside this specific flex row */
-                div.stButton > button.learn-more-btn {{
-                    margin: 0 !important;
-                }}
-            </style>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # We place the button in a very tight column centered under the dash area
-    # or just use a centered column for the buttons
-    col1, col2, col3 = st.columns([2, 1, 2])
-    with col2:
+if st.session_state.page == "home":
+    st.markdown("<div class='main-title'><h1>ADChronotype</h1></div>", unsafe_allow_html=True)
+    
+    # We use very specific ratios to "squeeze" the dash and button together
+    # [Text Width, Dash Width, Button Width]
+    c1, c2, c3 = st.columns([3.5, 0.1, 1], vertical_alignment="center")
+    
+    with c1:
+        st.markdown("<h4 style='margin:0; text-align:right;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
+    
+    with c2:
+        st.markdown("<h4 style='margin:0; text-align:center; color:#6366F1;'>—</h4>", unsafe_allow_html=True)
+        
+    with c3:
         if st.button("Learn More"):
             project_details()
+
+    st.markdown("<br>", unsafe_allow_html=True) # Tiny bit of breathing room
+
+    # Main Action Button centered below
+    _, col_mid, _ = st.columns([1, 1, 1])
+    with col_mid:
+        if st.button("Input Details"):
+            go("input")
     
     st.markdown("---") # Visual separator
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
-    if st.button("Input Details"):
-        go("input")
 
 #---Input---#
 
@@ -177,6 +179,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
