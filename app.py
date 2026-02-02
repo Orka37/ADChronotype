@@ -161,10 +161,11 @@ if st.session_state.page=="input":
 #---Prediction---#
 
 if st.session_state.page == "prediction":
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.title("Results Analysis")
+    st.title("Results Analysis")
+    col1, col2, = st.columns(2)
+    with col1:
         st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
+    with col2:
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
