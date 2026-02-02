@@ -24,7 +24,7 @@ st.set_page_config(page_title="ADChronotype")
 
 #---Custom CSS for UI/UX vibes---#\
 
-st.markdowst.markdown(
+st.markdown(
     """
     <style>
     /* App background gradient */
@@ -182,5 +182,6 @@ if st.session_state.page=="prediction":
     st.session_state.predict=True
     if st.button("Home"):
         go("home")
+
 
 
