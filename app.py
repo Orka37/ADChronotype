@@ -31,60 +31,65 @@ st.markdown(
     .stApp {
         background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
         color: #E5E7EB;
-    }
-
-    /* Center all headers */
-    h1, h2, h3, h4, h5, h6 {
-        text-align: center;
+    }st.markdown(
+    """
+    <style>
+    /* App background gradient */
+    .stApp {
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
         color: #E5E7EB;
     }
 
-    /* Style buttons */
+    /* Headers */
+    h1, h2, h3, h4, h5, h6 {
+        text-align: center;
+        color: #E5E7EB;
+        font-weight: 600;
+    }
+
+    /* Buttons */
     div.stButton > button {
         background-color: #4F46E5;
         color: white;
-        border-radius: 12px;
-        padding: 0.5em 1.2em;
-        font-weight: bold;
+        border-radius: 8px;
+        padding: 0.5em 1em;
+        font-weight: 500;
         border: none;
-        transition: 0.3s;
+        transition: 0.2s;
     }
-
     div.stButton > button:hover {
         background-color: #6366F1;
         cursor: pointer;
     }
 
-    /* Style forms and input containers */
-    .stForm {
+    /* Forms / cards */
+    .stForm, .stMarkdown {
         background-color: #1E293B;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
-        margin-bottom: 20px;
-    }
-
-    /* Style markdown cards */
-    .stMarkdown {
-        background-color: #1E293B;
-        padding: 15px 20px;
-        border-radius: 12px;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #334155; /* subtle thin border */
+        box-shadow: none; /* remove heavy shadows */
         margin-bottom: 15px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     }
 
-    /* Error messages style */
-    .stAlert {
-        background-color: #7F1D1D !important;
-        color: #FEE2E2 !important;
-        border-radius: 12px;
-        padding: 10px;
-    }
-
-    /* Minor tweaks for sliders, number inputs */
+    /* Input labels */
     div.stNumberInput > label, div.stSelectbox > label {
         font-weight: bold;
         color: #E5E7EB;
+    }
+
+    /* Error messages */
+    .stAlert {
+        background-color: #7F1D1D !important;
+        color: #FEE2E2 !important;
+        border-radius: 8px;
+        padding: 8px;
+    }
+
+    /* Progress bar style */
+    .stProgress > div > div > div > div {
+        background-color: #4F46E5 !important;
+        border-radius: 8px !important;
     }
 
     /* Sidebar background tweak */
@@ -184,3 +189,4 @@ if st.session_state.page=="prediction":
     st.session_state.predict=True
     if st.button("Home"):
         go("home")
+
