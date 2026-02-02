@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#4F46E5"            # Indigo (buttons, highlights)
+backgroundColor = "#0F172A"         # Dark navy background
+secondaryBackgroundColor = "#020617" # Panels / forms
+textColor = "#E5E7EB"               # Soft white text
+font = "sans serif"
