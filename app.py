@@ -75,7 +75,11 @@ st.markdown("""
         transform: scale(1.03);
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
     }
+
     </style>
+    div[data-testid="column"] > div > div > div > button {
+        margin-top: 5px !important;
+    }
     """, unsafe_allow_html=True)
 
 #---Consent---#
@@ -172,6 +176,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
