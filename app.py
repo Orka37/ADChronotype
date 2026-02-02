@@ -22,6 +22,65 @@ norm_state()
 
 st.set_page_config(page_title="ADChronotype")
 
+#---Theme---#
+
+st.markdown(
+    """
+    <style>
+    /* General page background */
+    .stApp {
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        color: #E5E7EB;
+    }
+
+    /* Center all headers */
+    h1, h2, h3, h4, h5, h6 {
+        text-align: center;
+        color: #E5E7EB;
+    }
+
+    /* Style buttons */
+    div.stButton > button {
+        background-color: #4F46E5;
+        color: white;
+        border-radius: 12px;
+        padding: 0.5em 1.2em;
+        font-weight: bold;
+        border: none;
+        transition: 0.3s;
+    }
+
+    div.stButton > button:hover {
+        background-color: #6366F1;
+        cursor: pointer;
+    }
+
+    /* Style input forms */
+    .stForm {
+        background-color: #1E293B;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Style markdown cards */
+    .stMarkdown {
+        background-color: #1E293B;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Remove sidebar background harshness */
+    .css-1lcbmhc.e1fqkh3o3 {
+        background-color: #0F172A;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 #---Consent---#
 
 @st.dialog("Welcome to ADChronotype!")
@@ -101,3 +160,4 @@ if st.session_state.page=="prediction":
     st.session_state.predict=True
     if st.button("Home"):
         go("home")
+
