@@ -1,6 +1,6 @@
 [theme]
-primaryColor = "#4F46E5"
-backgroundColor = "#0F172A"
-secondaryBackgroundColor = "#020617"
-textColor = "#E5E7EB"
+primaryColor = "#4F46E5"               # Purple-blue
+backgroundColor = "#0F172A"            # Dark background
+secondaryBackgroundColor = "#1E293B"   # Slightly lighter dark for cards
+textColor = "#E5E7EB"                  # Light grey text
 font = "sans serif"
