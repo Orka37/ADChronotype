@@ -112,7 +112,6 @@ def predict_normal():
 
 #---Home---#
 
-if st.session_state.page=="home":
 if st.session_state.page == "home":
     st.markdown("<div class='main-title'><h1>ADChronotype</h1></div>", unsafe_allow_html=True)
     
@@ -179,6 +178,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
