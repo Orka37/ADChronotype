@@ -26,58 +26,54 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* 1. The Global Vibe */
+    /* 1. Background Gradient */
     .stApp {
         background: radial-gradient(circle at top right, #1E293B, #0F172A);
     }
 
-    /* 2. Sleek Title Styling */
+    /* 2. Sleek Title Box */
     .main-title {
-        font-family: 'sans serif';
-        color: #F8FAF8;
-        text-align: center;
-        padding: 15px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 30px;
+        padding: 10px;
+        margin-bottom: 25px;
+        text-align: center;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 3. Input Box Highlights (The subtle glow) */
+    /* 3. Input Box Highlights (The surgical glow) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"] {
         background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important; /* Subtle purple-blue border */
+        border: 1px solid #4F46E5 !important;
         border-radius: 8px !important;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease;
     }
     
-    /* Highlight effect when clicking into a box */
+    /* Neon glow effect when clicking into a box */
     .stSelectbox div[data-baseweb="select"]:focus-within, 
     .stNumberInput div[data-baseweb="input"]:focus-within {
         border-color: #A855F7 !important;
-        box-shadow: 0 0 8px rgba(168, 85, 247, 0.4) !important;
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
     }
 
-    /* 4. Trimming the "Thick" Buttons */
+    /* 4. Sleek, Low-Profile Buttons (Not thick!) */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        padding: 6px 20px !important; /* Reduced vertical padding */
-        height: auto !important;
-        min-height: 35px !important;
+        padding: 4px 18px !important; /* Very thin vertical padding */
         border-radius: 8px !important;
         font-weight: 500 !important;
         font-size: 14px !important;
-        width: auto !important; /* Stops it from being a giant block */
+        width: auto !important;
         transition: all 0.3s ease;
     }
 
     div.stButton > button:hover {
-        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
-        transform: scale(1.02);
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -124,12 +120,14 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([4,0.2,2])
-    with col1:
-        st.markdown("<h4 style='margin-bottom:0; text-align: right;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
-    with col2:
-        st.markdown("<h4 style='margin-bottom:0; text-align: center;'>—</h4>", unsafe_allow_html=True)
-    with col3:
+    st.markdown("""
+            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 10px; margin-bottom: 20px;">
+                <h4 style="margin: 0; white-space: nowrap;">Alzheimer's Risk Prediction Platform</h4>
+                <span style="font-size: 24px; color: #6366F1;">—</span>
+            </div>
+        """, unsafe_allow_html=True)
+    col_btn, _ = st.columns([1, 4])
+    with col_btn:
         if st.button("Learn More"):
             project_details()
     if st.session_state.predict:
@@ -174,6 +172,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
