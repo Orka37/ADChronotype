@@ -26,49 +26,58 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* 1. Subtle background gradient */
+    /* 1. The Global Vibe */
     .stApp {
         background: radial-gradient(circle at top right, #1E293B, #0F172A);
     }
 
-    /* 2. Style the form to look like a floating card */
-    div[data-testid="stForm"] {
+    /* 2. Sleek Title Styling */
+    .main-title {
+        font-family: 'sans serif';
+        color: #F8FAF8;
+        text-align: center;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        background-color: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(10px);
-        padding: 30px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 3. Make labels pop */
-    .stMarkdown p {
-        font-weight: 500;
-        letter-spacing: 0.5px;
-    }
-
-    /* 4. Style the input boxes */
-    .stSelectbox div[data-baseweb="select"], .stNumberInput div[data-baseweb="input"] {
+    /* 3. Input Box Highlights (The subtle glow you wanted) */
+    .stSelectbox div[data-baseweb="select"], 
+    .stNumberInput div[data-baseweb="input"] {
         background-color: #0F172A !important;
-        border-radius: 10px !important;
-        border: 1px solid #334155 !important;
+        border: 1px solid #4F46E5 !important; /* Subtle purple-blue border */
+        border-radius: 8px !important;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    /* Highlight effect when clicking into a box */
+    .stSelectbox div[data-baseweb="select"]:focus-within, 
+    .stNumberInput div[data-baseweb="input"]:focus-within {
+        border-color: #A855F7 !important;
+        box-shadow: 0 0 8px rgba(168, 85, 247, 0.4) !important;
     }
 
-    /* 5. The "Save & Predict" Button Glow */
-    div.stButton > button:first-child {
+    /* 4. Trimming the "Thick" Buttons */
+    div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        padding: 12px 30px;
-        border-radius: 12px;
-        font-weight: 600;
-        width: 100%;
+        padding: 6px 20px !important; /* Reduced vertical padding */
+        height: auto !important;
+        min-height: 35px !important;
+        border-radius: 8px !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        width: auto !important; /* Stops it from being a giant block */
         transition: all 0.3s ease;
     }
-    
-    div.stButton > button:first-child:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+
+    div.stButton > button:hover {
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        transform: scale(1.02);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -152,11 +161,10 @@ if st.session_state.page=="input":
 #---Prediction---#
 
 if st.session_state.page == "prediction":
-    st.title("Results Analysis")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
+        st.title("Results Analysis")
         st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
-
