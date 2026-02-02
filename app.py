@@ -26,39 +26,49 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* Main background gradient */
+    /* 1. Subtle background gradient */
     .stApp {
-        background: radial-gradient(circle at top right, #1e293b, #0b0e14);
-    }
-    
-    /* Style the cards/containers */
-    div[data-testid="stForm"], div[data-testid="stMetric"] {
-        background-color: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        background: radial-gradient(circle at top right, #1E293B, #0F172A);
     }
 
-    /* Style Buttons */
-    .stButton>button {
-        border-radius: 8px;
+    /* 2. Style the form to look like a floating card */
+    div[data-testid="stForm"] {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        background-color: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* 3. Make labels pop */
+    .stMarkdown p {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    /* 4. Style the input boxes */
+    .stSelectbox div[data-baseweb="select"], .stNumberInput div[data-baseweb="input"] {
+        background-color: #0F172A !important;
+        border-radius: 10px !important;
+        border: 1px solid #334155 !important;
+    }
+
+    /* 5. The "Save & Predict" Button Glow */
+    div.stButton > button:first-child {
+        background: linear-gradient(45deg, #6366F1, #A855F7);
+        color: white;
         border: none;
+        padding: 12px 30px;
+        border-radius: 12px;
         font-weight: 600;
+        width: 100%;
         transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
     }
     
-    .stButton>button:hover {
+    div.stButton > button:first-child:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Input fields */
-    .stSelectbox, .stNumberInput {
-        background-color: #0f172a;
-        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -120,13 +130,16 @@ if st.session_state.page=="input":
     #---Input Values---#
     with st.form("input"):
         chronotype_options=["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
-        st.session_state.chronotype=st.selectbox("**What is your sleep chronotype?**",chronotype_options,index=chronotype_options.index(st.session_state.chronotype))
-        st.session_state.sleeptime=st.number_input("How long do you sleep for? (hrs)",min_value=0,max_value=24,step=1,value=int(st.session_state.sleeptime))
-        st.session_state.age=st.number_input("How old are you? (years)",min_value=40,max_value=60,step=1,value=int(st.session_state.age))
-        st.session_state.bmi=round(st.number_input("What is your BMI?",min_value=6.7,max_value=100.0,step=0.1,value=float(st.session_state.bmi)),2)
         ethnicity_options=["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
+        col1, col2 = st.columns(2)
+        with col1:
+            st.session_state.chronotype=st.selectbox("**What is your sleep chronotype?**",chronotype_options,index=chronotype_options.index(st.session_state.chronotype))
+            st.session_state.sleeptime=st.number_input("How long do you sleep for? (hrs)",min_value=0,max_value=24,step=1,value=int(st.session_state.sleeptime))
+        with col2:
+            st.session_state.age=st.number_input("How old are you? (years)",min_value=40,max_value=60,step=1,value=int(st.session_state.age))
+            st.session_state.bmi=round(st.number_input("What is your BMI?",min_value=6.7,max_value=100.0,step=0.1,value=float(st.session_state.bmi)),2)
         st.session_state.ethnicity=st.selectbox("**What is your ethnicity?**",ethnicity_options,index=ethnicity_options.index(st.session_state.ethnicity))
-        submit=st.form_submit_button("Save & Predict")
+        submit=st.form_submit_button("Generate Prediction")
     #---Submit Values---#
     if submit:
         if st.session_state.chronotype=="Intermediate" and st.session_state.sleeptime==8 and st.session_state.age==40 and st.session_state.bmi==22.00 and st.session_state.ethnicity=="South Asian" and st.session_state.predict_normal==False:
@@ -146,3 +159,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
