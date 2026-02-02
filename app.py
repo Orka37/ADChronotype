@@ -51,19 +51,18 @@ st.markdown("""
         transition: all 0.2s ease;
     }
     
-    /* Neon glow effect when clicking into a box */
     .stSelectbox div[data-baseweb="select"]:focus-within, 
     .stNumberInput div[data-baseweb="input"]:focus-within {
         border-color: #A855F7 !important;
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
     }
 
-    /* 4. Sleek, Low-Profile Buttons (Not thick!) */
+    /* 4. Sleek, Low-Profile Buttons */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        padding: 4px 18px !important; /* Very thin vertical padding */
+        padding: 4px 18px !important;
         border-radius: 8px !important;
         font-weight: 500 !important;
         font-size: 14px !important;
@@ -76,10 +75,11 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
     }
 
-    </style>
-    div[data-testid="column"] > div > div > div > button {
-        margin-top: 5px !important;
+    /* 5. The Nudge: Aligns the "Learn More" button with the dash */
+    div[data-testid="column"] button {
+        margin-top: 12px !important; 
     }
+    </style>
     """, unsafe_allow_html=True)
 
 #---Consent---#
@@ -125,15 +125,15 @@ def predict_normal():
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.markdown("""
-            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 10px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: -35px;">
                 <h4 style="margin: 0; white-space: nowrap;">Alzheimer's Risk Prediction Platform</h4>
                 <span style="font-size: 24px; color: #6366F1;">—</span>
             </div>
         """, unsafe_allow_html=True)
-    col_btn, _ = st.columns([1, 4])
-    with col_btn:
-        if st.button("Learn More"):
-            project_details()
+        col_empty, col_btn = st.columns([2.3, 1]) 
+        with col_btn:
+            if st.button("Learn More"):
+                project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details"):
