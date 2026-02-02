@@ -44,7 +44,7 @@ st.markdown("""
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 3. Input Box Highlights (The subtle glow you wanted) */
+    /* 3. Input Box Highlights (The subtle glow) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"] {
         background-color: #0F172A !important;
@@ -124,8 +124,8 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
-    if st.button("Click for info about our project!"):
+    st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform - </h4>", submit=st.button("Learn More!"), unsafe_allow_html=True)
+    if submit:
         project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
@@ -169,3 +169,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
