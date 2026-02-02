@@ -26,58 +26,48 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* 1. Background Gradient */
     .stApp {
         background: radial-gradient(circle at top right, #1E293B, #0F172A);
     }
 
-    /* 2. Sleek Title Box */
     .main-title {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 10px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* 3. Input Box Highlights (The surgical glow) */
+    /* Surgical Input Highlights */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"] {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
         border-radius: 8px !important;
-        transition: all 0.2s ease;
     }
     
     .stSelectbox div[data-baseweb="select"]:focus-within, 
     .stNumberInput div[data-baseweb="input"]:focus-within {
         border-color: #A855F7 !important;
-        box-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) !important;
     }
 
-    /* 4. Sleek, Low-Profile Buttons */
+    /* Sleek Buttons */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        padding: 4px 18px !important;
+        padding: 6px 20px !important;
         border-radius: 8px !important;
         font-weight: 500 !important;
-        font-size: 14px !important;
-        width: auto !important;
-        transition: all 0.3s ease;
+        transition: 0.3s ease;
     }
 
     div.stButton > button:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-    }
-
-    /* 5. The Nudge: Aligns the "Learn More" button with the dash */
-    div[data-testid="column"] button {
-        margin-top: 12px !important; 
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -124,16 +114,27 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown("""
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: -35px;">
-                <h4 style="margin: 0; white-space: nowrap;">Alzheimer's Risk Prediction Platform</h4>
-                <span style="font-size: 24px; color: #6366F1;">—</span>
-            </div>
-        """, unsafe_allow_html=True)
-    col_empty, col_btn = st.columns([2.3, 1]) 
-    with col_btn:
+    st.markdown(f"""
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 25px;">
+            <h4 style="margin: 0;">Alzheimer's Risk Prediction Platform</h4>
+            <span style="font-size: 24px; color: #6366F1; font-weight: bold;">—</span>
+            <style>
+                /* This targets the button inside this specific flex row */
+                div.stButton > button.learn-more-btn {{
+                    margin: 0 !important;
+                }}
+            </style>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # We place the button in a very tight column centered under the dash area
+    # or just use a centered column for the buttons
+    col1, col2, col3 = st.columns([2, 1, 2])
+    with col2:
         if st.button("Learn More"):
             project_details()
+    
+    st.markdown("---") # Visual separator
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details"):
@@ -176,6 +177,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
