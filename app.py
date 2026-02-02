@@ -124,9 +124,12 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform - </h4>", unsafe_allow_html=True)
-    if st.button("Learn More"):
-        project_details()
+    col1, col2 = st.columns([3,1])
+    with col1:
+        st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform - </h4>", unsafe_allow_html=True)
+    with col2:
+        if st.button("Learn More"):
+            project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details"):
@@ -169,5 +172,6 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
 
 
