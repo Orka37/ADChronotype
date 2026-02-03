@@ -26,48 +26,58 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
+    /* 1. The Global Vibe */
     .stApp {
         background: radial-gradient(circle at top right, #1E293B, #0F172A);
     }
 
+    /* 2. Sleek Title Styling */
     .main-title {
+        font-family: 'sans serif';
+        color: #F8FAF8;
+        text-align: center;
+        padding: 15px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        margin-bottom: 20px;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* Surgical Input Highlights */
+    /* 3. Input Box Highlights (The subtle glow you wanted) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"] {
         background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important;
+        border: 1px solid #4F46E5 !important; /* Subtle purple-blue border */
         border-radius: 8px !important;
+        transition: all 0.2s ease-in-out;
     }
     
+    /* Highlight effect when clicking into a box */
     .stSelectbox div[data-baseweb="select"]:focus-within, 
     .stNumberInput div[data-baseweb="input"]:focus-within {
         border-color: #A855F7 !important;
-        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) !important;
+        box-shadow: 0 0 8px rgba(168, 85, 247, 0.4) !important;
     }
 
-    /* Sleek Buttons */
+    /* 4. Trimming the "Thick" Buttons */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7);
         color: white;
         border: none;
-        padding: 6px 20px !important;
+        padding: 6px 20px !important; /* Reduced vertical padding */
+        height: auto !important;
+        min-height: 35px !important;
         border-radius: 8px !important;
         font-weight: 500 !important;
-        transition: 0.3s ease;
+        font-size: 14px !important;
+        width: auto !important; /* Stops it from being a giant block */
+        transition: all 0.3s ease;
     }
 
     div.stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        transform: scale(1.02);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -112,34 +122,15 @@ def predict_normal():
 
 #---Home---#
 
-if st.session_state.page == "home":
-    st.markdown("<div class='main-title'><h1>ADChronotype</h1></div>", unsafe_allow_html=True)
-    
-    # We use very specific ratios to "squeeze" the dash and button together
-    # [Text Width, Dash Width, Button Width]
-    c1, c2, c3 = st.columns([3.5, 0.1, 1], vertical_alignment="center")
-    
-    with c1:
-        st.markdown("<h4 style='margin:0; text-align:right;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
-    
-    with c2:
-        st.markdown("<h4 style='margin:0; text-align:center; color:#6366F1;'>—</h4>", unsafe_allow_html=True)
-        
-    with c3:
-        if st.button("Learn More"):
-            project_details()
-
-    st.markdown("<br>", unsafe_allow_html=True) # Tiny bit of breathing room
-
-    # Main Action Button centered below
-    _, col_mid, _ = st.columns([1, 1, 1])
-    with col_mid:
-        if st.button("Input Details"):
-            go("input")
-    
-    st.markdown("---") # Visual separator
+if st.session_state.page=="home":
+    st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
+    if st.button("Click for info about our project!"):
+        project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
+    if st.button("Input Details"):
+        go("input")
 
 #---Input---#
 
@@ -173,30 +164,8 @@ if st.session_state.page == "prediction":
     st.title("Results Analysis")
     col1, col2, = st.columns(2)
     with col1:
-        st.metric(label="Alzheimer's Likeness Score", value="67%", delta="Moderate Likeness")
+        st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
     with col2:
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
