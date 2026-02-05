@@ -4,7 +4,7 @@ import pandas as pd
 
 #---Setup---#
 
-SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/export?format=csv"
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
     return conn.read(worksheet=worksheet_name, ttl="0")
@@ -228,6 +228,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
