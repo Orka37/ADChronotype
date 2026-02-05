@@ -4,7 +4,7 @@ import pandas as pd
 
 #---Setup---#
 
-SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/edit?usp=sharing"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0"
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
     # Explicitly passing the spreadsheet URL here fixes the ValueError
@@ -229,3 +229,4 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
