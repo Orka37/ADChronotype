@@ -8,6 +8,7 @@ def norm_state():
         "page": "home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
+        "sleepquality": 5,
         "age": 40,
         "bmi": 22.00,
         "ethnicity": "South Asian",
@@ -144,10 +145,11 @@ if st.session_state.page=="input":
         with col1:
             st.session_state.chronotype=st.selectbox("**What is your sleep chronotype?**",chronotype_options,index=chronotype_options.index(st.session_state.chronotype))
             st.session_state.sleeptime=st.number_input("How long do you sleep for? (hrs)",min_value=0,max_value=24,step=1,value=int(st.session_state.sleeptime))
+            st.session_state.sleepquality=st.number_input("What is your sleep quality?",min_value=0,max_value=21,step=1,value=int(st.session_state.sleepquality))
         with col2:
             st.session_state.age=st.number_input("How old are you? (years)",min_value=40,max_value=60,step=1,value=int(st.session_state.age))
             st.session_state.bmi=round(st.number_input("What is your BMI?",min_value=6.7,max_value=100.0,step=0.1,value=float(st.session_state.bmi)),2)
-        st.session_state.ethnicity=st.selectbox("**What is your ethnicity?**",ethnicity_options,index=ethnicity_options.index(st.session_state.ethnicity))
+            st.session_state.ethnicity=st.selectbox("**What is your ethnicity?**",ethnicity_options,index=ethnicity_options.index(st.session_state.ethnicity))
         submit=st.form_submit_button("Generate Prediction")
     #---Submit Values---#
     if submit:
@@ -169,3 +171,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your age, BMI, and sleep patterns.")
     if st.button("← Return Home"):
         go("home")
+
