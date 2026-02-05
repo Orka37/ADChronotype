@@ -97,13 +97,12 @@ st.markdown("""
 if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
-    
     with tab1:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
-            match = users_df[(users_df['username'] == u) & (users_df['password'] == p)]
+            match = users_df[(users_df['Username'] == u) & (users_df['Password'] == p)]
             if not match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
@@ -120,10 +119,8 @@ if not st.session_state.logged_in:
             else:
                 new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
-                # We use the worksheet name here
                 conn.update(worksheet="Users", data=updated_df)
                 st.success("Account created! Now Log In.")
-                # Important: Clear cache so the next 'get_data' sees the new user
                 st.cache_data.clear()
     st.stop()
 
@@ -230,6 +227,7 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
