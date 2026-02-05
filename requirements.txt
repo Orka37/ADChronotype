@@ -1,5 +1,6 @@
 streamlit
 xgboost
 pandas
+st-gsheets-connection
 numpy
 scikit-learn
