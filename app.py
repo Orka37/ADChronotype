@@ -1,6 +1,5 @@
 import streamlit as st
-from streamlit_gsheets
-import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
 #---Setup---#
@@ -231,5 +230,6 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
+
 
 
