@@ -6,8 +6,8 @@ import pandas as pd
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-def get_data(worksheet):
-    return conn.read(worksheet=Users, ttl="0")
+def get_data(spreadsheet):
+    return conn.read(spreadsheet="Users", ttl="0")
 
 def norm_state():
     defaults = {
@@ -120,8 +120,11 @@ if not st.session_state.logged_in:
             else:
                 new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
+                # We use the worksheet name here
                 conn.update(worksheet="Users", data=updated_df)
                 st.success("Account created! Now Log In.")
+                # Important: Clear cache so the next 'get_data' sees the new user
+                st.cache_data.clear()
     st.stop()
 
 #---Consent---#
@@ -223,4 +226,5 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
+
 
