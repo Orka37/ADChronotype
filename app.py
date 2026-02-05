@@ -4,14 +4,11 @@ import pandas as pd
 
 #---Setup---#
 
+SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/edit?usp=sharing"
 conn = st.connection("gsheets", type=GSheetsConnection)
-
 def get_data(worksheet_name):
-    return conn.read(
-        spreadsheet="https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/edit?usp=sharing",
-        worksheet=worksheet_name, 
-        ttl="0"
-    )
+    # Explicitly passing the spreadsheet URL here fixes the ValueError
+    return conn.read(spreadsheet=SHEET_URL, worksheet=worksheet_name, ttl="0")
 
 def norm_state():
     defaults = {
@@ -101,12 +98,13 @@ st.markdown("""
 if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
+    
     with tab1:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
-            match = users_df[(users_df['Username'] == u) & (users_df['Password'] == p)]
+            match = users_df[(users_df['username'].astype(str) == str(u)) & (users_df['password'].astype(str) == str(p))]
             if not match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
@@ -123,13 +121,9 @@ if not st.session_state.logged_in:
             else:
                 new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
-                conn.update(
-                    spreadsheet="https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/edit?usp=sharing",
-                    worksheet="Users", 
-                    data=updated_df
-                )
-                st.success("Account created! Now Log In.")
+                conn.update(spreadsheet=SHEET_URL, worksheet="Users", data=updated_df)
                 st.cache_data.clear()
+                st.success("Account created! Now Log In.")
     st.stop()
 
 #---Consent---#
@@ -231,13 +225,7 @@ if st.session_state.page == "prediction":
             "score": "67%"
         }])
         updated_preds = pd.concat([preds_df, new_entry], ignore_index=True)
-        conn.update(worksheet="Predictions", data=updated_preds)
-        st.success("Saved!")
+        conn.update(spreadsheet=SHEET_URL, worksheet="Predictions", data=updated_preds)
+        st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
-
-
-
-
-
-
