@@ -109,9 +109,33 @@ if not st.session_state.consent:
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-#---Account---#
+#---Navigation---#
 
-if not st.session_state.logged_in:
+def go(page):
+    st.session_state.page = page
+    st.rerun()
+
+#---Pop-ups---#
+
+@st.dialog("Project details!")
+def project_details():
+    st.write("*Enter information regarding our app!*")
+    if st.button("Close"):
+        st.rerun()
+
+@st.dialog("Please Check Your Answers!")
+def predict_normal():
+    st.write("The values you submitted are the exact same as the default values. Are you sure, the values accurately represent you?")
+    if st.button("No, I need to change my answers!"):
+        st.rerun()
+    if st.button("Yes, predict my likeness score!"):
+        st.session_state.predict_normal=True
+        go("prediction")
+
+#---Home---#
+
+if st.session_state.page=="home":
+    if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
     
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
@@ -143,33 +167,6 @@ if not st.session_state.logged_in:
                 conn.update(worksheet="Users", data=updated_df)
                 st.success("Account created! Go to the Log In tab.")
     st.stop()
-
-#---Navigation---#
-
-def go(page):
-    st.session_state.page = page
-    st.rerun()
-
-#---Pop-ups---#
-
-@st.dialog("Project details!")
-def project_details():
-    st.write("*Enter information regarding our app!*")
-    if st.button("Close"):
-        st.rerun()
-
-@st.dialog("Please Check Your Answers!")
-def predict_normal():
-    st.write("The values you submitted are the exact same as the default values. Are you sure, the values accurately represent you?")
-    if st.button("No, I need to change my answers!"):
-        st.rerun()
-    if st.button("Yes, predict my likeness score!"):
-        st.session_state.predict_normal=True
-        go("prediction")
-
-#---Home---#
-
-if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
     if st.button("Click for info about our project!"):
@@ -232,3 +229,4 @@ if st.session_state.page == "prediction":
         st.success("Saved to your history!")
     if st.button("← Return Home"):
         go("home")
+
