@@ -153,7 +153,7 @@ if st.session_state.page=="input":
         submit=st.form_submit_button("Generate Prediction")
     #---Submit Values---#
     if submit:
-        if st.session_state.chronotype=="Intermediate" and st.session_state.sleeptime==8 and st.session_state.age==40 and st.session_state.bmi==22.00 and st.session_state.ethnicity=="South Asian" and st.session_state.predict_normal==False:
+        if st.session_state.chronotype=="Intermediate" and st.session_state.sleeptime==8 and st.session_state.sleepquality==5 and st.session_state.age==40 and st.session_state.bmi==22.00 and st.session_state.ethnicity=="South Asian" and st.session_state.predict_normal==False:
             predict_normal()
         else:
             go("prediction")
@@ -168,7 +168,6 @@ if st.session_state.page == "prediction":
     with col1:
         st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
     with col2:
-        st.info("This prediction is based on your age, BMI, and sleep patterns.")
+        st.info("This prediction is based on your sleep information, age, and BMI.")
     if st.button("← Return Home"):
         go("home")
-
