@@ -102,7 +102,7 @@ if not st.session_state.logged_in:
     
     with tab1:
         u = st.text_input("Username")
-        p = st.text_input("Password", type="Password")
+        p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
             match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
@@ -114,7 +114,7 @@ if not st.session_state.logged_in:
                 st.error("Wrong username or password.") 
     with tab2:
         new_u = st.text_input("New Username")
-        new_p = st.text_input("New Password", type="Password")
+        new_p = st.text_input("New Password", type="password")
         if st.button("Register"):
             users_df = get_data("Users")
             if new_u in users_df['Username'].values:
@@ -230,6 +230,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
