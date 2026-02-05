@@ -7,7 +7,9 @@ import pandas as pd
 SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/export?format=csv"
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
-    return conn.read(spreadsheet=SHEET_URL, worksheet=worksheet_name, ttl="0")
+    base_url = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/gviz/tq?tqx=out:csv&sheet="
+    final_url = f"{base_url}{worksheet_name}"
+    return pd.read_csv(final_url)
 
 def norm_state():
     defaults = {
@@ -228,6 +230,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
