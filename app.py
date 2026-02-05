@@ -122,7 +122,11 @@ if not st.session_state.logged_in:
             else:
                 new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
-                conn.update(worksheet="Users", data=updated_df)
+                conn.update(
+                    spreadsheet=SHEET_URL, 
+                    worksheet="Users", 
+                    data=updated_df
+                )
                 st.cache_data.clear()
                 st.success("Account created! Now Log In.")
     st.stop()
@@ -230,6 +234,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
