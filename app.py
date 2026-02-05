@@ -215,6 +215,17 @@ if st.session_state.page == "prediction":
         st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
     with col2:
         st.info("This prediction is based on your sleep information, age, and BMI.")
+    if st.button("Save Result to My Profile"):
+        preds_df = get_data("Predictions")
+        new_entry = pd.DataFrame([{
+            "username": st.session_state.current_user,
+            "age": st.session_state.age,
+            "bmi": st.session_state.bmi,
+            "score": "67%",
+            "date": pd.Timestamp.now().strftime("%Y-%m-%d")
+        }])
+        updated_preds = pd.concat([preds_df, new_entry], ignore_index=True)
+        conn.update(worksheet="Predictions", data=updated_preds)
+        st.success("Saved to your history!")
     if st.button("← Return Home"):
         go("home")
-
