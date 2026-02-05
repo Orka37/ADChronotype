@@ -219,12 +219,14 @@ if st.session_state.page == "prediction":
             "username": st.session_state.current_user,
             "chronotype": st.session_state.chronotype,
             "sleeptime": st.session_state.sleeptime,
-            "score": "64%"
+            "sleepquality": st.session_state.sleepquality,
+            "age": st.session_state.age,
+            "BMI": st.session_state.bmi,
+            "ethnicity": st.session_state.ethnicity,
+            "score": "67%"
         }])
         updated_preds = pd.concat([preds_df, new_entry], ignore_index=True)
         conn.update(worksheet="Predictions", data=updated_preds)
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
-
-
