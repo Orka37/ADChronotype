@@ -2,6 +2,14 @@ import streamlit as st
 
 #---Setup---#
 
+from streamlit_gsheets import GSheetsConnection
+import pandas as pd
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+def get_data(worksheet):
+    return conn.read(worksheet=worksheet, ttl="0")
+
 def norm_state():
     defaults = {
         "consent": False,
@@ -98,6 +106,44 @@ if not st.session_state.consent:
         consent()
     st.stop()
 
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+#---Account---#
+
+if not st.session_state.logged_in:
+    st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
+    
+    tab1, tab2 = st.tabs(["Log In", "Create Account"])
+    
+    with tab1:
+        u = st.text_input("Username")
+        p = st.text_input("Password", type="password")
+        if st.button("Log In"):
+            users_df = get_data("Users")
+            # Check if user exists
+            match = users_df[(users_df['username'] == u) & (users_df['password'] == p)]
+            if not match.empty:
+                st.session_state.logged_in = True
+                st.session_state.current_user = u
+                st.rerun()
+            else:
+                st.error("Wrong username or password.")
+                
+    with tab2:
+        new_u = st.text_input("New Username")
+        new_p = st.text_input("New Password", type="password")
+        if st.button("Register"):
+            users_df = get_data("Users")
+            if new_u in users_df['username'].values:
+                st.warning("Username taken!")
+            else:
+                new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
+                updated_df = pd.concat([users_df, new_user], ignore_index=True)
+                conn.update(worksheet="Users", data=updated_df)
+                st.success("Account created! Go to the Log In tab.")
+    st.stop()
+
 #---Navigation---#
 
 def go(page):
@@ -171,3 +217,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
     if st.button("← Return Home"):
         go("home")
+
