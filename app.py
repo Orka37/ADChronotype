@@ -2,18 +2,11 @@ import streamlit as st
 
 #---Setup---#
 
-from streamlit_gsheets import GSheetsConnection
-import pandas as pd
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-def get_data(worksheet):
-    return conn.read(worksheet=worksheet, ttl="0")
-
 def norm_state():
     defaults = {
         "consent": False,
         "logged_in": False,
+        "current_user": None,
         "page": "home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
@@ -92,6 +85,40 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+#---Member Portal---#
+
+if not st.session_state.logged_in:
+    st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
+    tab1, tab2 = st.tabs(["Log In", "Create Account"])
+    
+    with tab1:
+        u = st.text_input("Username")
+        p = st.text_input("Password", type="password")
+        if st.button("Log In"):
+            users_df = get_data("Users")
+            # Ensure the columns exist in your sheet!
+            match = users_df[(users_df['username'] == u) & (users_df['password'] == p)]
+            if not match.empty:
+                st.session_state.logged_in = True
+                st.session_state.current_user = u
+                st.rerun()
+            else:
+                st.error("Wrong username or password.") 
+
+    with tab2:
+        new_u = st.text_input("New Username")
+        new_p = st.text_input("New Password", type="password")
+        if st.button("Register"):
+            users_df = get_data("Users")
+            if new_u in users_df['username'].values:
+                st.warning("Username taken!")
+            else:
+                new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
+                updated_df = pd.concat([users_df, new_user], ignore_index=True)
+                conn.update(worksheet="Users", data=updated_df)
+                st.success("Account created! Now Log In.")
+    st.stop() # App stops here until logged_in is True
+
 #---Consent---#
 
 @st.dialog("Welcome to ADChronotype!")
@@ -133,34 +160,6 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    if not st.session_state.logged_in:
-        st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
-        tab1, tab2 = st.tabs(["Log In", "Create Account"])
-        with tab1:
-            u = st.text_input("Username")
-            p = st.text_input("Password", type="password")
-            if st.button("Log In"):
-                users_df = get_data("Users")
-                match = users_df[(users_df['username'] == u) & (users_df['password'] == p)]
-                if not match.empty:
-                    st.session_state.logged_in = True
-                    st.session_state.current_user = u
-                    st.rerun()
-                else:
-                    st.error("Wrong username or password.") 
-        with tab2:
-            new_u = st.text_input("New Username")
-            new_p = st.text_input("New Password", type="password")
-            if st.button("Register"):
-                users_df = get_data("Users")
-                if new_u in users_df['username'].values:
-                    st.warning("Username taken!")
-                else:
-                    new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
-                    updated_df = pd.concat([users_df, new_user], ignore_index=True)
-                    conn.update(worksheet="Users", data=updated_df)
-                    st.success("Account created! Go to the Log In tab.")
-        st.stop()
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
     if st.button("Click for info about our project!"):
@@ -206,24 +205,16 @@ if st.session_state.page == "prediction":
         st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
     with col2:
         st.info("This prediction is based on your sleep information, age, and BMI.")
-    if st.button("Save Result to My Profile"):
+    if st.button("Save to Profile"):
         preds_df = get_data("Predictions")
         new_entry = pd.DataFrame([{
             "username": st.session_state.current_user,
             "chronotype": st.session_state.chronotype,
             "sleeptime": st.session_state.sleeptime,
-            "sleepquality": st.session_state.sleepquality,
-            "age": st.session_state.age,
-            "bmi": st.session_state.bmi,
-            "ethnicity"" st.session_state.ethnicity,
-            "score": "67%",
+            "score": "64%"
         }])
         updated_preds = pd.concat([preds_df, new_entry], ignore_index=True)
         conn.update(worksheet="Predictions", data=updated_preds)
-        st.success("Saved to your history!")
+        st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
-
-
-
-
