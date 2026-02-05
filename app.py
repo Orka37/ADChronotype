@@ -7,7 +7,11 @@ import pandas as pd
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 def get_data(worksheet_name):
-    return conn.read(worksheet=worksheet_name, ttl="0")
+    return conn.read(
+        spreadsheet="https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/edit?usp=sharing",
+        worksheet=worksheet_name, 
+        ttl="0"
+    )
 
 def norm_state():
     defaults = {
@@ -227,6 +231,7 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
