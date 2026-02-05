@@ -1,6 +1,14 @@
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
+import pandas as pd
 
 #---Setup---#
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+def get_data(worksheet):
+    # ttl="0" is key so you see new users/saves immediately
+    return conn.read(worksheet=worksheet, ttl="0")
 
 def norm_state():
     defaults = {
@@ -218,3 +226,4 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
+
