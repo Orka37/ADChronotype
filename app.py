@@ -7,7 +7,6 @@ import pandas as pd
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 def get_data(worksheet):
-    # ttl="0" is key so you see new users/saves immediately
     return conn.read(worksheet=worksheet, ttl="0")
 
 def norm_state():
@@ -104,7 +103,6 @@ if not st.session_state.logged_in:
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
-            # Ensure the columns exist in your sheet!
             match = users_df[(users_df['username'] == u) & (users_df['password'] == p)]
             if not match.empty:
                 st.session_state.logged_in = True
@@ -112,7 +110,6 @@ if not st.session_state.logged_in:
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
-
     with tab2:
         new_u = st.text_input("New Username")
         new_p = st.text_input("New Password", type="password")
@@ -125,7 +122,7 @@ if not st.session_state.logged_in:
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
                 conn.update(worksheet="Users", data=updated_df)
                 st.success("Account created! Now Log In.")
-    st.stop() # App stops here until logged_in is True
+    st.stop()
 
 #---Consent---#
 
@@ -226,4 +223,3 @@ if st.session_state.page == "prediction":
         st.success("Saved!")
     if st.button("← Return Home"):
         go("home")
-
