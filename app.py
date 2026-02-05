@@ -107,9 +107,6 @@ if not st.session_state.consent:
         consent()
     st.stop()
 
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
 #---Navigation---#
 
 def go(page):
@@ -135,6 +132,8 @@ def predict_normal():
 
 #---Home---#
 
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
 if st.session_state.page=="home":
     if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
@@ -227,5 +226,6 @@ if st.session_state.page == "prediction":
         st.success("Saved to your history!")
     if st.button("← Return Home"):
         go("home")
+
 
 
