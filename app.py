@@ -13,6 +13,7 @@ def get_data(worksheet):
 def norm_state():
     defaults = {
         "consent": False,
+        "logged_in": False,
         "page": "home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
@@ -137,9 +138,7 @@ def predict_normal():
 if st.session_state.page=="home":
     if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
-    
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
-    
     with tab1:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
@@ -152,8 +151,7 @@ if st.session_state.page=="home":
                 st.session_state.current_user = u
                 st.rerun()
             else:
-                st.error("Wrong username or password.")
-                
+                st.error("Wrong username or password.") 
     with tab2:
         new_u = st.text_input("New Username")
         new_p = st.text_input("New Password", type="password")
@@ -229,4 +227,5 @@ if st.session_state.page == "prediction":
         st.success("Saved to your history!")
     if st.button("← Return Home"):
         go("home")
+
 
