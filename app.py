@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
+import requests
 
 #---Setup---#
 
@@ -120,11 +121,12 @@ if not st.session_state.logged_in:
             if new_u in users_df['Username'].values:
                 st.warning("Username taken!")
             else:
-                new_user = pd.DataFrame([{"Username": new_u, "Password": new_p}])
-                updated_df = pd.concat([users_df, new_user], ignore_index=True)
-                conn.update(spreadsheet=SHEET_URL, worksheet="Users", data=updated_df)
-                st.cache_data.clear()
-                st.success("Account created! Now Log In.")
+                SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
+                payload = [new_u, new_p]
+                response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
+                if "Success" in response.text:
+                    st.success("Account created! You can now Log In.")
+                    st.cache_data.clear()
     st.stop()
 
 #---Consent---#
@@ -230,6 +232,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
