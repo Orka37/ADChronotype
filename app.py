@@ -106,6 +106,7 @@ if not st.session_state.logged_in:
         if st.button("Log In"):
             users_df = get_data("Users")
             info_df = get_data("Info")
+            info_df = info_df.dropna(how='all')
             user_match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
             if not user_match.empty:
                 st.session_state.logged_in = True
@@ -247,6 +248,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
