@@ -117,10 +117,10 @@ if not st.session_state.logged_in:
         new_p = st.text_input("New Password", type="password")
         if st.button("Register"):
             users_df = get_data("Users")
-            if new_u in users_df['username'].values:
+            if new_u in users_df['Username'].values:
                 st.warning("Username taken!")
             else:
-                new_user = pd.DataFrame([{"username": new_u, "password": new_p}])
+                new_user = pd.DataFrame([{"Username": new_u, "Password": new_p}])
                 updated_df = pd.concat([users_df, new_user], ignore_index=True)
                 conn.update(spreadsheet=SHEET_URL, worksheet="Users", data=updated_df)
                 st.cache_data.clear()
@@ -230,6 +230,7 @@ if st.session_state.page == "prediction":
         st.success("Saved successfully to Google Sheets!")
     if st.button("← Return Home"):
         go("home")
+
 
 
 
