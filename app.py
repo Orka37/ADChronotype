@@ -206,26 +206,33 @@ if st.session_state.page=="home":
 
 #---Input---#
 
-if st.session_state.page=="input":
+if st.session_state.page == "input":
     st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
-    #---Input Values---#
-    with st.form("input"):
-        chronotype_options=["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
-        ethnicity_options=["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
+    with st.form("user_input_form"): # Give the form a clear name
+        chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
+        ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
         with col1:
-            st.session_state.chronotype=st.selectbox("**What is your sleep chronotype?**",chronotype_options,index=chronotype_options.index(st.session_state.chronotype))
-            st.session_state.sleeptime=st.number_input("How long do you sleep for? (hrs)",min_value=0,max_value=24,step=1,value=int(st.session_state.sleeptime))
-            st.session_state.sleepquality=st.number_input("What is your sleep quality?",min_value=0,max_value=21,step=1,value=int(st.session_state.sleepquality))
+            chronotype = st.selectbox("**What is your sleep chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
+            sleeptime = st.number_input("How long do you sleep for? (hrs)", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
+            sleepquality = st.number_input("What is your sleep quality?", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
-            st.session_state.age=st.number_input("How old are you? (years)",min_value=40,max_value=60,step=1,value=int(st.session_state.age))
-            st.session_state.bmi=round(st.number_input("What is your BMI?",min_value=6.7,max_value=100.0,step=0.1,value=float(st.session_state.bmi)),2)
-            st.session_state.ethnicity=st.selectbox("**What is your ethnicity?**",ethnicity_options,index=ethnicity_options.index(st.session_state.ethnicity))
-        submit=st.form_submit_button("Generate Prediction")
-    #---Submit Values---#
+            age = st.number_input("How old are you? (years)", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
+            BMI = round(st.number_input("What is your BMI?", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
+            ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
+        submit = st.form_submit_button("Generate Prediction")
     if submit:
-        if st.session_state.chronotype!="Intermediate" and st.session_state.sleeptime!=8 and st.session_state.sleepquality!=5 and st.session_state.age!=40 and st.session_state.bmi!=22.00 and st.session_state.ethnicity!="South Asian" and st.session_state.predict_normal!=False:
-            st.session_state.predict=True
+        st.session_state.chronotype = chronotype
+        st.session_state.sleeptime = sleeptime
+        st.session_state.sleepquality = sleepquality
+        st.session_state.age = age
+        st.session_state.bmi = BMI
+        st.session_state.ethnicity = ethnicity
+        default = (chronotype == "Intermediate" and sleeptime == 8 and sleepquality == 5 and age == 40 and BMI == 22.00 and ethnicity == "South Asian")
+        if default and not st.session_state.predict_normal:
+            predict_normal()
+        else:
+            st.session_state.predict = True
             SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
             payload = [
                 st.session_state.current_user,
@@ -242,8 +249,6 @@ if st.session_state.page=="input":
             requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
             st.cache_data.clear()
             go("prediction")
-        else:
-            predict_normal()
     if st.button("**Exit**"):
         go("home")
 
@@ -259,4 +264,3 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
-
