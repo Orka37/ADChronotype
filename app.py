@@ -121,8 +121,11 @@ if not st.session_state.logged_in:
                         st.session_state.age = int(row['Age'])
                         st.session_state.bmi = float(row['BMI'])
                         st.session_state.ethnicity = str(row['Ethnicity']).strip()
-                        val = str(row['Consent']).strip().lower()
-                        st.session_state.consent = (val == 'true')
+                        consent_val = str(row['Consent']).strip().upper()
+                        if consent_val == "TRUE":
+                            st.session_state.consent=True
+                        else:
+                            st.session_state.consent=False
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -245,6 +248,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
