@@ -196,6 +196,12 @@ def project_details():
     if st.button("Close"):
         st.rerun()
 
+@st.dialog("Factor Details")
+def factor_details():
+    st.write("Chronotype --> Your body's sleep wake preference.")
+    if st.button("Thanks!"):
+        st.rerun()
+
 @st.dialog("Please Check Your Answers!")
 def predict_normal():
     st.write("The values you submitted are the exact same as the default values. Are you sure, the values accurately represent you?")
@@ -231,11 +237,12 @@ if st.session_state.page == "input":
             chronotype = st.selectbox("**What is your sleep chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
             sleeptime = st.number_input("How long do you sleep for? (hrs)", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
             sleepquality = st.number_input("What is your sleep quality?", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
+            submit = st.form_submit_button("Generate Prediction")
         with col2:
             age = st.number_input("How old are you? (years)", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
             BMI = round(st.number_input("What is your BMI?", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
-        submit = st.form_submit_button("Generate Prediction")
+            help = st.form_submit_button("Help!")
     if submit:
         st.session_state.chronotype = chronotype
         st.session_state.sleeptime = sleeptime
@@ -250,6 +257,8 @@ if st.session_state.page == "input":
             st.session_state.predict=True
             save()
             go("prediction")
+    if help:
+        input_details()
     if st.button("**Exit**"):
         go("home")
 
@@ -265,5 +274,6 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
