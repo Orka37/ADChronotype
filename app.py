@@ -116,7 +116,7 @@ if not st.session_state.logged_in:
                         norm_state()
                     else:
                         st.session_state.chronotype = str(row['Chronotype']).strip()
-                        st.session_state.sleeptime = int(row['Sleeptime'])
+                        st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
                         st.session_state.sleepquality = int(row['Sleepquality'])
                         st.session_state.age = int(row['Age'])
                         st.session_state.bmi = float(row['BMI'])
@@ -245,6 +245,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
