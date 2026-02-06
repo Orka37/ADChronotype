@@ -173,15 +173,13 @@ if not st.session_state.logged_in:
 
 #---Consent---#
 
-def consent():
+if not st.session_state.consent:
+    st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
+    st.error("***You must consent, if you want to use the app!***")
     st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
         st.rerun()
-
-if not st.session_state.consent:
-    st.error("***You must consent, if you want to use the app!***")
-    consent()
     st.stop()
 
 #---Navigation---#
@@ -267,4 +265,5 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
