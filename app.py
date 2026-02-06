@@ -5,7 +5,7 @@ import requests
 
 #---Setup---#
 
-SHEET_URL = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/export?format=csv"
+SHEET_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
     base_url = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/gviz/tq?tqx=out:csv&sheet="
@@ -34,7 +34,7 @@ def norm_state():
 norm_state()
 
 def save():
-    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
+    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
     payload = [
         st.session_state.current_user,
         st.session_state.consent,
@@ -163,7 +163,7 @@ if not st.session_state.logged_in:
             if new_u in users_df['Username'].values:
                 st.warning("Username taken!")
             else:
-                SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
+                SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
@@ -269,4 +269,3 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
-
