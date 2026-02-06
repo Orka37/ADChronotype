@@ -228,30 +228,29 @@ if st.session_state.page=="input":
             predict_normal()
         else:
             go("prediction")
+            st.session_state.predict=True
+            SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
+            payload = [
+                st.session_state.current_user,
+                st.session_state.consent,
+                st.session_state.chronotype,
+                st.session_state.sleeptime,
+                st.session_state.sleepquality,
+                st.session_state.age,
+                st.session_state.bmi,
+                st.session_state.ethnicity,
+                st.session_state.predict,
+                st.session_state.predict_normal
+            ]
+            requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
+            st.success("Results saved to your profile!")
+            st.cache_data.clear()
     if st.button("**Exit**"):
         go("home")
 
 #---Prediction---#
 
 if st.session_state.page == "prediction":
-    st.session_state.predict=True
-    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
-    payload = [
-        st.session_state.current_user,
-        st.session_state.consent,
-        st.session_state.chronotype,
-        st.session_state.sleeptime,
-        st.session_state.sleepquality,
-        st.session_state.age,
-        st.session_state.bmi,
-        st.session_state.ethnicity,
-        st.session_state.predict,
-        st.session_state.predict_normal
-    ]
-    requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
-    st.success("Results saved to your profile!")
-    st.cache_data.clear()
-    st.rerun()
     st.title("Results Analysis")
     col1, col2, = st.columns(2)
     with col1:
@@ -260,3 +259,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
