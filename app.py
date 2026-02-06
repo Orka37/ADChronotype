@@ -110,6 +110,11 @@ if not st.session_state.logged_in:
             if not match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
+                user_consent = match.iloc[0]['consent']
+                if str(user_consent).lower() in ['true']:
+                    st.session_state.consent = True
+                else:
+                    st.session_state.consent = False
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -232,3 +237,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
