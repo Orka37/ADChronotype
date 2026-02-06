@@ -212,35 +212,29 @@ if st.session_state.page == "prediction":
     st.title("Results Analysis")
     col1, col2, = st.columns(2)
     with col1:
-        st.metric(label="Alzheimer's Likelihood Score", value="64%", delta="Moderate Risk")
+        st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk")
     with col2:
         st.info("This prediction is based on your sleep information, age, and BMI.")
+    # --- Prediction Page ---
+if st.session_state.page == "prediction":
+    st.title("Results Analysis")
+    score_value = "67%"
+    st.metric(label="Alzheimer's Likelihood Score", value=score_value, delta="Moderate Risk")
     if st.button("Save to Profile"):
-        preds_df = get_data("Predictions")
-        new_entry = pd.DataFrame([{
-            "username": st.session_state.current_user,
-            "chronotype": st.session_state.chronotype,
-            "sleeptime": st.session_state.sleeptime,
-            "sleepquality": st.session_state.sleepquality,
-            "age": st.session_state.age,
-            "BMI": st.session_state.bmi,
-            "ethnicity": st.session_state.ethnicity,
-            "score": "67%"
-        }])
-        updated_preds = pd.concat([preds_df, new_entry], ignore_index=True)
-        conn.update(spreadsheet=SHEET_URL, worksheet="Predictions", data=updated_preds)
-        st.success("Saved successfully to Google Sheets!")
+        SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
+        payload = [
+            st.session_state.current_user,
+            st.session_state.consent,
+            st.session_state.chronotype,
+            st.session_state.sleeptime,
+            st.session_state.sleepquality,
+            st.session_state.age,
+            st.session_state.bmi,
+            st.session_state.ethnicity,
+            score_value
+        ]
+        requests.post(f"{SCRIPT_URL}?sheet=Predictions", json=payload)
+        st.success("Results saved to your profile!")
+        st.cache_data.clear()
     if st.button("← Return Home"):
         go("home")
-
-
-
-
-
-
-
-
-
-
-
-
