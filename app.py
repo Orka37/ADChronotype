@@ -33,6 +33,9 @@ def norm_state():
 
 norm_state()
 
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
+
 st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
@@ -247,6 +250,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
