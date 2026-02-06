@@ -241,7 +241,7 @@ if st.session_state.page == "input":
             age = st.number_input("How old are you? (years)", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
             BMI = round(st.number_input("What is your BMI?", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
-        col1, col2, col3 = st.columns([1,6,1])
+        col1, col2, col3 = st.columns([3,5,1])
         with col1:
             submit = st.form_submit_button("Generate Prediction")
         with col3:
@@ -277,6 +277,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
