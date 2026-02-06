@@ -173,7 +173,6 @@ if not st.session_state.logged_in:
 
 #---Consent---#
 
-@st.dialog("Welcome to ADChronotype!")
 def consent():
     st.write("*Enter consent info!*")
     if st.button("I Consent!"):
@@ -182,8 +181,7 @@ def consent():
 
 if not st.session_state.consent:
     st.error("***You must consent, if you want to use the app!***")
-    if st.button("Consent!"):
-        consent()
+    consent()
     st.stop()
 
 #---Navigation---#
@@ -269,3 +267,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
