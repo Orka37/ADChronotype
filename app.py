@@ -47,7 +47,7 @@ def save():
         st.session_state.predict,
         st.session_state.predict_normal
     ]
-    requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
+    requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
 
 st.set_page_config(page_title="ADChronotype")
@@ -269,3 +269,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
