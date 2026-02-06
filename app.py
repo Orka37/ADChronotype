@@ -234,6 +234,7 @@ if st.session_state.page=="input":
 #---Prediction---#
 
 if st.session_state.page == "prediction":
+    st.session_state.predict=True
     st.title("Results Analysis")
     col1, col2, = st.columns(2)
     with col1:
@@ -259,5 +260,3 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
-
-
