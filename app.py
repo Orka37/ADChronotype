@@ -31,6 +31,8 @@ def norm_state():
         if a not in st.session_state:
             st.session_state[a] = b
 
+norm_state()
+
 st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
@@ -98,7 +100,6 @@ st.markdown("""
 if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
-    
     with tab1:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
@@ -112,9 +113,7 @@ if not st.session_state.logged_in:
                 user_info = info_df[info_df["Username"].astype(str) == str(u)]
                 if not user_info.empty:
                     row = user_info.iloc[0]
-                    if pd.isna(row['Chronotype']) or str(row['Chronotype']).strip() == "":
-                        norm_state()
-                    else:
+                    if not pd.isna(row['Chronotype']) or str(row['Chronotype']).strip() == "":
                         st.session_state.chronotype = str(row['Chronotype']).strip()
                         st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
                         st.session_state.sleepquality = int(row['Sleepquality'])
@@ -248,6 +247,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
