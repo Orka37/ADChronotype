@@ -111,7 +111,7 @@ if not st.session_state.logged_in:
             if not user_match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
-                user_info = info_df[info_df['username'].astype(str) == str(u)]
+                user_info = info_df[info_df['Username'].astype(str) == str(u)]
                 if not user_info.empty:
                     val = str(user_info.iloc[0]['Consent']).lower()
                     st.session_state.consent = (val == 'True')
@@ -239,6 +239,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
