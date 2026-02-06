@@ -251,6 +251,7 @@ if st.session_state.page == "prediction":
     requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
     st.success("Results saved to your profile!")
     st.cache_data.clear()
+    st.rerun()
     st.title("Results Analysis")
     col1, col2, = st.columns(2)
     with col1:
