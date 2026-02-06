@@ -215,11 +215,6 @@ if st.session_state.page == "prediction":
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk")
     with col2:
         st.info("This prediction is based on your sleep information, age, and BMI.")
-    # --- Prediction Page ---
-if st.session_state.page == "prediction":
-    st.title("Results Analysis")
-    score_value = "67%"
-    st.metric(label="Alzheimer's Likelihood Score", value=score_value, delta="Moderate Risk")
     if st.button("Save to Profile"):
         SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
         payload = [
