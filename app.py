@@ -248,7 +248,7 @@ if st.session_state.page == "prediction":
                 st.session_state.sleepquality,
                 st.session_state.age,
                 st.session_state.bmi,
-                st.session_state.ethnicity
+                st.session_state.ethnicity,
                 st.session_state.predict,
                 st.session_state.predict_normal
             ]
@@ -259,4 +259,5 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
