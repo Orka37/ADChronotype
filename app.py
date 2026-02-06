@@ -224,9 +224,7 @@ if st.session_state.page=="input":
         submit=st.form_submit_button("Generate Prediction")
     #---Submit Values---#
     if submit:
-        if st.session_state.chronotype=="Intermediate" and st.session_state.sleeptime==8 and st.session_state.sleepquality==5 and st.session_state.age==40 and st.session_state.bmi==22.00 and st.session_state.ethnicity=="South Asian" and st.session_state.predict_normal==False:
-            predict_normal()
-        else:
+        if st.session_state.chronotype!="Intermediate" and st.session_state.sleeptime!=8 and st.session_state.sleepquality!=5 and st.session_state.age!=40 and st.session_state.bmi!=22.00 and st.session_state.ethnicity!="South Asian" and st.session_state.predict_normal!=False:
             st.session_state.predict=True
             SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqvYsNgIn6cTNhWh2QS0_YQujJUkB2Qxb33AVlP8-fh_Z8ryGIdibpyG2mv2WZlRKVQQ/exec"
             payload = [
@@ -244,6 +242,8 @@ if st.session_state.page=="input":
             requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
             st.cache_data.clear()
             go("prediction")
+        else:
+            predict_normal()
     if st.button("**Exit**"):
         go("home")
 
@@ -259,3 +259,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
