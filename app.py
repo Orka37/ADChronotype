@@ -106,15 +106,16 @@ if not st.session_state.logged_in:
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
+            info_df = get_data("Info")
             match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
             if not match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
-                user_consent = match.iloc[0]['Consent']
-                if str(user_consent).lower() in ['true']:
-                    st.session_state.consent = True
-                else:
-                    st.session_state.consent = False
+                if not user_info.empty:
+                            val = str(user_info.iloc[0]['Consent']).lower()
+                            st.session_state.consent = (val == 'True')
+                        else:
+                            st.session_state.consent = False
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -237,5 +238,6 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
