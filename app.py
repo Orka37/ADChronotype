@@ -31,8 +31,6 @@ def norm_state():
         if a not in st.session_state:
             st.session_state[a] = b
 
-norm_state()
-
 st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
@@ -106,10 +104,25 @@ if not st.session_state.logged_in:
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
             users_df = get_data("Users")
+            info_df = get_data("Info")
             user_match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
             if not user_match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
+                user_info = info_df[info_df["Username"].astype(str) == str(u)]
+                if not user_info.empty:
+                    row = user_info.iloc[0]
+                    if pd.isna(row['Chronotype']) or str(row['Chronotype']).strip() == "":
+                        norm_state()
+                    else:
+                        st.session_state.chronotype = str(row['Chronotype']).strip()
+                        st.session_state.sleeptime = int(row['Sleeptime'])
+                        st.session_state.sleepquality = int(row['Sleepquality'])
+                        st.session_state.age = int(row['Age'])
+                        st.session_state.bmi = float(row['BMI'])
+                        st.session_state.ethnicity = str(row['Ethnicity']).strip()
+                        val = str(row['Consent']).strip().lower()
+                        st.session_state.consent = (val == 'true')
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -232,6 +245,7 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
 
 
 
