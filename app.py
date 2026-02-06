@@ -225,7 +225,7 @@ if st.session_state.page == "prediction":
                 st.session_state.bmi,
                 st.session_state.ethnicity
             ]
-            requests.post(f"{SCRIPT_URL}?sheet=Predictions", json=payload)
+            requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
             st.success("Results saved to your profile!")
             st.cache_data.clear()
     with col2:
