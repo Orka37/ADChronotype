@@ -125,6 +125,16 @@ if not st.session_state.logged_in:
                             st.session_state.consent=True
                         else:
                             st.session_state.consent=False
+                        predict_val = str(row['Predict']).strip().upper()
+                        if predict_val == "TRUE":
+                            st.session_state.predict=True
+                        else:
+                            st.session_state.predict=False
+                        predict_normal_val = str(row['Predict_Normal']).strip().upper()
+                        if predict_normal_val == "TRUE":
+                            st.session_state.predict_normal=True
+                        else:
+                            st.session_state.predict_normal=False
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -239,6 +249,8 @@ if st.session_state.page == "prediction":
                 st.session_state.age,
                 st.session_state.bmi,
                 st.session_state.ethnicity
+                st.session_state.predict,
+                st.session_state.predict_normal
             ]
             requests.post(f"{SCRIPT_URL}?sheet=Info", json=payload)
             st.success("Results saved to your profile!")
@@ -247,3 +259,4 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
+
