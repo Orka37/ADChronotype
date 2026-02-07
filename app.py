@@ -107,31 +107,6 @@ st.markdown("""
         width: auto !important; /* Stops it from being a giant block */
         transition: all 0.3s ease;
     }
-
-    div[data-testid="stForm"] {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 25px;
-    backdrop-filter: blur(10px); /* This gives the frosted glass look */
-    }
-
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        height: 40px;
-        white-space: pre-wrap;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 8px 8px 0px 0px;
-        color: #F8FAF8;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background-color: #6366F1 !important; /* Matches your button color */
-        border-bottom: 2px solid #A855F7 !important;
-    }
     
     div.stButton > button:hover {
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
@@ -315,4 +290,5 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
