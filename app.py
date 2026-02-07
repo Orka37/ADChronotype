@@ -77,16 +77,16 @@ st.markdown("""
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Remove default Streamlit input chrome */
+/* Remove default Streamlit chrome */
 .stSelectbox div[data-baseweb="select"],
-.stNumberInput div[data-baseweb="input"],
-.stTextInput div[data-baseweb="input"] {
+.stTextInput div[data-baseweb="input"],
+.stNumberInput div[data-baseweb="input"] {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }
 
-/* Unified input styling */
+/* Text + Select unified styling */
 .stSelectbox [data-baseweb="select"] > div,
 .stTextInput input {
     background-color: #0F172A !important;
@@ -95,22 +95,24 @@ st.markdown("""
     color: white !important;
 }
 
-/* Number input — full wrapper highlight */
+/* Number input wrapper (full box) */
 .stNumberInput > div[data-baseweb="input"] {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
     border-radius: 8px !important;
     color: white !important;
+    padding-right: 6px !important; /* keeps buttons visually separate */
 }
 
-/* Focus highlight */
-div[data-baseweb="input"]:focus-within {
+/* Focus highlight ONLY on the answer box */
+.stSelectbox [data-baseweb="select"] > div:focus-within,
+.stTextInput div[data-baseweb="input"]:focus-within,
+.stNumberInput > div[data-baseweb="input"]:focus-within {
     border: 2px solid #A855F7 !important;
-    border-radius: 9px !important;
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
 }
 
-/* Remove inner input focus outline */
+/* Remove inner input outline */
 .stTextInput input:focus,
 .stNumberInput input:focus {
     border: none !important;
@@ -118,12 +120,13 @@ div[data-baseweb="input"]:focus-within {
     outline: none !important;
 }
 
-/* Number input buttons */
+/* Number input buttons — no highlight */
 .stNumberInput button {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
     border-radius: 4px !important;
     transition: all 0.2s ease !important;
+    box-shadow: none !important;
 }
 
 .stNumberInput button:hover {
@@ -338,6 +341,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
