@@ -107,6 +107,19 @@ st.markdown("""
         width: auto !important; /* Stops it from being a giant block */
         transition: all 0.3s ease;
     }
+
+    .stTextInput input:focus, .stNumberInput input:focus {
+        border-color: #A855F7 !important;
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+    }
+
+    div.stButton > button {
+        transition: all 0.3s ease !important;
+    }
+
+    div.stButton > button:active {
+        transform: scale(0.95) !important;
+    }
     
     div.stButton > button:hover {
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
@@ -244,10 +257,12 @@ if st.session_state.page == "input":
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
         with col1:
+            st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**What is your sleep chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
             sleeptime = st.number_input("How long do you sleep for? (hrs)", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
             sleepquality = st.number_input("What is your sleep quality?", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
+            st.subheader("👤 Personal Info")
             age = st.number_input("How old are you? (years)", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
             BMI = round(st.number_input("What is your BMI?", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
@@ -290,5 +305,3 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
-
-
