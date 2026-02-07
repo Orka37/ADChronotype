@@ -60,7 +60,9 @@ st.set_page_config(page_title="ADChronotype")
 st.markdown("""
     <style>
     /* Global Background */
-    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
+    .stApp { 
+        background: radial-gradient(circle at top right, #1E293B, #0F172A); 
+    }
 
     /* Glass Panels & Titles */
     .main-title {
@@ -97,37 +99,33 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. +/- Buttons: THE CONCRETE SEAL */
-    /* This forces the background to stay dark by default */
-    .stNumberInput button {
-        background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important;
-        color: white !important;
+    /* 4. The "Absolute Zero" Fix for +/- Buttons */
+    /* This targets the buttons and any internal state the browser tries to force */
+    .stNumberInput button, 
+    .stNumberInput button * {
         outline: none !important;
         box-shadow: none !important;
+        -webkit-tap-highlight-color: transparent !important;
     }
 
-    /* KILL the lingering purple/black highlight after click */
     .stNumberInput button:focus, 
     .stNumberInput button:active, 
-    .stNumberInput button:focus-visible,
-    .stNumberInput button:focus-within {
-        background-color: #0F172A !important; /* Force stay dark background */
-        border-color: #4F46E5 !important;    /* Force stay blue border */
-        box-shadow: none !important;
+    .stNumberInput button:focus-visible {
         outline: none !important;
+        box-shadow: none !important;
+        border-color: #4F46E5 !important;
+        background-color: #0F172A !important;
     }
 
-    /* ONLY highlight purple when the mouse is hovering */
+    /* Standard Hover State */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
         border-color: #A855F7 !important;
     }
 
-    /* 5. Hide Instructions & Eye Fix */
+    /* 5. Cleanup */
     div[data-testid="InputInstructions"] { display: none !important; }
-    .stTextInput div[data-baseweb="input"] button { background-color: transparent !important; }
 
     /* 6. Main Action Buttons */
     div.stButton > button {
@@ -142,6 +140,14 @@ st.markdown("""
     div.stButton > button:active, div.stButton > button:focus { 
         transform: scale(0.95) !important; outline: none !important; box-shadow: none !important; 
     }
+
+    /* 7. Notifications */
+    div[data-testid="stNotification"] {
+        background-color: rgba(99, 102, 241, 0.2) !important; 
+        color: #F8FAF8 !important; border: 1px solid #6366F1 !important; 
+        border-radius: 10px !important;
+    }
+    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -322,6 +328,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
