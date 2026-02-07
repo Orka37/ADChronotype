@@ -78,7 +78,7 @@ st.markdown("""
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Remove default Streamlit chrome */
+/* Remove default chrome */
 .stSelectbox div[data-baseweb="select"],
 .stTextInput div[data-baseweb="input"],
 .stNumberInput div[data-baseweb="input"] {
@@ -87,7 +87,7 @@ st.markdown("""
     box-shadow: none !important;
 }
 
-/* Text + Select unified styling */
+/* Text + Select styling */
 .stSelectbox [data-baseweb="select"] > div,
 .stTextInput input {
     background-color: #0F172A !important;
@@ -96,7 +96,7 @@ st.markdown("""
     color: white !important;
 }
 
-/* Number input actual wrapper */
+/* Number input visible box */
 .stNumberInput [data-baseweb="input"] {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
@@ -105,7 +105,7 @@ st.markdown("""
     padding-right: 6px !important;
 }
 
-/* Focus highlight */
+/* Focus highlight (this is the important part) */
 .stSelectbox [data-baseweb="select"] > div:focus-within,
 .stTextInput div[data-baseweb="input"]:focus-within,
 .stNumberInput [data-baseweb="input"]:focus-within {
@@ -121,7 +121,7 @@ st.markdown("""
     outline: none !important;
 }
 
-/* Number input buttons — no highlight */
+/* Number input buttons (no highlight) */
 .stNumberInput button {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
@@ -343,6 +343,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
