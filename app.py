@@ -60,9 +60,7 @@ st.set_page_config(page_title="ADChronotype")
 st.markdown("""
     <style>
     /* Global Background */
-    .stApp { 
-        background: radial-gradient(circle at top right, #1E293B, #0F172A); 
-    }
+    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
     /* Glass Panels & Titles */
     .main-title {
@@ -72,7 +70,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Container Resets */
+    /* 1. Container Resets (Kill the 'Parent' Glow) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -99,35 +97,39 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. The "Absolute Zero" Fix for +/- Buttons */
-    /* This targets the buttons and any internal state the browser tries to force */
+    /* 4. THE SURGICAL STRIKE on +/- Buttons */
+    /* This targets the actual button element AND its focus state in one go */
     .stNumberInput button, 
-    .stNumberInput button * {
-        outline: none !important;
-        box-shadow: none !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-
     .stNumberInput button:focus, 
-    .stNumberInput button:active, 
+    .stNumberInput button:active,
     .stNumberInput button:focus-visible {
-        outline: none !important;
-        box-shadow: none !important;
-        border-color: #4F46E5 !important;
-        background-color: #0F172A !important;
+        background-color: #0F172A !important; /* Force stay dark */
+        border: 1px solid #4F46E5 !important;  /* Force stay blue */
+        box-shadow: none !important;            /* Kill the glow */
+        outline: none !important;               /* Kill the ring */
+        color: white !important;
+        transition: all 0.2s ease !important;
     }
 
-    /* Standard Hover State */
+    /* 4.1. Specifically killing the BaseWeb purple 'active' state */
+    div[data-baseweb="input"] button:focus, 
+    div[data-baseweb="input"] button:active {
+        background-color: #0F172A !important;
+        border-color: #4F46E5 !important;
+    }
+
+    /* ONLY the hover state is allowed to turn purple */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
         border-color: #A855F7 !important;
     }
 
-    /* 5. Cleanup */
+    /* 5. Cleanup: Eye Icon & Instructions */
     div[data-testid="InputInstructions"] { display: none !important; }
+    .stTextInput div[data-baseweb="input"] button { background-color: transparent !important; border: none !important; }
 
-    /* 6. Main Action Buttons */
+    /* 6. Main Action Buttons (Login/Predict) */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); 
         color: white; border: none; padding: 6px 20px !important; 
@@ -140,14 +142,6 @@ st.markdown("""
     div.stButton > button:active, div.stButton > button:focus { 
         transform: scale(0.95) !important; outline: none !important; box-shadow: none !important; 
     }
-
-    /* 7. Notifications */
-    div[data-testid="stNotification"] {
-        background-color: rgba(99, 102, 241, 0.2) !important; 
-        color: #F8FAF8 !important; border: 1px solid #6366F1 !important; 
-        border-radius: 10px !important;
-    }
-    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -328,6 +322,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
