@@ -281,7 +281,7 @@ if st.session_state.page == "input":
 #---Prediction---#
 
 if st.session_state.page == "prediction":
-    st.success("Results saved to your profile!")
+    st.toast("Success!", icon="✅")
     st.title("Results!")
     col1, col2 = st.columns(2)
     with col1:
