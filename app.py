@@ -218,6 +218,8 @@ def predict_normal():
         st.rerun()
     if st.button("Yes, predict my likeness score!"):
         st.session_state.predict_normal=True
+        st.session_state.predict=True
+        save()
         go("prediction")
 
 #---Home---#
@@ -267,6 +269,8 @@ if st.session_state.page == "input":
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
+            st.session_state.predict=True
+            save()
             go("prediction")
     if help:
         factor_details()
@@ -276,8 +280,6 @@ if st.session_state.page == "input":
 #---Prediction---#
 
 if st.session_state.page == "prediction":
-    st.session_state.predict=True
-    save()
     st.success("Results saved to your profile!")
     st.title("Results!")
     col1, col2 = st.columns(2)
@@ -287,4 +289,3 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
-
