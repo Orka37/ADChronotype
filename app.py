@@ -70,16 +70,17 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Resetting Containers */
+    /* 1. RESET ALL FOCUS GLOWS (The "No Highlight" Fix) */
+    /* This targets every part of the input to ensure nothing glows purple */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
-    .stTextInput div[data-baseweb="input"] {
-        background-color: transparent !important; 
-        border: none !important;
+    .stTextInput div[data-baseweb="input"],
+    .stTextInput input, .stNumberInput input {
         box-shadow: none !important;
+        outline: none !important;
     }
 
-    /* 2. Applying Style Directly to the Inputs (Static State) */
+    /* 2. Applying Static Style Directly to the Inputs */
     .stSelectbox [data-baseweb="select"] > div,
     .stNumberInput input,
     .stTextInput input {
@@ -89,12 +90,13 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. REMOVED ALL HIGHLIGHTS: Inputs stay the same when clicked/focused */
+    /* 3. LOCK BORDER ON FOCUS: Stops it from turning purple when clicked */
     .stTextInput input:focus,
     .stNumberInput input:focus,
-    .stSelectbox div[data-baseweb="select"]:focus-within {
-        border-color: #4F46E5 !important; /* Keep original blue border */
-        box-shadow: none !important;      /* No glow */
+    div[data-baseweb="select"]:focus-within,
+    div[data-baseweb="input"]:focus-within {
+        border-color: #4F46E5 !important; 
+        box-shadow: none !important;
         outline: none !important;
     }
 
@@ -311,6 +313,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
