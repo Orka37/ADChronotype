@@ -198,7 +198,9 @@ def project_details():
 
 @st.dialog("Factor Details")
 def factor_details():
-    st.write("Chronotype --> Your body's sleep wake preference.")
+    st.write("Chronotype → Your body's sleep wake preference.")
+    st.write("To find your chronotype: https://qxmd.com/calculate/calculator_829/morningness-eveningness-questionnaire-meq#")
+    st.write("To find your sleep quality: https://qxmd.com/calculate/calculator_603/pittsburgh-sleep-quality-index-psqi")
     if st.button("Thanks!"):
         st.rerun()
 
@@ -277,8 +279,3 @@ if st.session_state.page == "prediction":
         st.info("This prediction is based on your sleep information, age, and BMI.")
         if st.button("← Return Home"):
             go("home")
-
-
-
-
-
