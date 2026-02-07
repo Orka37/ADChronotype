@@ -211,16 +211,20 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    col1, col2 = st.columns([5, 1]) 
-    with col1:
-        st.markdown("""
-            <div style='display: flex; align-items: center; height: 100%;'>
-                <span style='font-size: 26px; font-weight: bold; color: #F8FAF8; white-space: nowrap;'>
-                    Alzheimer's Risk Prediction Platform →
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 24px; font-weight: bold; color: #F8FAF8; white-space: nowrap;">
+                    Alzheimer's Risk Prediction Platform
                 </span>
+                <span style="font-size: 24px; font-weight: bold; color: #F8FAF8;">→</span>
             </div>
+            <div id="btn-container">
+                </div>
+        </div>
         """, unsafe_allow_html=True)
-    with col2:
+    _, col_btn = st.columns([4, 1])
+    with col_btn:
         if st.button("Click for more info!", use_container_width=True):
             project_details()
     if st.session_state.predict:
@@ -285,6 +289,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
