@@ -206,10 +206,10 @@ if st.session_state.page=="home":
     st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
     if st.button("Click for info about our project!"):
         project_details()
-    if st.button("Input Details"):
-        go("input")
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
+    if st.button("Input Details"):
+        go("input")
 
 #---Input---#
 
@@ -229,7 +229,14 @@ if st.session_state.page == "input":
             age = st.number_input("**How old are you? (years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
             BMI = round(st.number_input("**What is your BMI?**", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
-        submit = st.form_submit_button("Save & Generate Prediction") 
+        col1, col2, col3 = st.columns([3,5,1])
+        with col1:
+            submit = st.form_submit_button("Save & Generate Prediction")
+        with col3:
+            help = st.form_submit_button("Help!")
+    if st.session_state.help==False:
+        st.session_state.help=True
+        factor_details()
     if submit:
         st.session_state.chronotype = chronotype
         st.session_state.sleeptime = sleeptime
@@ -244,16 +251,10 @@ if st.session_state.page == "input":
             st.session_state.predict=True
             save()
             go("prediction")
-    col1, col2, col3 = st.columns([1,5,1])
-    with col1:
-        if st.button("**Exit**"):
-            go("home")
-    with col3:
-        if st.button("Help!"):
-            factor_details()
-    if st.session_state.help==False:
-        st.session_state.help=True
+    if help:
         factor_details()
+    if st.button("**Exit**"):
+        go("home")
 
 #---Prediction---#
 
