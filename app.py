@@ -59,24 +59,13 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* Global Background */
+    /* 1. Global & Title */
     .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
-
-    /* Glass Panels & Titles */
     .main-title {
         font-family: 'sans serif'; color: #F8FAF8; text-align: center;
         padding: 15px; background: rgba(255, 255, 255, 0.05);
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    /* 1. Resetting Containers */
-    .stSelectbox div[data-baseweb="select"], 
-    .stNumberInput div[data-baseweb="input"],
-    .stTextInput div[data-baseweb="input"] {
-        background-color: transparent !important; 
-        border: none !important;
-        box-shadow: none !important;
     }
 
     /* 2. Base Input Styling */
@@ -88,48 +77,47 @@ st.markdown("""
         border-radius: 8px !important;
         color: white !important;
     }
-    
-    /* 3. Highlight ON CLICK (Only for Text/Number) */
-    /* We're letting the Selection Box use its natural highlight */
-    .stTextInput input:focus,
-    .stNumberInput input:focus {
-        border-color: #A855F7 !important; 
-        box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+
+    /* 3. THE FORCE FIX: Highlight the CONTAINER so buttons can't hide it */
+    div[data-baseweb="input"]:focus-within {
+        border: 1px solid #A855F7 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) !important;
+    }
+
+    /* Remove the internal input's own highlight to prevent "double borders" */
+    .stTextInput input:focus, .stNumberInput input:focus {
+        border: none !important;
+        box-shadow: none !important;
         outline: none !important;
     }
 
-    /* 4. Number Input Buttons: Hover Only */
-    .stNumberInput button {
+    /* 4. +/- Buttons: Static Mode (No hover/click rings) */
+    .stNumberInput button, .stNumberInput button:hover, 
+    .stNumberInput button:focus, .stNumberInput button:active {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
-        border-radius: 4px !important;
-        transition: all 0.2s ease !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: white !important;
     }
 
-    .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.4) !important;
-        color: #A855F7 !important;
-        border-color: #A855F7 !important;
-    }
-
-    /* 5. Hide Instructions & Action Buttons */
-    div[data-testid="InputInstructions"] { display: none !important; }
-
+    /* 5. Buttons & Notifications */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
         border-radius: 8px !important; font-weight: 500 !important;
-        transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
     }
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
-    /* 6. Notifications */
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
     }
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
+    div[data-testid="InputInstructions"] { display: none !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -310,6 +298,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
