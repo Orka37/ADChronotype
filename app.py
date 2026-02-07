@@ -72,7 +72,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Container Resets */
+    /* 1. Container Resets (Fixes Eye Icon & Layout) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -99,32 +99,37 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. The "Absolute Zero" Fix for +/- Buttons */
-    /* This targets the buttons and any internal state the browser tries to force */
-    .stNumberInput button, 
-    .stNumberInput button * {
+    /* 4. The Final Fix for +/- Buttons (No Outlines, No Black Highlights) */
+    .stNumberInput button {
+        background-color: #0F172A !important;
+        border: 1px solid #4F46E5 !important;
+        border-radius: 4px !important;
         outline: none !important;
         box-shadow: none !important;
+        transition: all 0.2s ease !important;
         -webkit-tap-highlight-color: transparent !important;
     }
 
+    /* FORCES the background to stay dark even after clicking (Removes the black highlight) */
     .stNumberInput button:focus, 
     .stNumberInput button:active, 
-    .stNumberInput button:focus-visible {
+    .stNumberInput button:focus-visible,
+    .stNumberInput button:focus-within {
+        background-color: #0F172A !important; /* Matches input background */
+        border-color: #4F46E5 !important;    /* Matches input border */
         outline: none !important;
         box-shadow: none !important;
-        border-color: #4F46E5 !important;
-        background-color: #0F172A !important;
+        color: white !important;
     }
 
-    /* Standard Hover State */
+    /* Only change color on actual mouse hover */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
         border-color: #A855F7 !important;
     }
 
-    /* 5. Cleanup */
+    /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
 
     /* 6. Main Action Buttons */
@@ -328,5 +333,6 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
