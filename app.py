@@ -70,35 +70,50 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Input Boxes: Default State (Fixed for Password Eye) */
+    /* 1. Resetting Containers (Fixes Eye Icon & Double Highlight) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
-    .stTextInput div[data-baseweb="input"],
+    .stTextInput div[data-baseweb="input"] {
+        background-color: transparent !important; 
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Applying Style Directly to the Inputs */
+    .stSelectbox [data-baseweb="select"] > div,
+    .stNumberInput input,
     .stTextInput input {
         background-color: #0F172A !important; 
         border: 1px solid #4F46E5 !important;
-        border-radius: 8px !important; 
+        border-radius: 8px !important;
+        color: white !important;
     }
     
-    /* 2. Glow only on active typing (Removed parent focus highlight) */
+    /* 3. Glow ONLY when typing */
     .stTextInput input:focus,
     .stNumberInput input:focus {
         border-color: #A855F7 !important; 
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
     }
 
-    /* 3. Button Hover (Using your preferred highlight color) */
+    /* 4. Number Input Button Fix: Hover Only, No Click Highlight */
+    .stNumberInput button {
+        background-color: #0F172A !important;
+        border: 1px solid #4F46E5 !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease !important;
+    }
+
     .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.2) !important;
+        background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
+        border-color: #A855F7 !important;
     }
 
-    /* 4. Hide "Press Enter to apply" */
-    div[data-testid="InputInstructions"] {
-        display: none !important;
-    }
+    /* 5. Hide "Press Enter to apply" */
+    div[data-testid="InputInstructions"] { display: none !important; }
 
-    /* Buttons: Styling & Animations */
+    /* Buttons Styling */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
@@ -294,6 +309,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
