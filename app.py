@@ -274,6 +274,6 @@ if st.session_state.page == "prediction":
     with col1:
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk")
     with col2:
-        st.info("This prediction is based on your sleep information, age, BMI, ethnicity.")
+        st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
         if st.button("← Return Home"):
             go("home")
