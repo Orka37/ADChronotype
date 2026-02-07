@@ -96,18 +96,19 @@ st.markdown("""
     color: white !important;
 }
 
-/* Number input outer wrapper (this is the missing piece) */
-.stNumberInput > div:first-child {
+/* Number input actual wrapper */
+.stNumberInput [data-baseweb="input"] {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
     border-radius: 8px !important;
+    color: white !important;
     padding-right: 6px !important;
 }
 
-/* Focus highlight on the actual wrapper */
+/* Focus highlight */
 .stSelectbox [data-baseweb="select"] > div:focus-within,
 .stTextInput div[data-baseweb="input"]:focus-within,
-.stNumberInput > div:first-child:focus-within {
+.stNumberInput [data-baseweb="input"]:focus-within {
     border: 2px solid #A855F7 !important;
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
 }
@@ -342,6 +343,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
