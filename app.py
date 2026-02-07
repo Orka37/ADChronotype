@@ -58,92 +58,81 @@ st.set_page_config(page_title="ADChronotype")
 #---Theme---#
 
 st.markdown("""
-    <style>
-    /* 1. The Global Vibe */
-    .stApp {
-        background: radial-gradient(circle at top right, #1E293B, #0F172A);
-    }
+    <style>
+    /* Global Background */
+    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
-    /* 2. Sleek Title Styling */
-    .main-title {
-        font-family: 'sans serif';
-        color: #F8FAF8;
-        text-align: center;
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
+    /* Glass Panels & Titles */
+    .main-title {
+        font-family: 'sans serif'; color: #F8FAF8; text-align: center;
+        padding: 15px; background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-    /* 3. Input Box Highlights (The subtle glow you wanted) */
-    .stSelectbox div[data-baseweb="select"], 
-    .stNumberInput div[data-baseweb="input"] {
-        background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important; /* Subtle purple-blue border */
-        border-radius: 8px !important;
-        transition: all 0.2s ease-in-out;
-    }
-    
-    /* Highlight effect when clicking into a box */
-    .stSelectbox div[data-baseweb="select"]:focus-within, 
-    .stNumberInput div[data-baseweb="input"]:focus-within {
-        border-color: #A855F7 !important;
-        box-shadow: 0 0 8px rgba(168, 85, 247, 0.4) !important;
-    }
+    /* 1. Resetting Containers to allow the glow to "leak" out */
+    .stSelectbox div[data-baseweb="select"], 
+    .stNumberInput div[data-baseweb="input"],
+    .stTextInput div[data-baseweb="input"] {
+        background-color: transparent !important; 
+        border: none !important;
+        box-shadow: none !important;
+    }
 
-    /* 4. Trimming the "Thick" Buttons */
-    div.stButton > button {
-        background: linear-gradient(45deg, #6366F1, #A855F7);
-        color: white;
-        border: none;
-        padding: 6px 20px !important; /* Reduced vertical padding */
-        height: auto !important;
-        min-height: 35px !important;
-        border-radius: 8px !important;
-        font-weight: 500 !important;
-        font-size: 14px !important;
-        width: auto !important; /* Stops it from being a giant block */
-        transition: all 0.3s ease;
-    }
+    /* 2. Base Input Styling */
+    .stSelectbox [data-baseweb="select"] > div,
+    .stNumberInput input,
+    .stTextInput input {
+        background-color: #0F172A !important; 
+        border: 1px solid #4F46E5 !important;
+        border-radius: 8px !important;
+        color: white !important;
+    }
+    
+    /* 3. THE FIX: Targeting the "Inner Container" for the full glow */
+    /* This ensures the highlight is visible around the entire number box area */
+    div[data-baseweb="input"]:focus-within {
+        border: 2px solid #A855F7 !important;
+        border-radius: 9px !important;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
+    }
 
-    .stTextInput input:focus, .stNumberInput input:focus {
-        border-color: #A855F7 !important;
-        box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
-    }
+    /* Keep the input itself clean so it doesn't double-border */
+    .stTextInput input:focus,
+    .stNumberInput input:focus {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
 
-    div.stButton > button {
-        transition: all 0.3s ease !important;
-    }
+    /* 4. Number Input Buttons: Version 1 Style (Leaving them be) */
+    .stNumberInput button {
+        background-color: #0F172A !important;
+        border: 1px solid #4F46E5 !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease !important;
+    }
 
-    div.stButton > button:active {
-        transform: scale(0.95) !important;
-    }
-    
-    div.stButton > button:hover {
-        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
-        transform: scale(1.02);
-    }
+    .stNumberInput button:hover {
+        background-color: rgba(168, 85, 247, 0.4) !important;
+        color: #A855F7 !important;
+        border-color: #A855F7 !important;
+    }
 
-    div[data-testid="stForm"], div.stButton > button {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    }
+    /* 5. Hide "Press Enter to apply" */
+    div[data-testid="InputInstructions"] { display: none !important; }
 
-    div[data-testid="stNotification"] {
-        background-color: rgba(99, 102, 241, 0.2) !important;
-        color: #F8FAF8 !important;
-        border: 1px solid #6366F1 !important;
-        border-radius: 10px !important;
-    }
-    
-    /* If you want to target the specific 'Success' icon color */
-    div[data-testid="stNotification"] svg {
-        fill: #A855F7 !important;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
+    /* 6. Buttons Styling */
+    div.stButton > button {
+        background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
+        border: none; padding: 6px 20px !important; min-height: 35px !important;
+        border-radius: 8px !important; font-weight: 500 !important;
+        transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
+    div.stButton > button:active { transform: scale(0.95) !important; }
+    </style>
+    """, unsafe_allow_html=True)
 
 #---Member Portal---#
 
@@ -322,6 +311,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
