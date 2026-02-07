@@ -70,7 +70,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Resetting Containers (Fixes Eye Icon & Double Highlight) */
+    /* 1. Resetting Containers */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -94,14 +94,23 @@ st.markdown("""
     .stNumberInput input:focus {
         border-color: #A855F7 !important; 
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+        outline: none !important;
     }
 
-    /* 4. Number Input Button Fix: Hover Only, No Click Highlight */
+    /* 4. Number Input Button Fix: Hover Only, NO CLICK HIGHLIGHT */
     .stNumberInput button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
         border-radius: 4px !important;
         transition: all 0.2s ease !important;
+        outline: none !important;
+    }
+
+    /* This specific part kills the "Last Clicked" highlight on the +/- buttons */
+    .stNumberInput button:focus, .stNumberInput button:active, .stNumberInput button:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #4F46E5 !important; /* Keeps it the original blue, not purple */
     }
 
     .stNumberInput button:hover {
@@ -121,7 +130,7 @@ st.markdown("""
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
-    div.stButton > button:active { transform: scale(0.95) !important; }
+    div.stButton > button:active { transform: scale(0.95) !important; outline: none !important; }
 
     /* Notifications */
     div[data-testid="stNotification"] {
@@ -309,6 +318,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
