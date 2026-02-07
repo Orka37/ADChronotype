@@ -78,42 +78,25 @@ st.markdown("""
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Remove default Streamlit chrome */
-.stSelectbox div[data-baseweb="select"],
-.stTextInput div[data-baseweb="input"],
-.stNumberInput div[data-baseweb="input"] {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Text + Select styling */
-.stSelectbox [data-baseweb="select"] > div,
-.stTextInput input {
+/* Restore natural highlight on ALL input wrappers */
+div[data-baseweb="input"] {
     background-color: #0F172A !important;
-    border: 1px solid #4F46E5 !important;
+    border: 2px solid #4F46E5 !important;   /* stronger natural highlight */
     border-radius: 8px !important;
     color: white !important;
 }
 
-/* Number input visible box */
+/* Selectbox wrapper */
+.stSelectbox [data-baseweb="select"] > div {
+    background-color: #0F172A !important;
+    border: 2px solid #4F46E5 !important;
+    border-radius: 8px !important;
+    color: white !important;
+}
+
+/* Number input wrapper (same natural highlight) */
 .stNumberInput [data-baseweb="input"] {
-    background-color: #0F172A !important;
-    border: 1px solid #4F46E5 !important;
-    border-radius: 8px !important;
-    color: white !important;
     padding-right: 6px !important;
-}
-
-/* STRONG highlight on focus */
-div[data-baseweb="input"]:focus-within,
-.stSelectbox [data-baseweb="select"] > div:focus-within {
-    border: 3px solid #A855F7 !important;
-    border-radius: 10px !important;
-    box-shadow:
-        0 0 0 2px rgba(168, 85, 247, 1),
-        0 0 25px 6px rgba(168, 85, 247, 0.9) !important;
-    background-color: rgba(15, 23, 42, 0.95) !important;
 }
 
 /* Remove inner input outline */
@@ -124,7 +107,7 @@ div[data-baseweb="input"]:focus-within,
     outline: none !important;
 }
 
-/* Number input buttons (leave highlight as-is) */
+/* Number input buttons (unchanged) */
 .stNumberInput button {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
@@ -345,6 +328,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
