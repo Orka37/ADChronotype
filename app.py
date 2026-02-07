@@ -69,16 +69,12 @@ st.markdown("""
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    
-    /* 4. Number Input Button Fix: Hover Only */
-    .stNumberInput button {
-        background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important;
-        border-radius: 4px !important;
-        transition: all 0.2s ease !important;
+
+    .stNumberInput button:hover {
+        background-color: rgba(168, 85, 247, 0.4) !important;
+        color: #A855F7 !important;
+        border-color: #A855F7 !important;
     }
-
-
     
     /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
@@ -279,6 +275,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
