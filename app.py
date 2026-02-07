@@ -70,36 +70,6 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. RESET ALL FOCUS GLOWS (The "No Highlight" Fix) */
-    /* This targets every part of the input to ensure nothing glows purple */
-    .stSelectbox div[data-baseweb="select"], 
-    .stNumberInput div[data-baseweb="input"],
-    .stTextInput div[data-baseweb="input"],
-    .stTextInput input, .stNumberInput input {
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
-    /* 2. Applying Static Style Directly to the Inputs */
-    .stSelectbox [data-baseweb="select"] > div,
-    .stNumberInput input,
-    .stTextInput input {
-        background-color: #0F172A !important; 
-        border: 1px solid #4F46E5 !important;
-        border-radius: 8px !important;
-        color: white !important;
-    }
-    
-    /* 3. LOCK BORDER ON FOCUS: Stops it from turning purple when clicked */
-    .stTextInput input:focus,
-    .stNumberInput input:focus,
-    div[data-baseweb="select"]:focus-within,
-    div[data-baseweb="input"]:focus-within {
-        border-color: #4F46E5 !important; 
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
     /* 4. Number Input Button Fix: Hover Only */
     .stNumberInput button {
         background-color: #0F172A !important;
@@ -313,6 +283,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
