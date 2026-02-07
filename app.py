@@ -60,9 +60,7 @@ st.set_page_config(page_title="ADChronotype")
 st.markdown("""
     <style>
     /* Global Background */
-    .stApp { 
-        background: radial-gradient(circle at top right, #1E293B, #0F172A); 
-    }
+    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
     /* Glass Panels & Titles */
     .main-title {
@@ -72,7 +70,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Container Resets (Fixes Eye Icon & Layout) */
+    /* 1. Container Resets */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -91,7 +89,7 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. Text/Number Glow (Only when typing) */
+    /* 3. Glow ONLY when typing */
     .stTextInput input:focus,
     .stNumberInput input:focus {
         border-color: #A855F7 !important; 
@@ -99,37 +97,37 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. The Final Fix for +/- Buttons (No Outlines, No Black Highlights) */
-    .stNumberInput button {
+    /* 4. +/- Buttons: TOTAL LOCKDOWN */
+    /* Target the buttons and force them to stay dark by default */
+    .stNumberInput button[kind="secondary"],
+    div[data-baseweb="input"] button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
-        border-radius: 4px !important;
-        outline: none !important;
-        box-shadow: none !important;
-        transition: all 0.2s ease !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-
-    /* FORCES the background to stay dark even after clicking (Removes the black highlight) */
-    .stNumberInput button:focus, 
-    .stNumberInput button:active, 
-    .stNumberInput button:focus-visible,
-    .stNumberInput button:focus-within {
-        background-color: #0F172A !important; /* Matches input background */
-        border-color: #4F46E5 !important;    /* Matches input border */
         outline: none !important;
         box-shadow: none !important;
         color: white !important;
     }
 
-    /* Only change color on actual mouse hover */
-    .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.4) !important;
-        color: #A855F7 !important;
-        border-color: #A855F7 !important;
+    /* This rule kills the 'Purple/Black' persistent highlight after clicking */
+    .stNumberInput button[kind="secondary"]:focus, 
+    .stNumberInput button[kind="secondary"]:active,
+    .stNumberInput button[kind="secondary"]:focus-visible,
+    div[data-baseweb="input"] button:focus {
+        background-color: #0F172A !important;
+        border-color: #4F46E5 !important;
+        box-shadow: none !important;
+        outline: none !important;
     }
 
-    /* 5. Hide "Press Enter to apply" */
+    /* ONLY the hover state is allowed to show purple */
+    .stNumberInput button[kind="secondary"]:hover,
+    div[data-baseweb="input"] button:hover {
+        background-color: rgba(168, 85, 247, 0.4) !important;
+        border-color: #A855F7 !important;
+        color: #A855F7 !important;
+    }
+
+    /* 5. Cleanup */
     div[data-testid="InputInstructions"] { display: none !important; }
 
     /* 6. Main Action Buttons */
@@ -145,14 +143,6 @@ st.markdown("""
     div.stButton > button:active, div.stButton > button:focus { 
         transform: scale(0.95) !important; outline: none !important; box-shadow: none !important; 
     }
-
-    /* 7. Notifications */
-    div[data-testid="stNotification"] {
-        background-color: rgba(99, 102, 241, 0.2) !important; 
-        color: #F8FAF8 !important; border: 1px solid #6366F1 !important; 
-        border-radius: 10px !important;
-    }
-    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -333,6 +323,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
