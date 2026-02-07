@@ -70,14 +70,6 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 4. Number Input Button Fix: Hover Only */
-    .stNumberInput button {
-        background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important;
-        border-radius: 4px !important;
-        transition: all 0.2s ease !important;
-    }
-
     /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
 
@@ -277,6 +269,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
