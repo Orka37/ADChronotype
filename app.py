@@ -125,6 +125,23 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
         transform: scale(1.02);
     }
+
+    div[data-testid="stForm"], div.stButton > button {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    div[data-testid="stNotification"] {
+        background-color: rgba(99, 102, 241, 0.2) !important;
+        color: #F8FAF8 !important;
+        border: 1px solid #6366F1 !important;
+        border-radius: 10px !important;
+    }
+    
+    /* If you want to target the specific 'Success' icon color */
+    div[data-testid="stNotification"] svg {
+        fill: #A855F7 !important;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
@@ -305,3 +322,4 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
