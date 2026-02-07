@@ -83,6 +83,14 @@ st.markdown("""
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
+    .stMarkdown h4 a {
+        display: none !important;
+    }
+
+    .stMarkdown h4 {
+        margin-right: 0px !important;
+    }
+
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
@@ -273,6 +281,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
