@@ -35,6 +35,7 @@ def norm_state():
 norm_state()
 
 def save():
+    st.toast("Predicting...", icon="🔄")
     SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
     payload = [
         st.session_state.current_user,
