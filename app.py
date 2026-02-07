@@ -206,10 +206,10 @@ if st.session_state.page=="home":
     st.markdown("<h4 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
     if st.button("Click for info about our project!"):
         project_details()
-    if st.session_state.predict:
-        st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details"):
         go("input")
+    if st.session_state.predict:
+        st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
 
 #---Input---#
 
@@ -268,6 +268,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
