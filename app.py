@@ -70,28 +70,32 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Input Boxes: Default State */
+    /* 1. Input Boxes: Default State (Fixed for Password Eye) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
+    .stTextInput div[data-baseweb="input"],
     .stTextInput input {
         background-color: #0F172A !important; 
         border: 1px solid #4F46E5 !important;
         border-radius: 8px !important; 
-        transition: all 0.2s ease-in-out;
     }
     
-    /* 2. Glow only when typing/active (Focus) */
-    .stSelectbox div[data-baseweb="select"]:focus-within, 
+    /* 2. Glow only on active typing (Removed parent focus highlight) */
     .stTextInput input:focus,
     .stNumberInput input:focus {
         border-color: #A855F7 !important; 
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
     }
 
-    /* 3. Target the +/- buttons specifically for hover (The Fix) */
+    /* 3. Button Hover (Using your preferred highlight color) */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.2) !important;
         color: #A855F7 !important;
+    }
+
+    /* 4. Hide "Press Enter to apply" */
+    div[data-testid="InputInstructions"] {
+        display: none !important;
     }
 
     /* Buttons: Styling & Animations */
@@ -101,18 +105,14 @@ st.markdown("""
         border-radius: 8px !important; font-weight: 500 !important;
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
-
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
-    /* Forms & Notifications */
-    div[data-testid="stForm"] { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important; }
-
+    /* Notifications */
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
     }
-    
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
@@ -294,6 +294,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
