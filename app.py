@@ -69,15 +69,6 @@ st.markdown("""
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    /* 2. Applying Static Style Directly to the Inputs */
-    .stSelectbox [data-baseweb="select"] > div,
-    .stNumberInput input,
-    .stTextInput input {
-        background-color: #0F172A !important; 
-        border: 1px solid #4F46E5 !important;
-        border-radius: 8px !important;
-        color: white !important;
-    }
     
     /* 3. LOCK BORDER ON FOCUS: Stops it from turning purple when clicked */
     .stTextInput input:focus,
@@ -302,6 +293,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
