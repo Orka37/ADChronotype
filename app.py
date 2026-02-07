@@ -72,7 +72,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Container Resets (Fixes Eye Icon & Layout) */
+    /* 1. Container Resets */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -99,7 +99,7 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. The Final Fix for +/- Buttons (No Outlines, No Black Highlights) */
+    /* 4. Number Input Buttons (+/-) - Anti-Ghosting Rules */
     .stNumberInput button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
@@ -107,29 +107,28 @@ st.markdown("""
         outline: none !important;
         box-shadow: none !important;
         transition: all 0.2s ease !important;
-        -webkit-tap-highlight-color: transparent !important;
     }
 
-    /* FORCES the background to stay dark even after clicking (Removes the black highlight) */
+    /* 4.1 KILL INTERNAL BASEWEB HIGHLIGHTS (The specific fix) */
     .stNumberInput button:focus, 
     .stNumberInput button:active, 
     .stNumberInput button:focus-visible,
-    .stNumberInput button:focus-within {
-        background-color: #0F172A !important; /* Matches input background */
-        border-color: #4F46E5 !important;    /* Matches input border */
+    .stNumberInput button:focus-within,
+    div[data-baseweb="input"] button {
         outline: none !important;
         box-shadow: none !important;
-        color: white !important;
+        background-color: #0F172A !important;
+        border-color: #4F46E5 !important;
     }
 
-    /* Only change color on actual mouse hover */
+    /* Only highlight on hover */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
         border-color: #A855F7 !important;
     }
 
-    /* 5. Hide "Press Enter to apply" */
+    /* 5. Hide Instructions */
     div[data-testid="InputInstructions"] { display: none !important; }
 
     /* 6. Main Action Buttons */
@@ -155,7 +154,6 @@ st.markdown("""
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
-
 #---Member Portal---#
 
 if not st.session_state.logged_in:
@@ -333,6 +331,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
