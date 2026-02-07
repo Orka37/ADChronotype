@@ -229,14 +229,7 @@ if st.session_state.page == "input":
             age = st.number_input("**How old are you? (years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
             BMI = round(st.number_input("**What is your BMI?**", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
-        col1, col2, col3 = st.columns([3,5,1])
-        with col1:
-            submit = st.form_submit_button("Save & Generate Prediction")
-        with col3:
-            help = st.form_submit_button("Help!")
-    if st.session_state.help==False:
-        st.session_state.help=True
-        factor_details()
+        submit = st.form_submit_button("Save & Generate Prediction") 
     if submit:
         st.session_state.chronotype = chronotype
         st.session_state.sleeptime = sleeptime
@@ -251,10 +244,16 @@ if st.session_state.page == "input":
             st.session_state.predict=True
             save()
             go("prediction")
-    if help:
+    col1, col2, col3 = st.columns([1,5,1])
+    with col1:
+        if st.button("**Exit**"):
+            go("home")
+    with col3:
+        if st.button("Help!"):
+            factor_details()
+    if st.session_state.help==False:
+        st.session_state.help=True
         factor_details()
-    if st.button("**Exit**"):
-        go("home")
 
 #---Prediction---#
 
@@ -268,59 +267,3 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
