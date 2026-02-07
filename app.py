@@ -78,11 +78,7 @@ st.markdown("""
         transition: all 0.2s ease !important;
     }
 
-    .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.4) !important;
-        color: #A855F7 !important;
-        border-color: #A855F7 !important;
-    }
+
     
     /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
@@ -283,6 +279,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
