@@ -70,7 +70,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Resetting Containers (Fixes Eye Icon & Double Highlight) */
+    /* 1. Resetting Containers */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -79,7 +79,7 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* 2. Applying Style Directly to the Inputs */
+    /* 2. Base Input Styling (Select, Number, Text) */
     .stSelectbox [data-baseweb="select"] > div,
     .stNumberInput input,
     .stTextInput input {
@@ -89,14 +89,16 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. Glow ONLY when typing */
+    /* 3. Glow ON CLICK (Now includes Selection Boxes) */
     .stTextInput input:focus,
-    .stNumberInput input:focus {
+    .stNumberInput input:focus,
+    .stSelectbox div[data-baseweb="select"]:focus-within {
         border-color: #A855F7 !important; 
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+        outline: none !important;
     }
 
-    /* 4. Number Input Button Fix: Hover Only, No Click Highlight */
+    /* 4. Number Input Buttons: Hover Only */
     .stNumberInput button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
@@ -110,10 +112,9 @@ st.markdown("""
         border-color: #A855F7 !important;
     }
 
-    /* 5. Hide "Press Enter to apply" */
+    /* 5. Hide "Press Enter" & Action Buttons */
     div[data-testid="InputInstructions"] { display: none !important; }
 
-    /* Buttons Styling */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
@@ -123,7 +124,7 @@ st.markdown("""
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
-    /* Notifications */
+    /* 6. Notifications */
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
@@ -309,6 +310,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
