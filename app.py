@@ -268,12 +268,12 @@ if st.session_state.page == "input":
         with col1:
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**What is your sleep chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
-            sleeptime = st.number_input("How long do you sleep for? (hrs)", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
-            sleepquality = st.number_input("What is your sleep quality?", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
+            sleeptime = st.number_input("**How long do you sleep for? (hrs)**", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
+            sleepquality = st.number_input("**What is your sleep quality?**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
             st.subheader("👤 Personal Info")
-            age = st.number_input("How old are you? (years)", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
-            BMI = round(st.number_input("What is your BMI?", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
+            age = st.number_input("**How old are you? (years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
+            BMI = round(st.number_input("**What is your BMI?**", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**What is your ethnicity?**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
         col1, col2, col3 = st.columns([3,5,1])
         with col1:
@@ -314,6 +314,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
