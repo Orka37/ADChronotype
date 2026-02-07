@@ -70,7 +70,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Resetting Containers to allow the glow to "leak" out */
+    /* 1. Resetting Containers */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -79,7 +79,7 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* 2. Base Input Styling */
+    /* 2. Base Input Styling (The Box) */
     .stSelectbox [data-baseweb="select"] > div,
     .stNumberInput input,
     .stTextInput input {
@@ -89,40 +89,32 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. THE FIX: Targeting the "Inner Container" for the full glow */
-    /* This ensures the highlight is visible around the entire number box area */
-    div[data-baseweb="input"]:focus-within {
-        border: 2px solid #A855F7 !important;
-        border-radius: 9px !important;
-        box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
-    }
-
-    /* Keep the input itself clean so it doesn't double-border */
+    /* 3. THE HIGHLIGHT: Only on the Box, high visibility */
     .stTextInput input:focus,
     .stNumberInput input:focus {
-        border: none !important;
-        box-shadow: none !important;
+        border-color: #A855F7 !important; 
+        /* Combined outside and inside glow so you can see it across the whole box */
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.5), inset 0 0 8px rgba(168, 85, 247, 0.3) !important;
         outline: none !important;
     }
 
-    /* 4. Number Input Buttons: Version 1 Style (Leaving them be) */
-    .stNumberInput button {
+    /* 4. +/- Buttons: NO HOVER, NO HIGHLIGHTS (Static Mode) */
+    .stNumberInput button,
+    .stNumberInput button:hover,
+    .stNumberInput button:focus, 
+    .stNumberInput button:active {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
-        border-radius: 4px !important;
-        transition: all 0.2s ease !important;
-    }
-
-    .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.4) !important;
-        color: #A855F7 !important;
-        border-color: #A855F7 !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: white !important;
+        transition: none !important;
     }
 
     /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
 
-    /* 6. Buttons Styling */
+    /* 6. Action Buttons Styling (Login/Predict) */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
@@ -131,6 +123,13 @@ st.markdown("""
     }
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
+
+    /* Notifications */
+    div[data-testid="stNotification"] {
+        background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
+        border: 1px solid #6366F1 !important; border-radius: 10px !important;
+    }
+    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -311,6 +310,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
