@@ -58,91 +58,72 @@ st.set_page_config(page_title="ADChronotype")
 #---Theme---#
 
 st.markdown("""
-<style>
+    <style>
+    /* Global Background */
+    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
-/* Global Background */
-.stApp { 
-    background: radial-gradient(circle at top right, #1E293B, #0F172A); 
-}
+    .main-title {
+        font-family: 'sans serif'; color: #F8FAF8; text-align: center;
+        padding: 15px; background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-/* Title */
-.main-title {
-    font-family: 'sans serif';
-    color: #F8FAF8;
-    text-align: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
+    .stSelectbox div[data-baseweb="select"], 
+    .stNumberInput div[data-baseweb="input"],
+    .stTextInput div[data-baseweb="input"] {
+        background-color: transparent !important; 
+        border: none !important;
+        box-shadow: none !important;
+    }
 
-/* Restore natural highlight + make it stronger */
-div[data-baseweb="input"],
-.stSelectbox [data-baseweb="select"] > div {
-    background-color: #0F172A !important;
-    border: 2px solid #4F46E5 !important;   /* stronger natural highlight */
-    border-radius: 8px !important;
-    color: white !important;
-}
+    .stSelectbox [data-baseweb="select"] > div,
+    .stNumberInput input,
+    .stTextInput input {
+        background-color: #0F172A !important; 
+        border: 1px solid #4F46E5 !important;
+        border-radius: 8px !important;
+        color: white !important;
+    }
 
-/* Number input answer box */
-.stNumberInput [data-baseweb="input"] {
-    padding-right: 6px !important;
-}
+    div[data-baseweb="input"]:focus-within {
+        border: 2px solid #A855F7 !important;
+        border-radius: 9px !important;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
+    }
 
-/* Remove inner input outline */
-.stTextInput input:focus,
-.stNumberInput input:focus {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
+    .stTextInput input:focus,
+    .stNumberInput input:focus {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
 
-/* Number input buttons (unchanged) */
-.stNumberInput button {
-    background-color: #0F172A !important;
-    border: 1px solid #4F46E5 !important;
-    border-radius: 4px !important;
-    transition: all 0.2s ease !important;
-}
+    .stNumberInput button {
+        background-color: #0F172A !important;
+        border: 1px solid #4F46E5 !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease !important;
+    }
 
-.stNumberInput button:hover {
-    background-color: rgba(168, 85, 247, 0.4) !important;
-    color: #A855F7 !important;
-    border-color: #A855F7 !important;
-}
+    .stNumberInput button:hover {
+        background-color: rgba(168, 85, 247, 0.4) !important;
+        color: #A855F7 !important;
+        border-color: #A855F7 !important;
+    }
 
-/* Hide instructions */
-div[data-testid="InputInstructions"] { 
-    display: none !important; 
-}
+    div[data-testid="InputInstructions"] { display: none !important; }
 
-/* Buttons */
-div.stButton > button {
-    background: linear-gradient(45deg, #6366F1, #A855F7);
-    color: white;
-    border: none;
-    padding: 6px 20px !important;
-    min-height: 35px !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
-div.stButton > button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important;
-}
-
-div.stButton > button:active {
-    transform: scale(0.95) !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
+    div.stButton > button {
+        background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
+        border: none; padding: 6px 20px !important; min-height: 35px !important;
+        border-radius: 8px !important; font-weight: 500 !important;
+        transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
+    div.stButton > button:active { transform: scale(0.95) !important; }
+    </style>
+    """, unsafe_allow_html=True)
 
 #---Member Portal---#
 
@@ -321,6 +302,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
