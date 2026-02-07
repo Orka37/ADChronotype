@@ -79,7 +79,7 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* 2. Base Input Styling (Select, Number, Text) */
+    /* 2. Base Input Styling */
     .stSelectbox [data-baseweb="select"] > div,
     .stNumberInput input,
     .stTextInput input {
@@ -89,10 +89,10 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. Glow ON CLICK (Now includes Selection Boxes) */
+    /* 3. Highlight ON CLICK (Only for Text/Number) */
+    /* We're letting the Selection Box use its natural highlight */
     .stTextInput input:focus,
-    .stNumberInput input:focus,
-    .stSelectbox div[data-baseweb="select"]:focus-within {
+    .stNumberInput input:focus {
         border-color: #A855F7 !important; 
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
         outline: none !important;
@@ -112,7 +112,7 @@ st.markdown("""
         border-color: #A855F7 !important;
     }
 
-    /* 5. Hide "Press Enter" & Action Buttons */
+    /* 5. Hide Instructions & Action Buttons */
     div[data-testid="InputInstructions"] { display: none !important; }
 
     div.stButton > button {
@@ -310,6 +310,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
