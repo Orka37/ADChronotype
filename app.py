@@ -89,7 +89,7 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 3. Glow ONLY when typing */
+    /* 3. Text/Number Glow (Only when typing) */
     .stTextInput input:focus,
     .stNumberInput input:focus {
         border-color: #A855F7 !important; 
@@ -97,38 +97,37 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. +/- Buttons: TOTAL LOCKDOWN */
-    /* Target the buttons and force them to stay dark by default */
-    .stNumberInput button[kind="secondary"],
-    div[data-baseweb="input"] button {
+    /* 4. +/- Buttons: THE CONCRETE SEAL */
+    /* This forces the background to stay dark by default */
+    .stNumberInput button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
-        outline: none !important;
-        box-shadow: none !important;
         color: white !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
 
-    /* This rule kills the 'Purple/Black' persistent highlight after clicking */
-    .stNumberInput button[kind="secondary"]:focus, 
-    .stNumberInput button[kind="secondary"]:active,
-    .stNumberInput button[kind="secondary"]:focus-visible,
-    div[data-baseweb="input"] button:focus {
-        background-color: #0F172A !important;
-        border-color: #4F46E5 !important;
+    /* KILL the lingering purple/black highlight after click */
+    .stNumberInput button:focus, 
+    .stNumberInput button:active, 
+    .stNumberInput button:focus-visible,
+    .stNumberInput button:focus-within {
+        background-color: #0F172A !important; /* Force stay dark background */
+        border-color: #4F46E5 !important;    /* Force stay blue border */
         box-shadow: none !important;
         outline: none !important;
     }
 
-    /* ONLY the hover state is allowed to show purple */
-    .stNumberInput button[kind="secondary"]:hover,
-    div[data-baseweb="input"] button:hover {
+    /* ONLY highlight purple when the mouse is hovering */
+    .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
-        border-color: #A855F7 !important;
         color: #A855F7 !important;
+        border-color: #A855F7 !important;
     }
 
-    /* 5. Cleanup */
+    /* 5. Hide Instructions & Eye Fix */
     div[data-testid="InputInstructions"] { display: none !important; }
+    .stTextInput div[data-baseweb="input"] button { background-color: transparent !important; }
 
     /* 6. Main Action Buttons */
     div.stButton > button {
@@ -323,6 +322,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
