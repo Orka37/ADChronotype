@@ -77,7 +77,7 @@ st.markdown("""
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Container Resets (Fixes Eye Icon Alignment & Parent Glow) */
+    /* 1. Container Resets (Fixes Eye Icon & Parent Glow) */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -104,25 +104,28 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. Number Input Buttons (+/-) Fix */
+    /* 4. Number Input Buttons (+/-) - THE NUCLEAR FIX */
     .stNumberInput button {
         background-color: #0F172A !important;
-        border: 1px solid #4F46E5 !important; /* Original Blue */
+        border: 1px solid #4F46E5 !important;
         border-radius: 4px !important;
-        transition: all 0.2s ease !important;
-        outline: none !important;
-    }
-
-    /* KILL all click/focus highlights on +/- buttons */
-    .stNumberInput button:focus, 
-    .stNumberInput button:active, 
-    .stNumberInput button:focus-visible {
         outline: none !important;
         box-shadow: none !important;
-        border-color: #4F46E5 !important; /* Forces it to stay blue on click */
+        transition: all 0.2s ease !important;
     }
 
-    /* Only highlight purple on actual mouse hover */
+    /* Remove ALL focus/active states that cause the click highlight */
+    .stNumberInput button:focus, 
+    .stNumberInput button:active, 
+    .stNumberInput button:focus-visible,
+    .stNumberInput button:focus-within {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #4F46E5 !important; /* Force stay blue */
+        background-color: #0F172A !important; /* Force stay dark */
+    }
+
+    /* Only change color on actual mouse hover */
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
@@ -152,9 +155,10 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; 
     }
     
-    div.stButton > button:active { 
+    div.stButton > button:active, div.stButton > button:focus { 
         transform: scale(0.95) !important; 
         outline: none !important; 
+        box-shadow: none !important;
     }
 
     /* 7. Notifications (Success/Error) */
@@ -348,3 +352,4 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
