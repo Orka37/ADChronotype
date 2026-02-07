@@ -58,109 +58,53 @@ st.set_page_config(page_title="ADChronotype")
 #---Theme---#
 
 st.markdown("""
-<style>
-/* Global Background */
-.stApp {
-    background: radial-gradient(circle at top right, #1E293B, #0F172A);
-}
+    <style>
+    /* Global Background */
+    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
-/* Title */
-.main-title {
-    font-family: 'sans serif';
-    color: #F8FAF8;
-    text-align: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
+    /* Glass Panels & Titles */
+    .main-title {
+        font-family: 'sans serif'; color: #F8FAF8; text-align: center;
+        padding: 15px; background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-/* Remove default Streamlit styling */
-.stSelectbox div[data-baseweb="select"],
-.stNumberInput div[data-baseweb="input"],
-.stTextInput div[data-baseweb="input"] {
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
+    /* Input Boxes: Default State */
+    .stSelectbox div[data-baseweb="select"], .stNumberInput div[data-baseweb="input"] {
+        background-color: #0F172A !important; border: 1px solid #4F46E5 !important;
+        border-radius: 8px !important; transition: all 0.2s ease-in-out;
+    }
+    
+    /* Input Boxes: Focus State (Glow) */
+    .stSelectbox div[data-baseweb="select"]:focus-within, 
+    .stNumberInput div[data-baseweb="input"]:focus-within,
+    .stTextInput input:focus, .stNumberInput input:focus {
+        border-color: #A855F7 !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+    }
 
-/* === INPUT WRAPPER (FULL WIDTH HIGHLIGHT FIX) === */
-.stSelectbox div[data-baseweb="select"],
-.stNumberInput div[data-baseweb="input"],
-.stTextInput div[data-baseweb="input"] {
-    background-color: #0F172A !important;
-    border: 1px solid #4F46E5 !important;
-    border-radius: 8px !important;
-}
+    /* Buttons: Styling & Animations */
+    div.stButton > button {
+        background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
+        border: none; padding: 6px 20px !important; min-height: 35px !important;
+        border-radius: 8px !important; font-weight: 500 !important;
+        transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
 
-/* Hover effect (natural highlight) */
-.stSelectbox div[data-baseweb="select"]:hover,
-.stNumberInput div[data-baseweb="input"]:hover,
-.stTextInput div[data-baseweb="input"]:hover {
-    border-color: #6366F1 !important;
-}
+    div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
+    div.stButton > button:active { transform: scale(0.95) !important; }
 
-/* === INPUT ELEMENTS === */
-.stSelectbox [data-baseweb="select"] > div,
-.stNumberInput input,
-.stTextInput input {
-    background: transparent !important;
-    border: none !important;
-    color: white !important;
-}
+    /* Forms & Notifications */
+    div[data-testid="stForm"] { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important; }
 
-/* Focus glow (pink — keep as requested) */
-div[data-baseweb="input"]:focus-within,
-div[data-baseweb="select"]:focus-within {
-    border: 2px solid #A855F7 !important;
-    border-radius: 9px !important;
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
-}
-
-/* Number input buttons */
-.stNumberInput button {
-    background-color: #0F172A !important;
-    border: 1px solid #4F46E5 !important;
-    border-radius: 4px !important;
-    color: white !important;
-    transition: all 0.2s ease !important;
-}
-
-.stNumberInput button:hover {
-    background-color: rgba(168, 85, 247, 0.4) !important;
-    color: #A855F7 !important;
-    border-color: #A855F7 !important;
-}
-
-/* Hide Streamlit input helper text */
-div[data-testid="InputInstructions"] {
-    display: none !important;
-}
-
-/* Buttons */
-div.stButton > button {
-    background: linear-gradient(45deg, #6366F1, #A855F7);
-    color: white;
-    border: none;
-    padding: 6px 20px !important;
-    min-height: 35px !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
-div.stButton > button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important;
-}
-
-div.stButton > button:active {
-    transform: scale(0.95) !important;
-}
-</style>
-""", unsafe_allow_html=True)
+    div[data-testid="stNotification"] {
+        background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
+        border: 1px solid #6366F1 !important; border-radius: 10px !important;
+    }
+    
+    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
+    </style>
+    """, unsafe_allow_html=True)
 
 #---Member Portal---#
 
@@ -339,6 +283,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
