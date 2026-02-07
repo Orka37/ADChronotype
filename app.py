@@ -211,22 +211,14 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 24px; font-weight: bold; color: #F8FAF8; white-space: nowrap;">
-                    Alzheimer's Risk Prediction Platform
-                </span>
-                <span style="font-size: 24px; font-weight: bold; color: #F8FAF8;">→</span>
-            </div>
-            <div id="btn-container">
-                </div>
-        </div>
-        """, unsafe_allow_html=True)
-    _, col_btn = st.columns([4, 1])
-    with col_btn:
-        if st.button("Click for more info!", use_container_width=True):
-            project_details()
+    col1, col2, col3 = st.columns([9.1,0.5,6])
+        with col1:
+            st.markdown("<h4 style='text-align: left;'>Alzheimer's Risk Prediction Platform</h4>", unsafe_allow_html=True)
+        with col2:
+            st.markdown("<h4 style='text-align: left;'>→</h4>", unsafe_allow_html=True)
+        with col3:
+            if st.button("Click for more info!"):
+                project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details"):
@@ -289,6 +281,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
