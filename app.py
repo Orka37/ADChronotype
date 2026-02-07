@@ -59,6 +59,7 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
 <style>
+
 /* Global Background */
 .stApp { 
     background: radial-gradient(circle at top right, #1E293B, #0F172A); 
@@ -95,19 +96,18 @@ st.markdown("""
     color: white !important;
 }
 
-/* Number input wrapper (full box) */
-.stNumberInput > div[data-baseweb="input"] {
+/* Number input outer wrapper (this is the missing piece) */
+.stNumberInput > div:first-child {
     background-color: #0F172A !important;
     border: 1px solid #4F46E5 !important;
     border-radius: 8px !important;
-    color: white !important;
-    padding-right: 6px !important; /* keeps buttons visually separate */
+    padding-right: 6px !important;
 }
 
-/* Focus highlight ONLY on the answer box */
+/* Focus highlight on the actual wrapper */
 .stSelectbox [data-baseweb="select"] > div:focus-within,
 .stTextInput div[data-baseweb="input"]:focus-within,
-.stNumberInput > div[data-baseweb="input"]:focus-within {
+.stNumberInput > div:first-child:focus-within {
     border: 2px solid #A855F7 !important;
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
 }
@@ -161,6 +161,7 @@ div.stButton > button:hover {
 div.stButton > button:active {
     transform: scale(0.95) !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -341,6 +342,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
