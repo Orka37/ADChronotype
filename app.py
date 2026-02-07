@@ -59,10 +59,8 @@ st.set_page_config(page_title="ADChronotype")
 
 st.markdown("""
     <style>
-    /* Global Background */
     .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
-    /* Glass Panels & Titles */
     .main-title {
         font-family: 'sans serif'; color: #F8FAF8; text-align: center;
         padding: 15px; background: rgba(255, 255, 255, 0.05);
@@ -73,13 +71,10 @@ st.markdown("""
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
         color: #A855F7 !important;
-        border-color: #A855F7 !important;
     }
-    
-    /* 5. Hide "Press Enter to apply" */
+
     div[data-testid="InputInstructions"] { display: none !important; }
 
-    /* Buttons Styling */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
@@ -89,7 +84,6 @@ st.markdown("""
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
-    /* Notifications */
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
@@ -275,6 +269,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
