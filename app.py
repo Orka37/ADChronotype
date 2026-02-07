@@ -62,7 +62,6 @@ st.markdown("""
     /* Global Background */
     .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
 
-    /* Glass Panels & Titles */
     .main-title {
         font-family: 'sans serif'; color: #F8FAF8; text-align: center;
         padding: 15px; background: rgba(255, 255, 255, 0.05);
@@ -70,7 +69,6 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* 1. Resetting Containers to allow the glow to "leak" out */
     .stSelectbox div[data-baseweb="select"], 
     .stNumberInput div[data-baseweb="input"],
     .stTextInput div[data-baseweb="input"] {
@@ -79,7 +77,6 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* 2. Base Input Styling */
     .stSelectbox [data-baseweb="select"] > div,
     .stNumberInput input,
     .stTextInput input {
@@ -88,16 +85,13 @@ st.markdown("""
         border-radius: 8px !important;
         color: white !important;
     }
-    
-    /* 3. THE FIX: Targeting the "Inner Container" for the full glow */
-    /* This ensures the highlight is visible around the entire number box area */
+
     div[data-baseweb="input"]:focus-within {
         border: 2px solid #A855F7 !important;
         border-radius: 9px !important;
         box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
     }
 
-    /* Keep the input itself clean so it doesn't double-border */
     .stTextInput input:focus,
     .stNumberInput input:focus {
         border: none !important;
@@ -105,7 +99,6 @@ st.markdown("""
         outline: none !important;
     }
 
-    /* 4. Number Input Buttons: Version 1 Style (Leaving them be) */
     .stNumberInput button {
         background-color: #0F172A !important;
         border: 1px solid #4F46E5 !important;
@@ -119,10 +112,8 @@ st.markdown("""
         border-color: #A855F7 !important;
     }
 
-    /* 5. Hide "Press Enter to apply" */
     div[data-testid="InputInstructions"] { display: none !important; }
 
-    /* 6. Buttons Styling */
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
@@ -311,6 +302,7 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
 
 
 
