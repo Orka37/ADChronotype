@@ -24,6 +24,7 @@ def norm_state():
         "age": 40,
         "bmi": 22.00,
         "ethnicity": "South Asian",
+        "help": False,
         "predict": False,
         "predict_normal": False
     }
@@ -44,6 +45,7 @@ def save():
         st.session_state.age,
         st.session_state.bmi,
         st.session_state.ethnicity,
+        st.session_state.help,
         st.session_state.predict,
         st.session_state.predict_normal
     ]
@@ -142,6 +144,11 @@ if not st.session_state.logged_in:
                             st.session_state.consent=True
                         else:
                             st.session_state.consent=False
+                        help_val = str(row['Help']).strip().upper()
+                        if help_val == "TRUE":
+                            st.session_state.help=True
+                        else:
+                            st.session_state.help=False
                         predict_val = str(row['Predict']).strip().upper()
                         if predict_val == "TRUE":
                             st.session_state.predict=True
@@ -246,6 +253,9 @@ if st.session_state.page == "input":
             submit = st.form_submit_button("Generate Prediction")
         with col3:
             help = st.form_submit_button("Help!")
+    if st.session_state.help==False:
+        st.session_state.help=True
+        factor_details()
     if submit:
         st.session_state.chronotype = chronotype
         st.session_state.sleeptime = sleeptime
@@ -277,3 +287,4 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.info("This prediction is based on your sleep information, age, BMI, and ethnicity.")
+
