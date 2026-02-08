@@ -247,10 +247,10 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    col1, col2, col3, col4 = st.columns([0.7,9,4,1])
+    col1, col2, col3 = st.columns([9,4,1])
+    with col1:
+        st.markdown("<h2 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h2>", unsafe_allow_html=True)
     with col2:
-        st.markdown("<h3 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h3>", unsafe_allow_html=True)
-    with col3:
         if st.button("Click for more info!"):
             project_details()
     if st.session_state.predict:
@@ -324,5 +324,6 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
