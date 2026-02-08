@@ -25,6 +25,7 @@ def norm_state():
         "bmi": 22.00,
         "ethnicity": "South Asian",
         "help": False,
+        "predict": None,
         "predict_normal": False,
         "score": "N/A",
         "score_chronotype": "N/A",
@@ -62,6 +63,7 @@ def save():
         st.session_state.bmi,
         st.session_state.ethnicity,
         st.session_state.help,
+        st.session_state.predict,
         st.session_state.predict_normal,
         st.session_state.score,
         st.session_state.score_chronotype,
@@ -73,6 +75,7 @@ def save():
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
+    st.session_state.predict=True
     go("home")
 
 def score_metric(label, value):
@@ -243,6 +246,11 @@ if not st.session_state.logged_in:
                             st.session_state.help=True
                         else:
                             st.session_state.help=False
+                        predict_val = str(row['Predict']).strip().upper()
+                        if predict_val == "TRUE":
+                            st.session_state.predict=True
+                        else:
+                            st.session_state.predict=False
                         predict_normal_val = str(row['Predict_Normal']).strip().upper()
                         if predict_normal_val == "TRUE":
                             st.session_state.predict_normal=True
@@ -313,6 +321,9 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
+    if st.session_state.predict==True:
+        st.toast("Success!", icon="✅")
+        st.session_state.predict=False
     col1, col2 = st.columns([0.7, 0.3], gap="small")
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
@@ -394,6 +405,3 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
-
-
-
