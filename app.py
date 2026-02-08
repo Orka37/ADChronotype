@@ -325,17 +325,9 @@ if st.session_state.page == "prediction":
         col3, col4 = st.columns(2)
         with col3:
             factor_metric("Chronotype", 13)
-            factor_metric("Sleeptime", 17)
+            factor_metric("Sleep Duration", 17)
             factor_metric("Sleep Quality", 7)
         with col4:
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
-
-
-
-
-
-
-
-
