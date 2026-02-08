@@ -268,11 +268,12 @@ if not st.session_state.logged_in:
             elif new_p == "":
                 st.warning("Please enter a valid password!")
             else:
-                st.toast("Logging In...", icon="🔄")
+                st.toast("Creating Account...", icon="🔄")
                 SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
+                    st.toast("Success!", icon="✅")
                     st.success("Account created! You can now log in.")
                     st.cache_data.clear()
     st.stop()
@@ -280,6 +281,7 @@ if not st.session_state.logged_in:
 #---Consent---#
 
 if not st.session_state.consent:
+    st.toast("Success!", icon="✅")
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.info("***You must consent, if you want to use the app!***")
     st.write("*Enter consent info!*")
@@ -392,6 +394,5 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
-
 
 
