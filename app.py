@@ -80,68 +80,79 @@ def score_metric(label, value):
         delta_color = "normal"
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
     
-st.set_page_config(page_title="ADChronotype", layout="wide")
+st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
 
 st.markdown("""
     <style>
-    .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
-
-    .main-title {
-        font-family: 'sans serif'; color: #F8FAF8; text-align: center;
-        padding: 15px; background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    /* Background Gradient */
+    .stApp {
+        background: radial-gradient(circle at top right, #1e1e2f, #0e1117);
     }
 
-        .viewerBadge_link__1S137, 
-    [data-testid="stHeaderActionElements"] {
-        display: none !important;
-    }
-    
-    button[title="Copy link to section"] {
-        display: none !important;
+    /* Main Container Card */
+    .main-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 50px;
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        text-align: center;
+        max-width: 800px;
+        margin: auto;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    .stNumberInput button:hover {
-        background-color: rgba(168, 85, 247, 0.4) !important;
+    /* Title Styling */
+    .title-text {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(90deg, #a1c4fd 0%, #c2e9fb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 3rem !important;
+        margin-bottom: 5px;
     }
-    
-    div[data-testid="InputInstructions"] { display: none !important; }
 
+    /* The One-Liner */
+    .subtitle-text {
+        color: #ccd6f6;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+
+    /* Result Text (The 67% area) */
+    .result-box {
+        background: rgba(124, 77, 255, 0.1);
+        border: 1px dashed #7c4dff;
+        border-radius: 10px;
+        padding: 15px;
+        color: #d1d1d1;
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    /* Glowing Button Animation */
     div.stButton > button {
-        background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
-        border: none; padding: 6px 20px !important; min-height: 35px !important;
-        border-radius: 8px !important; font-weight: 500 !important;
-        transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    [data-testid="stMetricDeltaIcon"], 
-    [data-testid="stMetricDelta"] svg {
-        display: none !important;
-        visibility: hidden !important;
-        width: 0 !important;
-        height: 0 !important;
+        width: 100%;
+        background: linear-gradient(45deg, #7c4dff, #448aff) !important;
+        color: white !important;
+        border: none !important;
+        padding: 15px 0px !important;
+        font-weight: bold !important;
+        border-radius: 12px !important;
+        transition: 0.3s ease-in-out !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
-    div.stButton > button:active { transform: scale(0.95) !important; }
-
-    .stMarkdown h4 a {
-        display: none !important;
+    div.stButton > button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 20px rgba(124, 77, 255, 0.4) !important;
     }
-
-    .stMarkdown h4 {
-        margin-right: 0px !important;
-    }
-
-    div[data-testid="stNotification"] {
-        background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
-        border: 1px solid #6366F1 !important; border-radius: 10px !important;
-    }
-    
-    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -345,4 +356,5 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
