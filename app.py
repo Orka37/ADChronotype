@@ -72,6 +72,23 @@ st.markdown("""
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
 
+    div[data-testid="column"]:first-child [data-testid="stMetricValue"] {
+        font-size: 80px !important;
+        font-weight: bold !important;
+        color: #A855F7 !important;
+    }
+    
+    div[data-testid="column"]:not(:first-child) [data-testid="stMetricValue"] {
+        font-size: 28px !important; 
+        font-weight: 600 !important;
+        color: #F8FAF8 !important;
+    }
+    
+    [data-testid="stMetricLabel"] p {
+        font-size: 16px !important;
+        color: #cbd5e1 !important;
+    }
+    
     div[data-testid="InputInstructions"] { display: none !important; }
 
     div.stButton > button {
@@ -276,15 +293,17 @@ if st.session_state.page == "prediction":
     with col1:
         st.markdown("### Score")
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+        st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
-        st.markdown("#### About Your Score")
-        st.info("""
-        Below is the contribution each factor made to your score
-        Sleep Chronotype - 100%     Age - 100%
-        Sleep Duration - 100%       BMI - 100%
-        Sleep Quality - 100%        Ethnicity - 100%
-        """)
-        st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
+        col3, col4 = st.columns(2)
+        with col3:
+            st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+        st.markdown("### Score Breakdown")
+
+
+
+
+
 
