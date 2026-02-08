@@ -280,7 +280,7 @@ if st.session_state.page=="home":
 
 if st.session_state.page == "input":
     st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
-    with st.form("user_input_form"): # Give the form a clear name
+    with st.form("User_Info"):
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
@@ -348,6 +348,7 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
 
