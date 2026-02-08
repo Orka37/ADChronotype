@@ -95,55 +95,6 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    @media (min-width: 801px) {
-        .mobile-only {
-            display: none !important;
-        }
-    }
-    
-    @media (max-width: 800px) {
-        .desktop-only {
-            display: none !important;
-        }
-    }
-
-    .home-hero-container {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
-    
-    .home-text {
-        font-size: 24px;
-        font-weight: bold;
-        color: #F8FAF8;
-    }
-    
-    @media (max-width: 768px) {
-        .desktop-arrow {
-            display: none;
-        }
-        .home-hero-container {
-            flex-direction: column;
-        }
-    }
-    
-    @media (min-width: 769px) {
-        .home-hero-container {
-            flex-direction: row;
-            justify-content: center;
-        }
-    }
-        
-        .mobile-center {
-            text-align: center !important;
-        }
-    }
-    
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
@@ -296,19 +247,13 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    st.markdown('<div class="desktop-only">', unsafe_allow_html=True)
-    col_a, col_b, col_c, col_d = st.columns([0.7, 9, 4, 1])
-    with col_b:
-        st.markdown("### Alzheimer's Risk Prediction Platform →")
-    with col_c:
-        if st.button("Click for more info!", key="desktop_btn"):
+    st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns([0.7,9,4,1])
+    with col2:
+        st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
+    with col3:
+        if st.button("Click for more info!"):
             project_details()
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<div class="mobile-only">', unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center;'>Alzheimer's Risk Prediction Platform</h3>", unsafe_allow_html=True)
-    if st.button("Click for more info!", key="mobile_btn", use_container_width=True):
-        project_details()
-    st.markdown('</div>', unsafe_allow_html=True)
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details", use_container_width=True):
@@ -386,5 +331,6 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
