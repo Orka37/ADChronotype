@@ -122,14 +122,27 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    div[data-testid="stPopover"] > button {
+    div[data-testid="stPopover"] > div:first-child > button {
         border-radius: 50% !important;
-        width: 30px !important;
-        height: 30px !important;
-        padding: 0 !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        padding: 0px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         background-color: #7c4dff !important;
         color: white !important;
         border: none !important;
+        line-height: 1 !important;
+    }
+
+    div[data-testid="stPopover"] p {
+        font-size: 1.2rem !important;
+        font-weight: bold !important;
+        margin: 0px !important;
+        padding: 0px !important;
     }
 
     .stNumberInput button:hover {
@@ -387,5 +400,6 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
