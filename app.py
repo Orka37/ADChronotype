@@ -17,7 +17,7 @@ def norm_state():
         "consent": False,
         "logged_in": False,
         "current_user": None,
-        "page": "Home",
+        "page": "home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
         "sleepquality": 5,
@@ -82,16 +82,6 @@ def score_metric(label, value):
     
 st.set_page_config(page_title="ADChronotype")
 
-#---Navigation---#
-
-page_options = ["Home", "Assessment"]
-if st.session_state.predict:
-    page_options.append("Prediction")
-chosen = st.radio("", page_options, index=page_options.index(st.session_state.page), horizontal=True)
-if chosen != st.session_state.page:
-    st.session_state.page = chosen
-    st.rerun()
-
 #---Theme---#
 
 st.markdown("""
@@ -103,30 +93,6 @@ st.markdown("""
         padding: 15px; background: rgba(255, 255, 255, 0.05);
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    div[data-testid="stMarkdownContainer"] + div[role="radiogroup"] {
-        flex-direction: row;
-        justify-content: center;
-        gap: 10px;
-    }
-    div[role="radiogroup"] label {
-        background: #262730;
-        padding: 10px 20px;
-        border-radius: 10px;
-        border: 1px solid #444;
-    }
-    div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
-        display: none;
-    }
-    
-        .viewerBadge_link__1S137, 
-    [data-testid="stHeaderActionElements"] {
-        display: none !important;
-    }
-    
-    button[title="Copy link to section"] {
-        display: none !important;
     }
 
     .stNumberInput button:hover {
@@ -230,7 +196,7 @@ if not st.session_state.logged_in:
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
-                    st.success("Account created! You can now log in.")
+                    st.success("Account created! You can now Log In.")
                     st.cache_data.clear()
     st.stop()
 
@@ -238,16 +204,18 @@ if not st.session_state.logged_in:
 
 if not st.session_state.consent:
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.info("***You must consent, if you want to use the app!***")
-    st.write("""
-    This assessment uses a Machine Learning model to estimate your Cognitive Alignment Score.
-    This score indicates how closely your health and lifestyle factors align with cognitive profiles statistically linked to Alzheimer’s Disease patterns.
-    This is a predictive estimate based on lifestyle data and is not a measurement of your actual cognitive performance or clinical health status.
-    """)
+    st.error("***You must consent, if you want to use the app!***")
+    st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
         st.rerun()
     st.stop()
+
+#---Navigation---#
+
+def go(page):
+    st.session_state.page = page
+    st.rerun()
 
 #---Pop-ups---#
 
@@ -262,7 +230,6 @@ def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
     st.write("To find your chronotype: https://qxmd.com/calculate/calculator_829/morningness-eveningness-questionnaire-meq#")
     st.write("To find your sleep quality: https://qxmd.com/calculate/calculator_603/pittsburgh-sleep-quality-index-psqi")
-    st.write("To view again, click the 'Help!' button in the bottom right corner!")
     if st.button("Thanks!"):
         st.rerun()
 
@@ -275,30 +242,28 @@ def predict_normal():
         st.session_state.predict_normal=True
         st.session_state.predict=True
         save()
-        st.session_state.page="Prediction"
-        st.rerun()
+        go("prediction")
 
 #---Home---#
 
-if st.session_state.page=="Home":
+if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns([0.7,9,4,1])
     with col2:
-        st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
     with col3:
         if st.button("Click for more info!"):
             project_details()
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details", use_container_width=True):
-        st.session_state.page="Assessment"
-        st.rerun()
+        go("input")
 
 #---Input---#
 
 if st.session_state.page == "input":
     st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
-    with st.form("User_Info"):
+    with st.form("user_input_form"): # Give the form a clear name
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
@@ -306,7 +271,7 @@ if st.session_state.page == "input":
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**Sleep Chronotype**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
             sleeptime = st.number_input("**Sleep Duration (hrs)**", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
-            sleepquality = st.number_input("**Sleep Quality (0-21)**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
+            sleepquality = st.number_input("**Sleep Quality**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
             st.subheader("👤 Personal Info")
             age = st.number_input("**Age (40-60 years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
@@ -333,13 +298,11 @@ if st.session_state.page == "input":
         else:
             st.session_state.predict=True
             save()
-            st.session_state.page="Prediction"
-            st.rerun()
+            go("prediction")
     if help:
         factor_details()
     if st.button("**Exit**"):
-        st.session_state.page="Home"
-        st.rerun()
+        go("home")
 
 #---Prediction---#
 
@@ -351,13 +314,12 @@ if st.session_state.page == "prediction":
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", 67)
         st.warning("""
-        Note: THIS IS NOT A MEDICAL DIAGNOSIS!
-
-        For more info, refer back to our project information section.
+            Note: THIS IS NOT A CLINICAL DIAGNOSIS!
+            
+            This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
         """)
         if st.button("← Return Home", use_container_width=True):
-            st.session_state.page="Home"
-            st.rerun()
+            go("home")
     with col2:
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
