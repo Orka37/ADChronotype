@@ -62,7 +62,14 @@ def save():
         st.session_state.bmi,
         st.session_state.ethnicity,
         st.session_state.help,
-        st.session_state.predict_normal
+        st.session_state.predict_normal,
+        st.session_state.score,
+        st.session_state.score_chronotype,
+        st.session_state.score_sleeptime,
+        st.session_state.score_sleepquality,
+        st.session_state.score_age,
+        st.session_state.score_bmi,
+        st.session_state.score_ethnicity
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
@@ -240,6 +247,13 @@ if not st.session_state.logged_in:
                             st.session_state.predict_normal=True
                         else:
                             st.session_state.predict_normal=False
+                        st.session_state.score = int(row['Score'])
+                        st.session_state.score_chronotype = int(row['Chronotype Score'])
+                        st.session_state.score_sleeptime = int(row['Sleeptime Score'])
+                        st.session_state.score_sleepquality = int(row['Sleepquality Score'])
+                        st.session_state.score_age = int(row['Age Score'])
+                        st.session_state.score_bmi = int(row['BMI Score'])
+                        st.session_state.score_ethnicity = int(row['Ethnicity Score'])
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -377,7 +391,3 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
-
-
-
-
