@@ -60,18 +60,6 @@ def save():
     go("home")
     st.toast("Success!", icon="✅")
 
-def factor_metric(label, value):
-    if value > 15:
-        delta_text = "🔥 High Impact"
-        delta_color = "inverse"
-    elif value > 10:
-        delta_text = "⚠️ Moderate Impact"
-        delta_color = "off"
-    else:
-        delta_text = "✅ Low Impact"
-        delta_color = "normal"
-    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
-
 def score_metric(label, value):
     if value > 90:
         delta_text = "⚡ EXTREME RISK"
@@ -82,9 +70,27 @@ def score_metric(label, value):
     elif value > 30:
         delta_text = "⚠️ Moderate Risk"
         delta_color = "off"
-    else:
+    elif value > 0:
         delta_text = "✅ Low Risk"
         delta_color = "normal"
+    else:
+        delta_text = None
+        delta_color = None
+    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+
+def factor_metric(label, value):
+    if value > 15:
+        delta_text = "🔥 High Impact"
+        delta_color = "inverse"
+    elif value > 10:
+        delta_text = "⚠️ Moderate Impact"
+        delta_color = "off"
+    elif value > 0:
+        delta_text = "✅ Low Impact"
+        delta_color = "normal"
+    else:
+        delta_text =  None
+        delta_color = None
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
     
 st.set_page_config(page_title="ADChronotype")
@@ -293,6 +299,7 @@ if st.session_state.page=="home":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
+        st.session_state.score = "N/A"
         score_metric("Alzheimer's Likeness Score", st.session_state.score)
         st.warning("""
             Note: THIS IS NOT A CLINICAL DIAGNOSIS!
@@ -305,6 +312,7 @@ if st.session_state.page=="home":
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
             with col3:
+                st.session_state.score_chronotype = "N/A"
                 factor_metric("Chronotype", st.session_state.score_chronotype)
                 factor_metric("Sleep Duration", st.session_state.score_sleeptime)
                 factor_metric("Sleep Quality", st.session_state.score_sleepquality)
@@ -355,5 +363,6 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
