@@ -314,9 +314,9 @@ if st.session_state.page == "prediction":
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", 67)
         st.warning("""
-            Note: This is a statistical assessment of your cognitive similarity to Alzheimer's Patients.
+            Note: THIS IS NOT A CLINICAL DIAGNOSIS!
             
-            NOT a clinical diagnosis. Please consult a professional.
+            This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
         """)
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -331,6 +331,7 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
 
