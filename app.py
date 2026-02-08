@@ -232,9 +232,9 @@ if st.session_state.page == "input":
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("🌙 Sleep Data")
-            chronotype = st.selectbox("**Sleep Chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
+            chronotype = st.selectbox("**Sleep Chronotype**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
             sleeptime = st.number_input("**Sleep Duration (hrs)**", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
-            sleepquality = st.number_input("**Sleep Quality?**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
+            sleepquality = st.number_input("**Sleep Quality**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
             st.subheader("👤 Personal Info")
             age = st.number_input("**Age (40-60 years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
@@ -274,7 +274,8 @@ if st.session_state.page == "prediction":
     st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk")
+        st.markdown("#### Score")
+        st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
