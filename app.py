@@ -298,10 +298,11 @@ if st.session_state.page == "prediction":
             go("home")
     with col2:
         st.markdown("### Score Breakdown")
-        st.markdown("#### Below are the contribution values of each factor towards your overall score")
+        st.markdown("##### Below are the contribution values of each factor towards your overall score")
         col3, col4 = st.columns(2)
         with col3:
             st.metric(label="Chronotype's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+
 
 
 
