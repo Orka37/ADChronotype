@@ -99,6 +99,10 @@ st.markdown("""
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
 
+    [data-testid="stMetricDeltaIcon"] {
+        display: none !important;
+    }
+    
     div[data-testid="InputInstructions"] { display: none !important; }
 
     div.stButton > button {
@@ -319,3 +323,4 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
