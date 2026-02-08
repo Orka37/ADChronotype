@@ -52,6 +52,8 @@ def save():
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
+    go("home")
+    st.toast("Success!", icon="✅")
 
 def factor_metric(label, value):
     if value > 15:
@@ -117,6 +119,32 @@ st.markdown("""
     .block-container {
         padding-top: 1rem;
         padding-bottom: 0rem;
+    }
+    
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center it like your screenshot */
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .info-icon {
+        cursor: pointer;
+        color: #7c4dff; /* Matches your button purple */
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: 1px solid #7c4dff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+    .info-icon:hover {
+        background-color: #7c4dff;
+        color: white;
     }
 
     [data-testid="stMetricDeltaIcon"], 
@@ -253,19 +281,17 @@ def predict_normal():
         st.session_state.predict_normal=True
         st.session_state.predict=True
         save()
-        go("home")
 
 #---Home---#
 
 if st.session_state.page=="home":
-    col1, col2 = st.columns([9,4])
-    with col1:
-        st.markdown("<h2 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h2>", unsafe_allow_html=True)
-    with col2:
-        if st.button("Click for more info!"):
-            project_details()
+    st.markdown(f"""
+    <div class="title-container">
+        <h1 style='margin: 0;'>ADChronotype</h1>
+        <div class="info-icon" title="This app uses AI to estimate cognitive similarity to AD based on your health features.">?</div>
+    </div>
+    """, unsafe_allow_html=True)
     if st.session_state.predict:
-        st.toast("Success!", icon="✅")
         col1, col2 = st.columns(2)
         with col1:
             st.markdown("### Score")
@@ -328,13 +354,7 @@ if st.session_state.page == "input":
         else:
             st.session_state.predict=True
             save()
-            go("home")
     if help:
         factor_details()
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
