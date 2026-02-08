@@ -272,9 +272,9 @@ if st.session_state.page == "input":
 if st.session_state.page == "prediction":
     st.toast("Success!", icon="✅")
     st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
-    st.markdown("<div style='text-align: center; font-size: 24px; font-weight: bold;'>Score</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
+        st.markdown("###Score")
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
         if st.button("← Return Home", use_container_width=True):
             go("home")
