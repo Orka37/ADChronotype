@@ -256,7 +256,6 @@ if st.session_state.page=="home":
             project_details()
     if st.session_state.predict:
         st.toast("Success!", icon="✅")
-        st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             st.markdown("### Score")
@@ -326,3 +325,4 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
