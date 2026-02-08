@@ -300,6 +300,13 @@ if not st.session_state.consent:
 
 #---Pop-ups---#
 
+@st.dialog("Welcome to AD Chronotype")
+def get_started():
+    st.write("Hey there!")
+    st.write("Thank you so much for choosing to use our app! To get started, select the 'Input Details' button on the home screen!")
+    if st.button("Thanks!"):
+        st.rerun()
+
 @st.dialog("Factor Details")
 def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
@@ -321,6 +328,8 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
+    if st.session_state.predict==None:
+        get_started()
     if st.session_state.predict==True:
         st.toast("Success!", icon="✅")
         st.session_state.predict=False
@@ -405,3 +414,4 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
