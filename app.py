@@ -80,7 +80,7 @@ def score_metric(label, value):
         delta_color = "normal"
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
     
-st.set_page_config(page_title="ADChronotype")
+st.set_page_config(page_title="ADChronotype", layout="wide")
 
 #---Theme---#
 
@@ -261,20 +261,6 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    with st.container():
-        st.markdown("""
-            <div style="
-                background: rgba(255, 255, 255, 0.05);
-                padding: 40px;
-                border-radius: 20px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                text-align: center;
-            ">
-                <h1 style='margin-bottom: 0;'>ADChronotype</h1>
-                <p style='color: #888; font-size: 1.2rem;'>Statistical Alignment Platform</p>
-            </div>
-        """, unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns([0.7,9,4,1])
     with col2:
@@ -359,3 +345,4 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
