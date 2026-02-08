@@ -274,7 +274,7 @@ if st.session_state.page == "prediction":
     st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("###Score")
+        st.markdown("### Score")
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -287,3 +287,4 @@ if st.session_state.page == "prediction":
         Sleep Quality - 100%        Ethnicity - 100%
         """)
         st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
+
