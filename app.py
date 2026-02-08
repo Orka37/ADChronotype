@@ -61,16 +61,16 @@ def save():
     st.toast("Success!", icon="✅")
 
 def score_metric(label, value):
-    if value > 90:
+    if value > int(90):
         delta_text = "⚡ EXTREME RISK"
         delta_color = "inverse"
-    elif value > 60:
+    elif value > int(60):
         delta_text = "🔥 High Risk"
         delta_color = "inverse"
-    elif value > 30:
+    elif value > int(30):
         delta_text = "⚠️ Moderate Risk"
         delta_color = "off"
-    elif value > 0:
+    elif value > int(0):
         delta_text = "✅ Low Risk"
         delta_color = "normal"
     else:
@@ -312,7 +312,6 @@ if st.session_state.page=="home":
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
             with col3:
-                st.session_state.score_chronotype = "N/A"
                 factor_metric("Chronotype", st.session_state.score_chronotype)
                 factor_metric("Sleep Duration", st.session_state.score_sleeptime)
                 factor_metric("Sleep Quality", st.session_state.score_sleepquality)
@@ -363,6 +362,7 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
 
