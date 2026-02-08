@@ -172,26 +172,6 @@ st.markdown("""
         color: white;
     }
 
-    .icon-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-    }
-
-    .icon-wrapper .stButton > button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-        opacity: 0;
-        border: none;
-        padding: 0 !important;
-        margin: 0 !important;
-        z-index: 10;
-    }
-
     [data-testid="stMetricDeltaIcon"], 
     [data-testid="stMetricDelta"] svg {
         display: none !important;
@@ -318,17 +298,6 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    left, mid, right = st.columns([1, 2, 1])
-    with mid:
-        # Use a container to keep title and icon on one line
-        title_col, icon_col = st.columns([0.85, 0.15])
-        with title_col:
-            st.markdown("<h1 style='margin:0; text-align:right;'>ADChronotype</h1>", unsafe_allow_html=True)
-        with icon_col:
-            st.markdown('<div class="icon-wrapper"><div class="info-icon">?</div>', unsafe_allow_html=True)
-            if st.button(" ", key="info_btn"): # Invisible button
-                project_details()
-            st.markdown('</div>', unsafe_allow_html=True)
     st.markdown(f"""
     <div class="title-container">
         <h1 style='margin: 0;'>ADChronotype</h1>
@@ -401,11 +370,3 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
-
-
-
