@@ -264,32 +264,7 @@ if st.session_state.page=="home":
     st.markdown('<div class="main-card">', unsafe_allow_html=True) 
     st.markdown('<h1 class="title-text">ADChronotype</h1>', unsafe_allow_html=True)
     st.markdown('<p style="color:#888; margin-top:-10px; font-weight:500;">AI-DRIVEN COGNITIVE PROFILING</p>', unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([2,1,2])
-    with col2:
-        if st.button("More Info", key="info"):
-            st.info("This is an AI model trained on clinical benchmarks...")
-    
-    st.markdown(f"""
-        <p class="subtitle-text">
-            This app estimates your cognitive similarity to a person w/ AD, 
-            based off your features by using AI.
-        </p>
-    """, unsafe_allow_html=True)
-    
-    # The result area (where your 67% goes)
-    # I used a placeholder [Score] for now
-    st.markdown("""
-        <div class="result-box">
-            Based on the data provided, your current profile is <b>[Score]%</b> AD-like.
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Big Input Details Button
-    if st.button("Enter Profile Details"):
-        st.write("Navigating to inputs...")
-    
     st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns([0.7,9,4,1])
     with col2:
         st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
@@ -373,6 +348,7 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
 
