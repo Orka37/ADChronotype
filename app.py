@@ -297,10 +297,12 @@ if st.session_state.page == "prediction":
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
+        st.markdown("### Score Breakdown")
+        st.markdown("####Below are the contribution values of each factor towards your overall score")
         col3, col4 = st.columns(2)
         with col3:
-            st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
-        st.markdown("### Score Breakdown")
+            st.metric(label="Chronotype's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+
 
 
 
