@@ -205,7 +205,7 @@ if not st.session_state.logged_in:
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
-                    st.success("Account created! You can now Log In.")
+                    st.success("Account created! You can now log in.")
                     st.cache_data.clear()
     st.stop()
 
@@ -239,6 +239,7 @@ def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
     st.write("To find your chronotype: https://qxmd.com/calculate/calculator_829/morningness-eveningness-questionnaire-meq#")
     st.write("To find your sleep quality: https://qxmd.com/calculate/calculator_603/pittsburgh-sleep-quality-index-psqi")
+    st.write("To view again, click the 'Help!' button in the bottom right corner!")
     if st.button("Thanks!"):
         st.rerun()
 
@@ -322,11 +323,8 @@ if st.session_state.page == "prediction":
     with col1:
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", 67)
-        st.warning("""
-            Note: THIS IS NOT A CLINICAL DIAGNOSIS!
-            
-            This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
-        """)
+        st.warning("THIS IS NOT A CLINICAL DIAGNOSIS!")
+        st.info("This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
