@@ -255,6 +255,7 @@ def predict_normal():
     if st.button("Yes, predict my likeness score!"):
         st.session_state.predict_normal=True
         st.session_state.predict=True
+        rerun()
         save()
         go("prediction")
 
@@ -345,4 +346,5 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
