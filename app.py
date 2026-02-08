@@ -25,7 +25,7 @@ def norm_state():
         "bmi": 22.00,
         "ethnicity": "South Asian",
         "help": False,
-        "predict_normal": False
+        "predict_normal": False,
         "score": 67,
         "score_chronotype": 13,
         "score_sleeptime": 17,
@@ -355,4 +355,5 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
