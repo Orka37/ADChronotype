@@ -286,12 +286,6 @@ if not st.session_state.consent:
 
 #---Pop-ups---#
 
-@st.dialog("Project details!")
-def project_details():
-    st.write("*Enter information regarding our app!*")
-    if st.button("Close"):
-        st.rerun()
-
 @st.dialog("Factor Details")
 def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
@@ -307,24 +301,19 @@ def predict_normal():
         st.rerun()
     if st.button("Yes, predict my likeness score!"):
         st.session_state.predict_normal=True
+        ML()
         save()
 
 #---Home---#
 
 if st.session_state.page=="home":
     col1, col2 = st.columns([0.7, 0.3], gap="small")
-
     with col1:
-        # Align text to the right so it meets the icon in the middle
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
-
     with col2:
-        # 2. Use a popover as the info button
         with st.popover("?", help="Click for project details"):
             st.markdown("### Project Details")
-            st.write("This app uses AI to estimate cognitive similarity to AD based on your health features.")
-            if st.button("Full Research Info"):
-                project_details() # Triggers your existing dialog if they want more
+            st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -336,6 +325,8 @@ if st.session_state.page=="home":
         """)
         if st.button("Input Details", use_container_width=True):
             go("input")
+        if st.button("View Tips to Decrease Score", use_container_width=True):
+            go("tips")
         with col2:
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
@@ -391,3 +382,9 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
+#---Tips---#
+
+if st.session_state.page=="tips":
+    st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
+    st.info("WORK IN PROGRESS!")
