@@ -72,21 +72,18 @@ st.markdown("""
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
 
-    div[data-testid="column"]:first-child [data-testid="stMetricValue"] {
+    .big-metric [data-testid="stMetricValue"] {
         font-size: 80px !important;
         font-weight: bold !important;
-        color: #A855F7 !important;
     }
     
-    div[data-testid="column"]:not(:first-child) [data-testid="stMetricValue"] {
-        font-size: 28px !important; 
+    .small-metric [data-testid="stMetricValue"] {
+        font-size: 25px !important;
         font-weight: 600 !important;
-        color: #F8FAF8 !important;
     }
     
     [data-testid="stMetricLabel"] p {
-        font-size: 16px !important;
-        color: #cbd5e1 !important;
+        font-size: 14px !important;
     }
     
     div[data-testid="InputInstructions"] { display: none !important; }
@@ -292,16 +289,20 @@ if st.session_state.page == "prediction":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
+        st.markdown('<div class="big-metric">', unsafe_allow_html=True)
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+        st.markdown('</div>', unsafe_allow_html=True)
         st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
-        st.markdown("### Score Breakdown")
-        st.markdown("##### Below are the contribution values of each factor towards your overall score")
+        st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
         with col3:
-            st.metric(label="Chronotype's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+            st.markdown('<div class="small-metric">', unsafe_allow_html=True)
+            st.metric(label="Chronotype Impact", value="+12%", delta="High Impact", delta_color="off")
+            st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
