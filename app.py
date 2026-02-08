@@ -17,7 +17,7 @@ def norm_state():
         "consent": False,
         "logged_in": False,
         "current_user": None,
-        "page": "home",
+        "page": "Home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
         "sleepquality": 5,
@@ -82,6 +82,16 @@ def score_metric(label, value):
     
 st.set_page_config(page_title="ADChronotype")
 
+#---Navigation---#
+
+page_options = ["Home", "Assessment"]
+if st.session_state.predict:
+    page_options.append("Prediction")
+chosen = st.radio("", page_options, index=page_options.index(st.session_state.page), horizontal=True)
+if chosen != st.session_state.page:
+    st.session_state.page = chosen
+    st.rerun()
+
 #---Theme---#
 
 st.markdown("""
@@ -95,6 +105,21 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
+    div[data-testid="stMarkdownContainer"] + div[role="radiogroup"] {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    div[role="radiogroup"] label {
+        background: #262730;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: 1px solid #444;
+    }
+    div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
+        display: none;
+    }
+    
         .viewerBadge_link__1S137, 
     [data-testid="stHeaderActionElements"] {
         display: none !important;
@@ -224,12 +249,6 @@ if not st.session_state.consent:
         st.rerun()
     st.stop()
 
-#---Navigation---#
-
-def go(page):
-    st.session_state.page = page
-    st.rerun()
-
 #---Pop-ups---#
 
 @st.dialog("Project details!")
@@ -256,11 +275,12 @@ def predict_normal():
         st.session_state.predict_normal=True
         st.session_state.predict=True
         save()
-        go("prediction")
+        st.session_state.page="Prediction"
+        st.rerun()
 
 #---Home---#
 
-if st.session_state.page=="home":
+if st.session_state.page=="Home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns([0.7,9,4,1])
     with col2:
@@ -271,7 +291,8 @@ if st.session_state.page=="home":
     if st.session_state.predict:
         st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
     if st.button("Input Details", use_container_width=True):
-        go("input")
+        st.session_state.page="Assessment"
+        st.rerun()
 
 #---Input---#
 
@@ -312,11 +333,13 @@ if st.session_state.page == "input":
         else:
             st.session_state.predict=True
             save()
-            go("prediction")
+            st.session_state.page="Prediction"
+            st.rerun()
     if help:
         factor_details()
     if st.button("**Exit**"):
-        go("home")
+        st.session_state.page="Home"
+        st.rerun()
 
 #---Prediction---#
 
@@ -333,7 +356,8 @@ if st.session_state.page == "prediction":
         For more info, refer back to our project information section.
         """)
         if st.button("← Return Home", use_container_width=True):
-            go("home")
+            st.session_state.page="Home"
+            st.rerun()
     with col2:
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
