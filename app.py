@@ -122,6 +122,16 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
+    div[data-testid="stPopover"] > button {
+        border-radius: 50% !important;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 0 !important;
+        background-color: #7c4dff !important;
+        color: white !important;
+        border: none !important;
+    }
+
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
@@ -377,4 +387,5 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
