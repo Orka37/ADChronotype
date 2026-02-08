@@ -57,8 +57,9 @@ def save():
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
-    go("home")
+    st.session_state.page = "home"
     st.toast("Success!", icon="✅")
+    st.rerun()
 
 def score_metric(label, value):
     if value=="N/A":
@@ -299,7 +300,6 @@ if st.session_state.page=="home":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
-        st.session_state.score = "N/A"
         score_metric("Alzheimer's Likeness Score", st.session_state.score)
         st.warning("""
             Note: THIS IS NOT A CLINICAL DIAGNOSIS!
@@ -362,6 +362,7 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
 
