@@ -304,7 +304,7 @@ if not st.session_state.consent:
 def get_started():
     st.write("Hey there!")
     st.write("Thank you so much for choosing to use our app! To get started, select the 'Input Details' button on the home screen!")
-    if st.button("Thanks!"):
+    if st.button("Okay!"):
         st.rerun()
 
 @st.dialog("Factor Details")
@@ -414,4 +414,5 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
