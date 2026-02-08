@@ -108,6 +108,17 @@ st.markdown("""
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
 
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    .viewerBadge_container__1QSob {display: none !important;}
+    button[title="View source"] {display: none !important;}
+    [data-testid="stHeaderActionElements"] {display: none;}
+    a.header-anchor {display: none !important;}
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+    }
+
     [data-testid="stMetricDeltaIcon"], 
     [data-testid="stMetricDelta"] svg {
         display: none !important;
@@ -247,7 +258,7 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    col1, col2, col3 = st.columns([9,4,1])
+    col1, col2 = st.columns([9,4])
     with col1:
         st.markdown("<h2 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h2>", unsafe_allow_html=True)
     with col2:
@@ -322,6 +333,7 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
 
