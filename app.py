@@ -95,6 +95,20 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
+    @media (max-width: 640px) {
+        [data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+            margin-bottom: 10px;
+        }
+        
+        /* Center text on mobile that was previously right-aligned */
+        .mobile-center {
+            text-align: center !important;
+        }
+    }
+    
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
@@ -331,3 +345,4 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
