@@ -242,7 +242,7 @@ def predict_normal():
         st.session_state.predict_normal=True
         st.session_state.predict=True
         save()
-        go("prediction")
+        go("home")
 
 #---Home---#
 
@@ -255,7 +255,30 @@ if st.session_state.page=="home":
         if st.button("Click for more info!"):
             project_details()
     if st.session_state.predict:
-        st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
+        st.toast("Success!", icon="✅")
+        st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("### Score")
+            score_metric("Alzheimer's Likeness Score", 67)
+            st.warning("""
+                Note: THIS IS NOT A CLINICAL DIAGNOSIS!
+                
+                This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
+            """)
+            if st.button("← Return Home", use_container_width=True):
+                go("home")
+        with col2:
+            st.markdown("### Factor Contribution")
+            col3, col4 = st.columns(2)
+            with col3:
+                factor_metric("Chronotype", 13)
+                factor_metric("Sleep Duration", 17)
+                factor_metric("Sleep Quality", 7)
+            with col4:
+                factor_metric("Age", 1)
+                factor_metric("BMI", 21)
+                factor_metric("Ethnicity", 8)
     if st.button("Input Details", use_container_width=True):
         go("input")
 
@@ -298,36 +321,8 @@ if st.session_state.page == "input":
         else:
             st.session_state.predict=True
             save()
-            go("prediction")
+            go("home")
     if help:
         factor_details()
     if st.button("**Exit**"):
         go("home")
-
-#---Prediction---#
-
-if st.session_state.page == "prediction":
-    st.toast("Success!", icon="✅")
-    st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("### Score")
-        score_metric("Alzheimer's Likeness Score", 67)
-        st.warning("""
-            Note: THIS IS NOT A CLINICAL DIAGNOSIS!
-            
-            This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
-        """)
-        if st.button("← Return Home", use_container_width=True):
-            go("home")
-    with col2:
-        st.markdown("### Factor Contribution")
-        col3, col4 = st.columns(2)
-        with col3:
-            factor_metric("Chronotype", 13)
-            factor_metric("Sleep Duration", 17)
-            factor_metric("Sleep Quality", 7)
-        with col4:
-            factor_metric("Age", 1)
-            factor_metric("BMI", 21)
-            factor_metric("Ethnicity", 8)
