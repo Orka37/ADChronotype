@@ -213,7 +213,7 @@ if not st.session_state.logged_in:
 
 if not st.session_state.consent:
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.error("***You must consent, if you want to use the app!***")
+    st.info("***You must consent, if you want to use the app!***")
     st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
@@ -340,11 +340,3 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
-
-
-
-
-
-
-
-
