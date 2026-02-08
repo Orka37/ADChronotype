@@ -298,12 +298,19 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    st.markdown(f"""
-    <div class="title-container">
-        <h1 style='margin: 0;'>ADChronotype</h1>
-        <div class="info-icon" title="This app uses AI to estimate cognitive similarity to AD based on your health features.">?</div>
-    </div>
-    """, unsafe_allow_html=True)
+    col1, col2 = st.columns([0.7, 0.3], gap="small")
+
+    with col1:
+        # Align text to the right so it meets the icon in the middle
+        st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
+
+    with col2:
+        # 2. Use a popover as the info button
+        with st.popover("?", help="Click for project details"):
+            st.markdown("### Project Details")
+            st.write("This app uses AI to estimate cognitive similarity to AD based on your health features.")
+            if st.button("Full Research Info"):
+                project_details() # Triggers your existing dialog if they want more
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -370,3 +377,4 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
