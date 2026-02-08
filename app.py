@@ -95,6 +95,15 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
+    .viewerBadge_link__1S137, 
+    [data-testid="stHeaderActionElements"] {
+        display: none !important;
+    }
+    
+    button[title="Copy link to section"] {
+        display: none !important;
+    }
+
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
@@ -331,6 +340,7 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
 
