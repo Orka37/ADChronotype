@@ -313,7 +313,10 @@ if st.session_state.page == "prediction":
     with col1:
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", 67)
-        st.warning("Note: This is simply a statistical assessment of your cognitive similarity to Alzheimer's Disease Patients.  /nNOT A CLINICAL DIAGNOSIS!")
+        st.warning("""
+            Note: This is a statistical assessment of your cognitive similarity to Alzheimer's Patients.  
+            NOT a clinical diagnosis. Please consult a professional.
+        """)
         if st.button("← Return Home", use_container_width=True):
             go("home")
     with col2:
@@ -327,6 +330,7 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
 
 
