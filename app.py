@@ -53,6 +53,33 @@ def save():
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
 
+def factor_metric(label, value):
+    if value > 15:
+        delta_text = "🔥 High Impact"
+        delta_color = "inverse"
+    elif value > 10:
+        delta_text = "⚠️ Moderate Impact"
+        delta_color = "off"
+    else:
+        delta_text = "✅ Low Impact"
+        delta_color = "normal"
+    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+
+def score_metric(label, value):
+    if value > 90:
+        delta_text = "⚡ EXTREME RISK"
+        delta_color = "inverse"
+    if value > 60:
+        delta_text = "🔥 High Risk"
+        delta_color = "inverse"
+    elif value > 30:
+        delta_text = "⚠️ Moderate Risk"
+        delta_color = "off"
+    else:
+        delta_text = "✅ Low Risk"
+        delta_color = "normal"
+    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+    
 st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
@@ -277,7 +304,7 @@ if st.session_state.page == "prediction":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
-        st.metric(label="Alzheimer's Likeness Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+        score_metric("Alzheimer's Likeness Score", 67)
         st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -285,11 +312,10 @@ if st.session_state.page == "prediction":
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
         with col3:
-            st.metric(label="Chronotype", value="+12%", delta="Low Impact")
-            st.metric(label="Sleeptime", value="+12%", delta="High Impact")
-            st.metric(label="Sleep Quality", value="+12%", delta="High Impact")
+            factor_metric("Chronotype", 13)
+            factor_metric("Sleeptime", 17)
+            factor_metric("Sleep Quality", 7)
         with col4:
-            st.metric(label="Age", value="-12%", delta="High Impact")
-            st.metric(label="BMI", value="-12%", delta="High Impact")
-            st.metric(label="Ethnicity", value="-12%", delta="High Impact")
-
+            factor_metric("Age", 1)
+            factor_metric("BMI", 21)
+            factor_metric("Ethnicity", 8)
