@@ -29,7 +29,7 @@ def norm_state():
         "score": 67,
         "score_chronotype": 13,
         "score_sleeptime": 17,
-        "score_sleepquality: 7,
+        "score_sleepquality": 7,
         "score_age": 1,
         "score_bmi": 21,
         "score_ethnicity": 8
@@ -355,3 +355,4 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
