@@ -305,6 +305,7 @@ def get_started():
     st.write("Hey there!")
     st.write("Thank you so much for choosing to use our app! To get started, select the 'Input Details' button on the home screen!")
     if st.button("Okay!"):
+        st.session_state.predict=False
         st.rerun()
 
 @st.dialog("Factor Details")
