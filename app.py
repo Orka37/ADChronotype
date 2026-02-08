@@ -26,19 +26,28 @@ def norm_state():
         "ethnicity": "South Asian",
         "help": False,
         "predict_normal": False,
-        "score": 67,
-        "score_chronotype": 13,
-        "score_sleeptime": 17,
-        "score_sleepquality": 7,
-        "score_age": 1,
-        "score_bmi": 21,
-        "score_ethnicity": 8
+        "score": "N/A",
+        "score_chronotype": "N/A",
+        "score_sleeptime": "N/A",
+        "score_sleepquality": "N/A",
+        "score_age": "N/A",
+        "score_bmi": "N/A",
+        "score_ethnicity": "N/A"
     }
     for a, b in defaults.items():
         if a not in st.session_state:
             st.session_state[a] = b
 
 norm_state()
+
+def ML():
+    st.session_state.score = 67
+    st.session_state.score_chronotype = 13
+    st.session_state.score_sleeptime = 17
+    st.session_state.score_sleepquality = 7
+    st.session_state.score_age = 1
+    st.session_state.score_bmi = 21
+    st.session_state.score_ethnicity = 8
 
 def save():
     st.toast("Predicting...", icon="🔄")
@@ -57,9 +66,7 @@ def save():
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
-    st.session_state.page = "home"
-    st.toast("Success!", icon="✅")
-    st.rerun()
+    go("home")
 
 def score_metric(label, value):
     if value=="N/A":
@@ -357,11 +364,13 @@ if st.session_state.page == "input":
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
+            ML()
             save()
     if help:
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
 
