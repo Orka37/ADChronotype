@@ -324,9 +324,11 @@ if st.session_state.page == "prediction":
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", 67)
         st.warning("""
-        Note: THIS IS NOT A CLINICAL DIAGNOSIS!
-
-        This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
+        Note: THIS IS NOT A MEDICAL DIAGNOSIS!
+        
+        This assessment uses a Machine Learning model to estimate your Cognitive Alignment Score.
+        This score indicates how closely your health and lifestyle factors align with cognitive profiles statistically linked to Alzheimer’s Disease patterns.
+        This is a predictive estimate based on lifestyle data and is not a measurement of your actual cognitive performance or clinical health status.
         """)
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -341,5 +343,3 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
-
-
