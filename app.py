@@ -72,20 +72,6 @@ st.markdown("""
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
 
-    .big-metric [data-testid="stMetricValue"] {
-        font-size: 80px !important;
-        font-weight: bold !important;
-    }
-    
-    .small-metric [data-testid="stMetricValue"] {
-        font-size: 25px !important;
-        font-weight: 600 !important;
-    }
-    
-    [data-testid="stMetricLabel"] p {
-        font-size: 14px !important;
-    }
-    
     div[data-testid="InputInstructions"] { display: none !important; }
 
     div.stButton > button {
@@ -289,9 +275,7 @@ if st.session_state.page == "prediction":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
-        st.markdown('<div class="big-metric">', unsafe_allow_html=True)
         st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
-        st.markdown('</div>', unsafe_allow_html=True)
         st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -299,9 +283,8 @@ if st.session_state.page == "prediction":
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
         with col3:
-            st.markdown('<div class="small-metric">', unsafe_allow_html=True)
             st.metric(label="Chronotype Impact", value="+12%", delta="High Impact")
-            st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
