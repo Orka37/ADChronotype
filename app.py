@@ -25,8 +25,14 @@ def norm_state():
         "bmi": 22.00,
         "ethnicity": "South Asian",
         "help": False,
-        "predict": False,
         "predict_normal": False
+        "score": 67,
+        "score_chronotype": 13,
+        "score_sleeptime": 17,
+        "score_sleepquality: 7,
+        "score_age": 1,
+        "score_bmi": 21,
+        "score_ethnicity": 8
     }
     for a, b in defaults.items():
         if a not in st.session_state:
@@ -47,7 +53,6 @@ def save():
         st.session_state.bmi,
         st.session_state.ethnicity,
         st.session_state.help,
-        st.session_state.predict,
         st.session_state.predict_normal
     ]
     requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
@@ -71,7 +76,7 @@ def score_metric(label, value):
     if value > 90:
         delta_text = "⚡ EXTREME RISK"
         delta_color = "inverse"
-    if value > 60:
+    elif value > 60:
         delta_text = "🔥 High Risk"
         delta_color = "inverse"
     elif value > 30:
@@ -83,6 +88,12 @@ def score_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
     
 st.set_page_config(page_title="ADChronotype")
+
+#---Navigation---#
+
+def go(page):
+    st.session_state.page = page
+    st.rerun()
 
 #---Theme---#
 
@@ -124,13 +135,13 @@ st.markdown("""
     .title-container {
         display: flex;
         align-items: center;
-        justify-content: center; /* Center it like your screenshot */
+        justify-content: center;
         gap: 10px;
         margin-bottom: 20px;
     }
     .info-icon {
         cursor: pointer;
-        color: #7c4dff; /* Matches your button purple */
+        color: #7c4dff;
         font-size: 1.2rem;
         font-weight: bold;
         border: 1px solid #7c4dff;
@@ -210,11 +221,6 @@ if not st.session_state.logged_in:
                             st.session_state.help=True
                         else:
                             st.session_state.help=False
-                        predict_val = str(row['Predict']).strip().upper()
-                        if predict_val == "TRUE":
-                            st.session_state.predict=True
-                        else:
-                            st.session_state.predict=False
                         predict_normal_val = str(row['Predict_Normal']).strip().upper()
                         if predict_normal_val == "TRUE":
                             st.session_state.predict_normal=True
@@ -250,12 +256,6 @@ if not st.session_state.consent:
         st.rerun()
     st.stop()
 
-#---Navigation---#
-
-def go(page):
-    st.session_state.page = page
-    st.rerun()
-
 #---Pop-ups---#
 
 @st.dialog("Project details!")
@@ -279,7 +279,6 @@ def predict_normal():
         st.rerun()
     if st.button("Yes, predict my likeness score!"):
         st.session_state.predict_normal=True
-        st.session_state.predict=True
         save()
 
 #---Home---#
@@ -291,29 +290,28 @@ if st.session_state.page=="home":
         <div class="info-icon" title="This app uses AI to estimate cognitive similarity to AD based on your health features.">?</div>
     </div>
     """, unsafe_allow_html=True)
-    if st.session_state.predict:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("### Score")
-            score_metric("Alzheimer's Likeness Score", 67)
-            st.warning("""
-                Note: THIS IS NOT A CLINICAL DIAGNOSIS!
-                
-                This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
-            """)
-            if st.button("Input Details", use_container_width=True):
-                go("input")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("### Score")
+        score_metric("Alzheimer's Likeness Score", st.session_state.score)
+        st.warning("""
+            Note: THIS IS NOT A CLINICAL DIAGNOSIS!
+            
+            This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
+        """)
+        if st.button("Input Details", use_container_width=True):
+            go("input")
         with col2:
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
             with col3:
-                factor_metric("Chronotype", 13)
-                factor_metric("Sleep Duration", 17)
-                factor_metric("Sleep Quality", 7)
+                factor_metric("Chronotype", st.session_state.score_chronotype)
+                factor_metric("Sleep Duration", st.session_state.score_sleeptime)
+                factor_metric("Sleep Quality", st.session_state.score_sleepquality)
             with col4:
-                factor_metric("Age", 1)
-                factor_metric("BMI", 21)
-                factor_metric("Ethnicity", 8)
+                factor_metric("Age", st.session_state.score_age)
+                factor_metric("BMI", st.session_state.score_bmi)
+                factor_metric("Ethnicity", st.session_state.score_ethnicity)
 
 #---Input---#
 
@@ -352,7 +350,6 @@ if st.session_state.page == "input":
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
-            st.session_state.predict=True
             save()
     if help:
         factor_details()
