@@ -214,7 +214,11 @@ if not st.session_state.logged_in:
 if not st.session_state.consent:
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.info("***You must consent, if you want to use the app!***")
-    st.write("*Enter consent info!*")
+    st.write("""
+    This assessment uses a Machine Learning model to estimate your Cognitive Alignment Score.
+    This score indicates how closely your health and lifestyle factors align with cognitive profiles statistically linked to Alzheimer’s Disease patterns.
+    This is a predictive estimate based on lifestyle data and is not a measurement of your actual cognitive performance or clinical health status.
+    """)
     if st.button("I Consent!"):
         st.session_state.consent=True
         st.rerun()
@@ -325,10 +329,8 @@ if st.session_state.page == "prediction":
         score_metric("Alzheimer's Likeness Score", 67)
         st.warning("""
         Note: THIS IS NOT A MEDICAL DIAGNOSIS!
-        
-        This assessment uses a Machine Learning model to estimate your Cognitive Alignment Score.
-        This score indicates how closely your health and lifestyle factors align with cognitive profiles statistically linked to Alzheimer’s Disease patterns.
-        This is a predictive estimate based on lifestyle data and is not a measurement of your actual cognitive performance or clinical health status.
+
+        For more info, refer back to our project information section.
         """)
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -343,3 +345,4 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
