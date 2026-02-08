@@ -262,7 +262,6 @@ def predict_normal():
 
 if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.markdown('<p style="color:#888; margin-top:-10px; font-weight:500;">AI-DRIVEN COGNITIVE PROFILING</p>', unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns([0.7,9,4,1])
     with col2:
         st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
@@ -346,13 +345,3 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
-
-
-
-
-
-
-
-
-
-
