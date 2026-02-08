@@ -277,7 +277,7 @@ if st.session_state.page == "prediction":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
-        st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
+        st.metric(label="Alzheimer's Likeness Score", value="67%", delta="Moderate Risk", delta_color="inverse")
         st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
         if st.button("← Return Home", use_container_width=True):
             go("home")
@@ -285,10 +285,11 @@ if st.session_state.page == "prediction":
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
         with col3:
-            st.metric(label="Chronotype", value="+12%", delta="High Impact")
+            st.metric(label="Chronotype", value="+12%", delta="Low Impact")
             st.metric(label="Sleeptime", value="+12%", delta="High Impact")
             st.metric(label="Sleep Quality", value="+12%", delta="High Impact")
         with col4:
             st.metric(label="Age", value="-12%", delta="High Impact")
             st.metric(label="BMI", value="-12%", delta="High Impact")
             st.metric(label="Ethnicity", value="-12%", delta="High Impact")
+
