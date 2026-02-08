@@ -265,7 +265,7 @@ if not st.session_state.logged_in:
             users_df = get_data("Users")
             if new_u in users_df['Username'].values:
                 st.warning("Username taken!")
-            elif new_p = "":
+            elif new_p == "":
                 st.warning("Please enter a valid password!")
             else:
                 SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
@@ -391,3 +391,4 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
