@@ -61,24 +61,27 @@ def save():
     st.toast("Success!", icon="✅")
 
 def score_metric(label, value):
-    if value > int(90):
+    if value=="N/A":
+        st.metric(label=label,value=value,delta=None)
+        return
+    if value > 90:
         delta_text = "⚡ EXTREME RISK"
         delta_color = "inverse"
-    elif value > int(60):
+    elif value > 60:
         delta_text = "🔥 High Risk"
         delta_color = "inverse"
-    elif value > int(30):
+    elif value > 30:
         delta_text = "⚠️ Moderate Risk"
         delta_color = "off"
-    elif value > int(0):
+    else:
         delta_text = "✅ Low Risk"
         delta_color = "normal"
-    else:
-        delta_text = None
-        delta_color = None
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def factor_metric(label, value):
+    if value=="N/A":
+        st.metric(label=label,value=value,delta=None)
+        return
     if value > 15:
         delta_text = "🔥 High Impact"
         delta_color = "inverse"
@@ -88,9 +91,6 @@ def factor_metric(label, value):
     elif value > 0:
         delta_text = "✅ Low Impact"
         delta_color = "normal"
-    else:
-        delta_text =  None
-        delta_color = None
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
     
 st.set_page_config(page_title="ADChronotype")
@@ -362,6 +362,7 @@ if st.session_state.page == "input":
         factor_details()
     if st.button("**Exit**"):
         go("home")
+
 
 
 
