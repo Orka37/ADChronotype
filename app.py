@@ -300,8 +300,9 @@ if st.session_state.page == "prediction":
         col3, col4 = st.columns(2)
         with col3:
             st.markdown('<div class="small-metric">', unsafe_allow_html=True)
-            st.metric(label="Chronotype Impact", value="+12%", delta="High Impact", delta_color="off")
+            st.metric(label="Chronotype Impact", value="+12%", delta="High Impact")
             st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
