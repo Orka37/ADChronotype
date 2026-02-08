@@ -224,6 +224,7 @@ if not st.session_state.logged_in:
                 st.session_state.current_user = u
                 user_info = info_df[info_df["Username"].astype(str) == str(u)]
                 if not user_info.empty:
+                    st.info("Logging In...")
                     row = user_info.iloc[0]
                     if not str(row['Chronotype']).strip() == "":
                         st.session_state.chronotype = str(row['Chronotype']).strip()
@@ -264,12 +265,14 @@ if not st.session_state.logged_in:
             users_df = get_data("Users")
             if new_u in users_df['Username'].values:
                 st.warning("Username taken!")
+            elif new_p = "":
+                st.warning("Please enter a valid password!")
             else:
                 SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
-                    st.success("Account created! You can now Log In.")
+                    st.success("Account created! You can now log in.")
                     st.cache_data.clear()
     st.stop()
 
@@ -277,7 +280,7 @@ if not st.session_state.logged_in:
 
 if not st.session_state.consent:
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.error("***You must consent, if you want to use the app!***")
+    st.info("***You must consent, if you want to use the app!***")
     st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
@@ -351,7 +354,7 @@ if st.session_state.page == "input":
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**Sleep Chronotype**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
             sleeptime = st.number_input("**Sleep Duration (hrs)**", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
-            sleepquality = st.number_input("**Sleep Quality**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
+            sleepquality = st.number_input("**Sleep Quality (0-21)**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
             st.subheader("👤 Personal Info")
             age = st.number_input("**Age (40-60 years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
