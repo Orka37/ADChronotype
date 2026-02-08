@@ -80,6 +80,7 @@ st.markdown("""
         border-radius: 8px !important; font-weight: 500 !important;
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
+    
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
@@ -95,6 +96,7 @@ st.markdown("""
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
     }
+    
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
@@ -283,16 +285,10 @@ if st.session_state.page == "prediction":
         st.markdown("### Factor Contribution")
         col3, col4 = st.columns(2)
         with col3:
-            st.metric(label="Chronotype Impact", value="+12%", delta="High Impact")
-
-
-
-
-
-
-
-
-
-
-
-
+            st.metric(label="Chronotype", value="+12%", delta="High Impact")
+            st.metric(label="Sleeptime", value="+12%", delta="High Impact")
+            st.metric(label="Sleep Quality", value="+12%", delta="High Impact")
+        with col4:
+            st.metric(label="Age", value="-12%", delta="High Impact")
+            st.metric(label="BMI", value="-12%", delta="High Impact")
+            st.metric(label="Ethnicity", value="-12%", delta="High Impact")
