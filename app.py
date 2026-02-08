@@ -98,10 +98,6 @@ st.markdown("""
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
-
-    [data-testid="stMetricDeltaIcon"] {
-        display: none !important;
-    }
     
     div[data-testid="InputInstructions"] { display: none !important; }
 
@@ -110,6 +106,14 @@ st.markdown("""
         border: none; padding: 6px 20px !important; min-height: 35px !important;
         border-radius: 8px !important; font-weight: 500 !important;
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    [data-testid="stMetricDeltaIcon"], 
+    [data-testid="stMetricDelta"] svg {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
     }
     
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
@@ -323,4 +327,5 @@ if st.session_state.page == "prediction":
             factor_metric("Age", 1)
             factor_metric("BMI", 21)
             factor_metric("Ethnicity", 8)
+
 
