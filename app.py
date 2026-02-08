@@ -4,9 +4,9 @@ import pandas as pd
 import requests
 
 #---Setup---#
+
 SHEET_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
 conn = st.connection("gsheets", type=GSheetsConnection)
-
 def get_data(worksheet_name):
     base_url = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/gviz/tq?tqx=out:csv&sheet="
     final_url = f"{base_url}{worksheet_name}"
@@ -56,6 +56,7 @@ def save():
 st.set_page_config(page_title="ADChronotype")
 
 #---Theme---#
+
 st.markdown("""
     <style>
     .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
@@ -67,16 +68,10 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* Glass Card Container */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 30px;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 20px;
+    .stNumberInput button:hover {
+        background-color: rgba(168, 85, 247, 0.4) !important;
     }
 
-    .stNumberInput button:hover { background-color: rgba(168, 85, 247, 0.4) !important; }
     div[data-testid="InputInstructions"] { display: none !important; }
 
     div.stButton > button {
@@ -88,16 +83,27 @@ st.markdown("""
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
 
-    /* Fix Metric Alignment for Results */
-    [data-testid="stMetricValue"] { font-size: 56px !important; color: #F8FAF8 !important; }
+    .stMarkdown h4 a {
+        display: none !important;
+    }
+
+    .stMarkdown h4 {
+        margin-right: 0px !important;
+    }
+
+    div[data-testid="stNotification"] {
+        background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
+        border: 1px solid #6366F1 !important; border-radius: 10px !important;
+    }
+    div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
 
-#---Member Portal (The Gate)---#
+#---Member Portal---#
+
 if not st.session_state.logged_in:
     st.markdown("<div class='main-title'><h1>Member Portal</h1></div>", unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Log In", "Create Account"])
-    # ... (Login/Registration logic remains identical to your code)
     with tab1:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
@@ -111,116 +117,172 @@ if not st.session_state.logged_in:
                 user_info = info_df[info_df["Username"].astype(str) == str(u)]
                 if not user_info.empty:
                     row = user_info.iloc[0]
-                    # Map your variables correctly
-                    st.session_state.chronotype = str(row['Chronotype']).strip()
-                    st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
-                    st.session_state.sleepquality = int(row['Sleepquality'])
-                    st.session_state.age = int(row['Age'])
-                    st.session_state.bmi = float(row['BMI'])
-                    st.session_state.ethnicity = str(row['Ethnicity']).strip()
-                    st.session_state.consent = str(row['Consent']).strip().upper() == "TRUE"
-                    st.session_state.help = str(row['Help']).strip().upper() == "TRUE"
-                    st.session_state.predict = str(row['Predict']).strip().upper() == "TRUE"
-                    st.session_state.predict_normal = str(row['Predict_Normal']).strip().upper() == "TRUE"
+                    if not str(row['Chronotype']).strip() == "":
+                        st.session_state.chronotype = str(row['Chronotype']).strip()
+                        st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
+                        st.session_state.sleepquality = int(row['Sleepquality'])
+                        st.session_state.age = int(row['Age'])
+                        st.session_state.bmi = float(row['BMI'])
+                        st.session_state.ethnicity = str(row['Ethnicity']).strip()
+                        consent_val = str(row['Consent']).strip().upper()
+                        if consent_val == "TRUE":
+                            st.session_state.consent=True
+                        else:
+                            st.session_state.consent=False
+                        help_val = str(row['Help']).strip().upper()
+                        if help_val == "TRUE":
+                            st.session_state.help=True
+                        else:
+                            st.session_state.help=False
+                        predict_val = str(row['Predict']).strip().upper()
+                        if predict_val == "TRUE":
+                            st.session_state.predict=True
+                        else:
+                            st.session_state.predict=False
+                        predict_normal_val = str(row['Predict_Normal']).strip().upper()
+                        if predict_normal_val == "TRUE":
+                            st.session_state.predict_normal=True
+                        else:
+                            st.session_state.predict_normal=False
                 st.rerun()
-            else: st.error("Wrong username or password.") 
+            else:
+                st.error("Wrong username or password.") 
     with tab2:
         new_u = st.text_input("New Username")
         new_p = st.text_input("New Password", type="password")
         if st.button("Register"):
             users_df = get_data("Users")
-            if new_u in users_df['Username'].values: st.warning("Username taken!")
+            if new_u in users_df['Username'].values:
+                st.warning("Username taken!")
             else:
+                SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
                 payload = [new_u, new_p]
-                response = requests.post(f"{SHEET_URL}?sheet=Users", json=payload)
-                if "Success" in response.text: st.success("Account created! Log In."); st.cache_data.clear()
+                response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
+                if "Success" in response.text:
+                    st.success("Account created! You can now Log In.")
+                    st.cache_data.clear()
     st.stop()
 
-#---Consent (Second Gate)---#
+#---Consent---#
+
 if not st.session_state.consent:
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.error("***You must consent to use the app!***")
+    st.error("***You must consent, if you want to use the app!***")
+    st.write("*Enter consent info!*")
     if st.button("I Consent!"):
         st.session_state.consent=True
         st.rerun()
     st.stop()
 
-#---Navigation Helpers---#
+#---Navigation---#
+
 def go(page):
     st.session_state.page = page
     st.rerun()
 
+#---Pop-ups---#
+
 @st.dialog("Project details!")
 def project_details():
-    st.write("ADChronotype is an Alzheimer's Risk Prediction Platform using Sleep Chronotypes and biometric data.")
-    if st.button("Close"): st.rerun()
+    st.write("*Enter information regarding our app!*")
+    if st.button("Close"):
+        st.rerun()
 
-#---Home Screen (Improved Layout)---#
-if st.session_state.page == "home":
+@st.dialog("Factor Details")
+def factor_details():
+    st.write("Chronotype → Your body's sleep wake preference.")
+    st.write("To find your chronotype: https://qxmd.com/calculate/calculator_829/morningness-eveningness-questionnaire-meq#")
+    st.write("To find your sleep quality: https://qxmd.com/calculate/calculator_603/pittsburgh-sleep-quality-index-psqi")
+    if st.button("Thanks!"):
+        st.rerun()
+
+@st.dialog("Please Check Your Answers!")
+def predict_normal():
+    st.write("The values you submitted are the exact same as the default values. Are you sure, the values accurately represent you?")
+    if st.button("No, I need to change my answers!"):
+        st.rerun()
+    if st.button("Yes, predict my likeness score!"):
+        st.session_state.predict_normal=True
+        st.session_state.predict=True
+        save()
+        go("prediction")
+
+#---Home---#
+
+if st.session_state.page=="home":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    h_col1, h_col2 = st.columns([3, 1])
-    with h_col1:
-        st.markdown("### Alzheimer's Risk Prediction Platform →")
-    with h_col2:
-        if st.button("More Info", use_container_width=True): project_details()
-    
+    col1, col2, col3, col4 = st.columns([0.7,9,4,1])
+    with col2:
+        st.markdown("<h4 style='text-align: right;'>Alzheimer's Risk Prediction Platform&nbsp;&nbsp;&nbsp; →</h4>", unsafe_allow_html=True)
+    with col3:
+        if st.button("Click for more info!"):
+            project_details()
     if st.session_state.predict:
-        st.info(f"Welcome back, **{st.session_state.current_user}**. Based on your last session, a prediction is available.")
-    else:
-        st.write("Welcome! Please input your details to generate a likeness score.")
-    
-    if st.button("Input Details", use_container_width=True): go("input")
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.write("**Based on the most recent data you provided, you are**", "**[*input value*]**", "**likely to get Alzheimer's Disease!**")
+    if st.button("Input Details", use_container_width=True):
+        go("input")
 
-#---Input Screen (Your code remains the same, just inside a container)---#
+#---Input---#
+
 if st.session_state.page == "input":
     st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    with st.form("user_input_form"):
+    with st.form("user_input_form"): # Give the form a clear name
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**Sleep Chronotype?**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
-            sleeptime = st.number_input("**Sleep Duration (hrs)**", 0, 24, int(st.session_state.sleeptime))
-            sleepquality = st.number_input("**Sleep Quality (0-21)**", 0, 21, int(st.session_state.sleepquality))
+            sleeptime = st.number_input("**Sleep Duration (hrs)**", min_value=0, max_value=24, step=1, value=int(st.session_state.sleeptime))
+            sleepquality = st.number_input("**Sleep Quality?**", min_value=0, max_value=21, step=1, value=int(st.session_state.sleepquality))
         with col2:
             st.subheader("👤 Personal Info")
-            age = st.number_input("**Age (40-60)**", 40, 60, int(st.session_state.age))
-            BMI = st.number_input("**BMI**", 6.7, 100.0, float(st.session_state.bmi))
+            age = st.number_input("**Age (40-60 years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
+            BMI = round(st.number_input("**BMI**", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
             ethnicity = st.selectbox("**Ethnicity**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
-        
-        c1, c2, c3 = st.columns([3,5,1])
-        with c1: submit = st.form_submit_button("Generate Prediction")
-        with c3: help_btn = st.form_submit_button("Help!")
-    st.markdown('</div>', unsafe_allow_html=True)
-
+        col1, col2, col3 = st.columns([3,5,1])
+        with col1:
+            submit = st.form_submit_button("Save & Generate Prediction")
+        with col3:
+            help = st.form_submit_button("Help!")
+    if st.session_state.help==False:
+        st.session_state.help=True
+        factor_details()
     if submit:
-        st.session_state.chronotype, st.session_state.sleeptime = chronotype, sleeptime
-        st.session_state.sleepquality, st.session_state.age = sleepquality, age
-        st.session_state.bmi, st.session_state.ethnicity = BMI, ethnicity
-        st.session_state.predict = True
-        save()
-        go("prediction")
-    if help_btn: factor_details()
-    if st.button("Exit"): go("home")
+        st.session_state.chronotype = chronotype
+        st.session_state.sleeptime = sleeptime
+        st.session_state.sleepquality = sleepquality
+        st.session_state.age = age
+        st.session_state.bmi = BMI
+        st.session_state.ethnicity = ethnicity
+        default = (chronotype == "Intermediate" and sleeptime == 8 and sleepquality == 5 and age == 40 and BMI == 22.00 and ethnicity == "South Asian")
+        if default and not st.session_state.predict_normal:
+            predict_normal()
+        else:
+            st.session_state.predict=True
+            save()
+            go("prediction")
+    if help:
+        factor_details()
+    if st.button("**Exit**"):
+        go("home")
 
-#---Prediction Screen (Improved Layout)---#
+#---Prediction---#
+
 if st.session_state.page == "prediction":
     st.toast("Success!", icon="✅")
     st.markdown("<h1 style='text-align: center;'>Analysis Results</h1>", unsafe_allow_html=True)
-    
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    p_col1, p_col2 = st.columns(2)
-    with p_col1:
-        # Static example based on your code
-        st.metric(label="Likelihood Score", value="67%", delta="Moderate Risk", delta_color="inverse")
-        if st.button("← Return Home", use_container_width=True): go("home")
-    with p_col2:
-        st.markdown("#### About your score")
-        st.info("This prediction utilizes your Sleep Chronotype, Sleep Quality, BMI, and age to determine statistical likelihood.")
-        st.warning("Note: This is an AI assessment, not a clinical diagnosis.")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric(label="Alzheimer's Likelihood Score", value="67%", delta="Moderate Risk")
+        if st.button("← Return Home", use_container_width=True):
+            go("home")
+    with col2:
+        st.markdown("#### About Your Score")
+        st.info("""
+        Below is the contribution each factor made to your score
+        Sleep Chronotype - 100%     Age - 100%
+        Sleep Duration - 100%       BMI - 100%
+        Sleep Quality - 100%        Ethnicity - 100%
+        """)
+        st.warning("Note: This is an statistical assessment of your cogntive similarity to Alzheimer's Disease Patients; NOT a clinical diagnosis.")
