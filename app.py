@@ -41,42 +41,12 @@ def norm_state():
 
 norm_state()
 
-def ML():
-    st.session_state.score = 67
-    st.session_state.score_chronotype = 13
-    st.session_state.score_sleeptime = 17
-    st.session_state.score_sleepquality = 7
-    st.session_state.score_age = 1
-    st.session_state.score_bmi = 21
-    st.session_state.score_ethnicity = 8
-
-def save():
-    st.toast("Predicting...", icon="🔄")
-    SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
-    payload = [
-        st.session_state.current_user,
-        st.session_state.consent,
-        st.session_state.chronotype,
-        st.session_state.sleeptime,
-        st.session_state.sleepquality,
-        st.session_state.age,
-        st.session_state.bmi,
-        st.session_state.ethnicity,
-        st.session_state.help,
-        st.session_state.predict,
-        st.session_state.predict_normal,
-        st.session_state.score,
-        st.session_state.score_chronotype,
-        st.session_state.score_sleeptime,
-        st.session_state.score_sleepquality,
-        st.session_state.score_age,
-        st.session_state.score_bmi,
-        st.session_state.score_ethnicity
-    ]
-    requests.post(f"{SCRIPT_URL}?sheet=Info&action=update", json=payload)
-    st.cache_data.clear()
-    st.session_state.predict=True
-    go("home")
+def log_consent():
+    payload = {
+        "Username": st.session_state.current_user,
+        "Consent": st.session_state.consent
+    }
+    requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
 
 def score_metric(label, value):
     if value=="N/A":
@@ -110,6 +80,42 @@ def factor_metric(label, value):
         delta_text = "✅ Low Impact"
         delta_color = "normal"
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+
+def ML():
+    st.session_state.score = 67
+    st.session_state.score_chronotype = 13
+    st.session_state.score_sleeptime = 17
+    st.session_state.score_sleepquality = 7
+    st.session_state.score_age = 1
+    st.session_state.score_bmi = 21
+    st.session_state.score_ethnicity = 8
+
+def save():
+    st.toast("Predicting...", icon="🔄")
+    payload = [
+        st.session_state.current_user,
+        st.session_state.consent,
+        st.session_state.chronotype,
+        st.session_state.sleeptime,
+        st.session_state.sleepquality,
+        st.session_state.age,
+        st.session_state.bmi,
+        st.session_state.ethnicity,
+        st.session_state.help,
+        st.session_state.predict,
+        st.session_state.predict_normal,
+        st.session_state.score,
+        st.session_state.score_chronotype,
+        st.session_state.score_sleeptime,
+        st.session_state.score_sleepquality,
+        st.session_state.score_age,
+        st.session_state.score_bmi,
+        st.session_state.score_ethnicity
+    ]
+    requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
+    st.cache_data.clear()
+    st.session_state.predict=True
+    go("home")
     
 st.set_page_config(page_title="ADChronotype")
 
@@ -295,6 +301,7 @@ if not st.session_state.consent:
     st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
     if st.button("I Consent!"):
         st.session_state.consent=True
+        log_consent()
         st.rerun()
     st.stop()
 
@@ -415,5 +422,6 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
 
