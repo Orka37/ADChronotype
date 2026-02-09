@@ -394,7 +394,7 @@ if st.session_state.page == "input":
             with col5:
                 height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=12, step=1, value=int(st.session_state.height_inch))
                 st.session_state.height_inch = height_inch
-            BMI = round((703*st.session_state.weight)/((st.session_state.height_ft*12)+state.session_state.height_inch)^2, 2)
+            BMI = round((703 * st.session_state.weight) / ((st.session_state.height_ft * 12) + st.session_state.height_inch)**2, 2)
             ethnicity = st.selectbox("**Ethnicity**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
         col1, col2, col3 = st.columns([3,5,1])
         with col1:
@@ -427,5 +427,6 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
 
