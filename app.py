@@ -397,9 +397,26 @@ if st.session_state.page == "input":
                 height_ft = st.number_input("**Height (ft)**", min_value=3, max_value=8, step=1, value=int(st.session_state.height_ft))
                 st.session_state.height_ft = height_ft
             with col5:
-                height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=12, step=1, value=int(st.session_state.height_inch))
+                height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=11, step=1, value=int(st.session_state.height_inch))
                 st.session_state.height_inch = height_inch
             BMI = round((703 * st.session_state.weight) / ((st.session_state.height_ft * 12) + st.session_state.height_inch)**2, 1)
+            # 1. Calculate the BMI live
+            # 2. Determine Category and Color
+            if BMI < 18.5:
+                label, color = "Underweight", "#3498db"
+            elif 18.5 <= BMI < 25:
+                label, color = "Healthy Weight", "#2ecc71"
+            elif 25 <= BMI < 30:
+                label, color = "Overweight", "#f1c40f"
+            else:
+                label, color = "Obese", "#e67e22"
+            st.markdown(f"""
+                <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center;">
+                    <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
+                        Current BMI: {current_bmi} — {label}
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
             ethnicity = st.selectbox("**Ethnicity**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
         col1, col2, col3 = st.columns([3,5,1])
         with col1:
@@ -434,6 +451,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
