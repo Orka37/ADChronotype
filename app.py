@@ -28,7 +28,7 @@ def norm_state():
         "bmi": 27.1,
         "ethnicity": "South Asian",
         "help": False,
-        "predict": None,
+        "predict": 0,
         "predict_normal": False,
         "score": "N/A",
         "score_chronotype": "N/A",
@@ -110,7 +110,7 @@ def save():
     ]
     requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
-    st.session_state.predict=True
+    st.session_state.predict=2
     go("home")
     
 st.set_page_config(page_title="ADChronotype")
@@ -232,27 +232,23 @@ if not st.session_state.logged_in:
                 if not user_info.empty:
                     row = user_info.iloc[0]
                     if not str(row['Chronotype']).strip() == "":
+                        consent_val = str(row['Consent']).strip().upper()
+                        if consent_val == "TRUE":
+                            st.session_state.consent=True
+                        else:
+                            st.session_state.consent=False
                         st.session_state.chronotype = str(row['Chronotype']).strip()
                         st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
                         st.session_state.sleepquality = int(row['Sleepquality'])
                         st.session_state.age = int(row['Age'])
                         st.session_state.bmi = float(row['BMI'])
                         st.session_state.ethnicity = str(row['Ethnicity']).strip()
-                        consent_val = str(row['Consent']).strip().upper()
-                        if consent_val == "TRUE":
-                            st.session_state.consent=True
-                        else:
-                            st.session_state.consent=False
                         help_val = str(row['Help']).strip().upper()
                         if help_val == "TRUE":
                             st.session_state.help=True
                         else:
                             st.session_state.help=False
-                        predict_val = str(row['Predict']).strip().upper()
-                        if predict_val == "TRUE":
-                            st.session_state.predict=True
-                        else:
-                            st.session_state.predict=False
+                        st.session_state.predict = int(row['Predict'])
                         predict_normal_val = str(row['Predict_Normal']).strip().upper()
                         if predict_normal_val == "TRUE":
                             st.session_state.predict_normal=True
@@ -308,6 +304,7 @@ def get_started():
     st.write("Hey there!")
     st.write("Thank you so much for choosing to use our app! To get started, select the 'Input Details' button on the home screen!")
     if st.button("Okay!"):
+        st.session_state.predict=1
         st.rerun()
 
 @st.dialog("Factor Details")
@@ -332,11 +329,11 @@ def predict_normal():
 #---Home---#
 
 if st.session_state.page=="home":
-    if st.session_state.predict==None:
+    if st.session_state.predict==0:
         get_started()
-    if st.session_state.predict==True:
+    if st.session_state.predict==2:
         st.toast("Success!", icon="✅")
-        st.session_state.predict=False
+        st.session_state.predict=3
     col1, col2 = st.columns([0.7, 0.3], gap="small")
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
@@ -355,7 +352,7 @@ if st.session_state.page=="home":
         """)
         if st.button("Input Details", use_container_width=True):
             go("input")
-        if st.session_state.predict != None:
+        if st.session_state.predict > 1:
             if st.button("View Tips to Decrease Score", use_container_width=True):
                 go("tips")
         with col2:
@@ -431,5 +428,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
