@@ -355,6 +355,10 @@ if st.session_state.page=="home":
         if st.session_state.predict > 1:
             if st.button("View Tips to Decrease Score", use_container_width=True):
                 go("tips")
+            if st.button("Log Out!", use_container_width=True):
+                st.session_state.logged_in = False
+                st.session_state.current_user = None
+                st.rerun()
         with col2:
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
@@ -428,6 +432,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
