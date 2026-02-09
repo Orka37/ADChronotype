@@ -356,7 +356,7 @@ if st.session_state.page=="home":
         """)
         if st.button("Input Details", use_container_width=True):
             go("input")
-        if st.session_state.prediction != None:
+        if st.session_state.predict != None:
             if st.button("View Tips to Decrease Score", use_container_width=True):
                 go("tips")
         with col2:
@@ -432,3 +432,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
