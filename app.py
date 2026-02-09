@@ -399,7 +399,7 @@ if st.session_state.page == "input":
             with col5:
                 height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=11, step=1, value=int(st.session_state.height_inch))
                 st.session_state.height_inch = height_inch
-            BMI = round((703 * st.session_state.weight) / ((st.session_state.height_ft * 12) + st.session_state.height_inch)**2, 1)
+            BMI = round((703 * weight) / ((height_ft * 12) + height_inch)**2, 1)
             if BMI < 18.5:
                 label, color = "Underweight", "#3498db"
             elif 18.5 <= BMI < 25:
@@ -449,4 +449,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
