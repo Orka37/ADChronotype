@@ -22,6 +22,9 @@ def norm_state():
         "sleeptime": 8,
         "sleepquality": 5,
         "age": 40,
+        "weight": 200,
+        "height_ft": 6,
+        "height_inch": 0,
         "bmi": 22.00,
         "ethnicity": "South Asian",
         "help": False,
@@ -369,7 +372,7 @@ if st.session_state.page=="home":
 
 if st.session_state.page == "input":
     st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
-    with st.form("user_input_form"): # Give the form a clear name
+    with st.form("input_details"):
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
         col1, col2 = st.columns(2)
@@ -381,7 +384,12 @@ if st.session_state.page == "input":
         with col2:
             st.subheader("👤 Personal Info")
             age = st.number_input("**Age (40-60 years)**", min_value=40, max_value=60, step=1, value=int(st.session_state.age))
-            BMI = round(st.number_input("**BMI**", min_value=6.7, max_value=100.0, step=0.1, value=float(st.session_state.bmi)), 2)
+            col3, col4 = st.columns(2)
+            with col3:
+                weight = st.number_input("**Weight (lbs)**", min_value=100, max_value=300, step=1, value=int(st.session_state.weight))
+                height_ft = st.number_input("**Height (ft)**", min_value=3, max_value=8, step=1, value=int(st.session_state.height_ft))
+                height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=12, step=1, value=int(st.session_state.height_inch))
+                BMI = round((703*weight)/((height_ft*12)+height_inch)^2, 2)
             ethnicity = st.selectbox("**Ethnicity**", ethnicity_options, index=ethnicity_options.index(st.session_state.ethnicity))
         col1, col2, col3 = st.columns([3,5,1])
         with col1:
@@ -414,9 +422,3 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
-
-
-
-
-
-
