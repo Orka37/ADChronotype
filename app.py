@@ -25,7 +25,7 @@ def norm_state():
         "weight": 200,
         "height_ft": 6,
         "height_inch": 0,
-        "bmi": 22.00,
+        "bmi": 27.1,
         "ethnicity": "South Asian",
         "help": False,
         "predict": None,
@@ -413,7 +413,7 @@ if st.session_state.page == "input":
         st.session_state.age = age
         st.session_state.bmi = BMI
         st.session_state.ethnicity = ethnicity
-        default = (chronotype == "Intermediate" and sleeptime == 8 and sleepquality == 5 and age == 40 and BMI == 22.00 and ethnicity == "South Asian")
+        default = (chronotype == "Intermediate" and sleeptime == 8 and sleepquality == 5 and age == 40 and weight == 200 and height_ft == 6 and height_inch == 0 and ethnicity == "South Asian")
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
@@ -429,5 +429,3 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
-
-
