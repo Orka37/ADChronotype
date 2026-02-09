@@ -336,6 +336,7 @@ def predict_normal():
 
 if st.session_state.page=="home":
     if st.session_state.predict==None:
+        log_consent()
         get_started()
     if st.session_state.predict==True:
         st.toast("Success!", icon="✅")
@@ -421,6 +422,7 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
 
 
