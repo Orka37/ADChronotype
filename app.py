@@ -356,8 +356,9 @@ if st.session_state.page=="home":
         """)
         if st.button("Input Details", use_container_width=True):
             go("input")
-        if st.button("View Tips to Decrease Score", use_container_width=True):
-            go("tips")
+        if st.session_state.prediction != None:
+            if st.button("View Tips to Decrease Score", use_container_width=True):
+                go("tips")
         with col2:
             st.markdown("### Factor Contribution")
             col3, col4 = st.columns(2)
