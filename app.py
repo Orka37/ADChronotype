@@ -301,7 +301,6 @@ if not st.session_state.consent:
     st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
     if st.button("I Consent!"):
         st.session_state.consent=True
-        log_consent()
         st.rerun()
     st.stop()
 
@@ -422,6 +421,7 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
 
 
