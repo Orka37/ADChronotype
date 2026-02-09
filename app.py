@@ -400,8 +400,6 @@ if st.session_state.page == "input":
                 height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=11, step=1, value=int(st.session_state.height_inch))
                 st.session_state.height_inch = height_inch
             BMI = round((703 * st.session_state.weight) / ((st.session_state.height_ft * 12) + st.session_state.height_inch)**2, 1)
-            # 1. Calculate the BMI live
-            # 2. Determine Category and Color
             if BMI < 18.5:
                 label, color = "Underweight", "#3498db"
             elif 18.5 <= BMI < 25:
@@ -413,7 +411,7 @@ if st.session_state.page == "input":
             st.markdown(f"""
                 <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center;">
                     <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
-                        Current BMI: {current_bmi} — {label}
+                        Current BMI: {BMI} — {label}
                     </span>
                 </div>
                 """, unsafe_allow_html=True)
@@ -451,3 +449,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
