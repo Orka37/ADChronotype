@@ -87,6 +87,7 @@ def ML():
     st.session_state.score_ethnicity = 8
 
 def save():
+    st.session_state.predict=2
     st.toast("Predicting...", icon="🔄")
     payload = [
         st.session_state.current_user,
@@ -110,7 +111,6 @@ def save():
     ]
     requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
-    st.session_state.predict=2
     go("home")
     
 st.set_page_config(page_title="ADChronotype")
@@ -432,7 +432,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
