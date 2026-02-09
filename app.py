@@ -221,11 +221,11 @@ if not st.session_state.logged_in:
         u = st.text_input("Username")
         p = st.text_input("Password", type="password")
         if st.button("Log In"):
+            st.toast("Logging In...", icon="🔄")
             users_df = get_data("Users")
             info_df = get_data("Info")
             user_match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
             if not user_match.empty:
-                st.toast("Logging In...", icon="🔄")
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
                 user_info = info_df[info_df["Username"].astype(str) == str(u)]
@@ -268,6 +268,7 @@ if not st.session_state.logged_in:
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
+                st.toast("Log In Failed", icon="❌")
     with tab2:
         new_u = st.text_input("New Username")
         new_p = st.text_input("New Password", type="password")
@@ -283,7 +284,7 @@ if not st.session_state.logged_in:
                 payload = [new_u, new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
-                    st.toast("Success!", icon="✅")
+                    st.toast("Account Created!", icon="✅")
                     st.success("Account created! You can now log in.")
                     st.cache_data.clear()
     st.stop()
@@ -291,7 +292,7 @@ if not st.session_state.logged_in:
 #---Consent---#
 
 if not st.session_state.consent:
-    st.toast("Success!", icon="✅")
+    st.toast("Logged In!", icon="✅")
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
     st.info("***You must consent, if you want to use the app!***")
     st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
@@ -428,4 +429,5 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.info("WORK IN PROGRESS!")
+
 
