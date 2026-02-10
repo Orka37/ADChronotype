@@ -362,7 +362,7 @@ if st.session_state.page=="home":
         st.session_state.predict=3
     col1, col2 = st.columns([0.5, 0.5], gap="small")
     with col1:
-        st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: center; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
         with st.popover("?", help="Click for project details"):
             st.markdown("### Project Details")
@@ -465,6 +465,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
