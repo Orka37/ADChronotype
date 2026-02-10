@@ -405,7 +405,6 @@ if st.session_state.page=="home":
 #---Input---#
 
 if st.session_state.page == "input":
-    st.markdown("<h1 style='text-align: center;'>Input Info</h1>", unsafe_allow_html=True)
     with st.form("input_details"):
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
         ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
@@ -461,3 +460,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
