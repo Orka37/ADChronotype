@@ -360,7 +360,7 @@ if st.session_state.page=="home":
     if st.session_state.predict==2:
         st.toast("Success!", icon="✅")
         st.session_state.predict=3
-    col1, col2 = st.columns([0.7, 0.3], gap="small")
+    col1, col2 = st.columns([0.6, 0.4], gap="small")
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
@@ -465,6 +465,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
