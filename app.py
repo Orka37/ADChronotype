@@ -323,7 +323,7 @@ with st.sidebar:
 @st.dialog("Welcome to AD Chronotype")
 def get_started():
     st.write("Hey there!")
-    st.write("Thank you so much for choosing to use our app! To get started, select the **'Input Info'** button on the Navigation Panel!")
+    st.write("Thank you so much for choosing to use our app! To get started, select the **'INPUT INFO'** button on the Navigation Panel!")
     if st.button("Okay!"):
         st.session_state.predict=1
         st.rerun()
@@ -460,6 +460,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
