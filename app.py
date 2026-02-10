@@ -150,6 +150,23 @@ st.markdown("""
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
 
+    div[data-testid="stButton"] button:has(div:contains("?")) {
+        border-radius: 50% !important;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 0px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    div[data-testid="stButton"] button:has(div:contains("?")):hover {
+        background: #A855F7;
+        color: white;
+    }
+
     footer {visibility: hidden;}
     .viewerBadge_container__1QSob {display: none !important;}
     button[title="View source"] {display: none !important;}
@@ -362,6 +379,8 @@ if st.session_state.page=="home":
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
+        if st.button("?", key=info_icon_btn, help=None):
+            factor_details
         with st.popover("?", help="Click for project details"):
             st.markdown("### Project Details")
             st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
@@ -460,4 +479,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
