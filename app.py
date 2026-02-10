@@ -383,8 +383,8 @@ if st.session_state.page=="home":
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
-        if st.button("?", key="info_icon_btn", help=None):
-            factor_details
+        if st.button("?"):
+            project_details()
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -480,6 +480,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
