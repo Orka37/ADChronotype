@@ -348,6 +348,10 @@ def get_started():
         st.session_state.predict=1
         st.rerun()
 
+@st.dialog("Project Details")
+def project_details():
+    st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
+
 @st.dialog("Factor Details")
 def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
@@ -381,9 +385,6 @@ if st.session_state.page=="home":
     with col2:
         if st.button("?", key="info_icon_btn", help=None):
             factor_details
-        with st.popover("?", help="Click for project details"):
-            st.markdown("### Project Details")
-            st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -479,6 +480,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
