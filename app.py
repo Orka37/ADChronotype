@@ -153,7 +153,7 @@ st.markdown("""
     [data-testid="stHeaderActionElements"] {display: none;}
     a.header-anchor {display: none !important;}
     .block-container {
-        padding-top: 1rem;
+        padding-top: 3.5rem;
         padding-bottom: 0rem;
     }
     
@@ -460,6 +460,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
