@@ -362,6 +362,22 @@ if st.session_state.page=="home":
         with st.popover("?", help="Click for project details"):
             st.markdown("### Project Details")
             st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
+            if st.session_state.predict > 1:
+                if st.session_state.bmi < 18.5:
+                    label, color = "Underweight", "#3498db"
+                elif 18.5 <= st.session_state.bmi < 25:
+                    label, color = "Healthy Weight", "#2ecc71"
+                elif 25 <= st.session_state.bmi < 30:
+                    label, color = "Overweight", "#f1c40f"
+                else:
+                    label, color = "Obese", "#e67e22"
+                st.markdown(f"""
+                    <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center; margin-bottom: 20px;">
+                        <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
+                            Current BMI: {st.session_state.bmi} — {label}
+                        </span>
+                    </div>
+                    """, unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -382,22 +398,6 @@ if st.session_state.page=="home":
                 factor_metric("Age", st.session_state.score_age)
                 factor_metric("BMI", st.session_state.score_bmi)
                 factor_metric("Ethnicity", st.session_state.score_ethnicity)
-            if st.session_state.predict > 1:
-                if st.session_state.bmi < 18.5:
-                    label, color = "Underweight", "#3498db"
-                elif 18.5 <= st.session_state.bmi < 25:
-                    label, color = "Healthy Weight", "#2ecc71"
-                elif 25 <= st.session_state.bmi < 30:
-                    label, color = "Overweight", "#f1c40f"
-                else:
-                    label, color = "Obese", "#e67e22"
-                st.markdown(f"""
-                    <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center; margin-bottom: 20px;">
-                        <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
-                            Current BMI: {st.session_state.bmi} — {label}
-                        </span>
-                    </div>
-                    """, unsafe_allow_html=True)
 
 #---Input---#
 
@@ -460,6 +460,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
