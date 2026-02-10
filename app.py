@@ -149,36 +149,6 @@ st.markdown("""
         border-radius: 8px !important; font-weight: 500 !important;
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
-    
-    div[data-testid="stButton"] button[kind="secondary"]:has(div p:contains("?")) {
-        border-radius: 50% !important;
-        width: 32px !important;
-        height: 32px !important;
-        min-width: 32px !important;
-        max-width: 32px !important;
-        min-height: 32px !important;
-        max-height: 32px !important;
-        padding: 0px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background-color: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    }
-
-    /* Remove margin from the text inside the circle */
-    div[data-testid="stButton"] button[kind="secondary"]:has(div p:contains("?")) div p {
-        margin: 0 !important;
-        font-size: 16px !important;
-        line-height: 1 !important;
-    }
-
-    /* Hover State */
-    div[data-testid="stButton"] button[kind="secondary"]:has(div p:contains("?")):hover {
-        background-color: #A855F7 !important;
-        border-color: #A855F7 !important;
-        color: white !important;
-    }
 
     footer {visibility: hidden;}
     .viewerBadge_container__1QSob {display: none !important;}
@@ -495,6 +465,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
