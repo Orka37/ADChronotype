@@ -328,6 +328,23 @@ def predict_normal():
         ML()
         save()
 
+#---SideBar---#
+
+with st.sidebar:
+    st.markdown("## 🧭 Navigation")
+    if st.button("🏠 Home", use_container_width=True):
+        go("home")
+    if st.button("📝 Update My Info", use_container_width=True):
+        go("input")
+    if st.button("💡 Health Tips", use_container_width=True):
+        go("tips")
+    
+    st.divider()
+    if st.button("Log Out!", use_container_width=True):
+                st.session_state.logged_in = False
+                st.session_state.current_user = None
+                st.rerun()
+
 #---Home---#
 
 if st.session_state.page=="home":
@@ -450,9 +467,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
-
