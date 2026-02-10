@@ -150,21 +150,27 @@ st.markdown("""
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
 
-    div[data-testid="stButton"] button:has(div:contains("?")) {
+    /* Target the '?' button specifically by its text content */
+    button[kind="secondary"]:has(div p:contains("?")) {
         border-radius: 50% !important;
-        width: 30px !important;
-        height: 30px !important;
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        max-width: 35px !important;
         padding: 0px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
     
-    div[data-testid="stButton"] button:has(div:contains("?")):hover {
-        background: #A855F7;
-        color: white;
+    /* Hover effect for the circular icon */
+    button[kind="secondary"]:has(div p:contains("?")):hover {
+        background-color: #A855F7 !important;
+        color: white !important;
+        border-color: #A855F7 !important;
     }
 
     footer {visibility: hidden;}
@@ -482,6 +488,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
