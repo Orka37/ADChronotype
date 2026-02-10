@@ -379,7 +379,7 @@ if st.session_state.page=="home":
     with col1:
         st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
-        if st.button("?", key=info_icon_btn, help=None):
+        if st.button("?", key="info_icon_btn", help=None):
             factor_details
         with st.popover("?", help="Click for project details"):
             st.markdown("### Project Details")
@@ -479,5 +479,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
