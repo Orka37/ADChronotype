@@ -174,8 +174,8 @@ st.markdown("""
         font-weight: bold;
         border: 1px solid #7c4dff;
         border-radius: 50%;
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -463,3 +463,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
