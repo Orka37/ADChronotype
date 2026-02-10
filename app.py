@@ -360,10 +360,13 @@ if st.session_state.page=="home":
     if st.session_state.predict==2:
         st.toast("Success!", icon="✅")
         st.session_state.predict=3
-    st.markdown("<h1 style='text-align: center; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
-    with st.popover("?", help="Click for project details"):
-        st.markdown("### Project Details")
-        st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
+    col1, col2 = st.columns([0.7, 0.3], gap="small")
+    with col1:
+        st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
+    with col2:
+        with st.popover("?", help="Click for project details"):
+            st.markdown("### Project Details")
+            st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
@@ -462,5 +465,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
