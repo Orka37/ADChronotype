@@ -370,7 +370,7 @@ if st.session_state.page=="home":
                 factor_metric("Sleep Quality", st.session_state.score_sleepquality)
             with col4:
                 factor_metric("Age", st.session_state.score_age)
-                factor_metric("BMI - {st.session_state.bmi}", st.session_state.score_bmi)
+                factor_metric("BMI", st.session_state.score_bmi)
                 factor_metric("Ethnicity", st.session_state.score_ethnicity)
             if st.session_state.bmi < 18.5:
                 label, color = "Underweight", "#3498db"
@@ -449,6 +449,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
