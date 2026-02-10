@@ -311,7 +311,7 @@ with st.sidebar:
             go("tips")
     else:
         if st.button("📝 Input Info", use_container_width=True):
-        go("input")
+            go("input")
     st.divider()
     if st.button("🚪Log Out!", use_container_width=True):
                 st.session_state.logged_in = False
@@ -460,5 +460,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
