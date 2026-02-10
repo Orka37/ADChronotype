@@ -453,8 +453,6 @@ if st.session_state.page == "input":
             save()
     if help:
         factor_details()
-    if st.button("**Exit**"):
-        go("home")
 
 #---Tips---#
 
@@ -463,4 +461,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
