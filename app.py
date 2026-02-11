@@ -263,6 +263,7 @@ if not st.session_state.logged_in:
                         st.session_state.score_age = int(row['Age Score'])
                         st.session_state.score_bmi = int(row['BMI Score'])
                         st.session_state.score_ethnicity = int(row['Ethnicity Score'])
+                go("consent")
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -291,15 +292,20 @@ if not st.session_state.logged_in:
 
 #---Consent---#
 
-if not st.session_state.consent:
-    st.toast("Logged In!", icon="✅")
+if st.session_state.page=="consent":
     st.markdown("<h1 style='text-align: center;'>ADChronotype</h1>", unsafe_allow_html=True)
-    st.info("***You must consent, if you want to use the app!***")
-    st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
-    if st.button("I Consent!"):
-        st.session_state.consent=True
-        st.rerun()
-    st.stop()
+    if not st.session_state.consent:
+        st.toast("Logged In!", icon="✅")
+        st.info("***You must consent, if you want to use the app!***")
+        st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
+        if st.button("I Consent!"):
+            st.session_state.consent=True
+            st.rerun()
+        st.stop()
+    else:
+        st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
+        if st.button("Leave"):
+            go("home")
 
 #---SideBar---#
 
@@ -316,6 +322,8 @@ with st.sidebar:
         if st.button("📝 Input Info", use_container_width=True):
             go("input")
     st.divider()
+    if st.button("📜 Consent Info", use_container_width=True):
+        go("consent")
     if st.button("🚪Log Out!", use_container_width=True):
                 st.session_state.logged_in = False
                 st.session_state.current_user = None
@@ -465,6 +473,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
