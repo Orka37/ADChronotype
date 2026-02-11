@@ -315,7 +315,7 @@ with st.sidebar:
     if st.session_state.predict > 1:
         if st.button("📝 Update My Info", use_container_width=True):
             go("input")
-        if st.button("💡 Health Tips", use_container_width=True):
+        if st.button("💡 Personalized Tips", use_container_width=True):
             go("tips")
     else:
         if st.button("📝 Input Info", use_container_width=True):
@@ -472,6 +472,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
