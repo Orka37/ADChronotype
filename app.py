@@ -5,7 +5,7 @@ import requests
 
 #---Setup---#
 
-SHEET_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
+SHEET_URL = st.secrets("google")
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
     base_url = st.secrets("base")
@@ -473,6 +473,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
