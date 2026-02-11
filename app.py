@@ -8,7 +8,7 @@ import requests
 SHEET_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
 conn = st.connection("gsheets", type=GSheetsConnection)
 def get_data(worksheet_name):
-    base_url = "https://docs.google.com/spreadsheets/d/153ts_XfAGqCCabIyj_hSMu6H4Vmr5ZWeH2S2lULU__0/gviz/tq?tqx=out:csv&sheet="
+    base_url = st.secrets("base")
     final_url = f"{base_url}{worksheet_name}"
     return pd.read_csv(final_url)
 
@@ -473,6 +473,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
