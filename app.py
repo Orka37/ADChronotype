@@ -371,7 +371,6 @@ if st.session_state.page=="home":
     if st.session_state.predict==2:
         st.toast("Success!", icon="✅")
         st.session_state.predict=3
-    st.markdown("<div style='margin-top: 40px;'></div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px;">
             <h1 style="margin: 0; padding: 0;">ADChronotype</h1>
@@ -400,12 +399,6 @@ if st.session_state.page=="home":
     if query_params.get("info") == "details":
         st.query_params.clear()
         factor_details()
-    col1, col2 = st.columns([0.7, 0.3], gap="small")
-    with col1:
-        st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
-    with col2:
-        if st.button("?"):
-            project_details()
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Score")
