@@ -136,44 +136,6 @@ st.markdown("""
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    /* Target the button by its unique key */
-    div[data-testid="stColumn"]:has(button[key="help_icon_circle"]) {
-        display: flex;
-        align-items: center;
-    }
-    
-    /* Force the button to be a circle */
-    button[key="help_icon_circle"] {
-        border-radius: 50% !important;
-        width: 30px !important;
-        height: 30px !important;
-        min-width: 30px !important;
-        max-width: 30px !important;
-        min-height: 30px !important;
-        max-height: 30px !important;
-        padding: 0 !important;
-        margin-top: 8px !important; /* Adjust this to align vertically with text */
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    
-    /* Fix the text alignment inside the button */
-    button[key="help_icon_circle"] div p {
-        margin: 0 !important;
-        font-size: 14px !important;
-        font-weight: bold !important;
-        color: white !important;
-    }
-    
-    /* Hover effect without the weird Streamlit shadow */
-    button[key="help_icon_circle"]:hover {
-        background-color: #A855F7 !important;
-        border-color: #A855F7 !important;
-        transform: scale(1.05);
-    }
 
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
@@ -511,6 +473,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
