@@ -263,7 +263,8 @@ if not st.session_state.logged_in:
                         st.session_state.score_age = int(row['Age Score'])
                         st.session_state.score_bmi = int(row['BMI Score'])
                         st.session_state.score_ethnicity = int(row['Ethnicity Score'])
-                go("consent")
+                if not st.session_state.consent:
+                    go("consent")
                 st.rerun()
             else:
                 st.error("Wrong username or password.") 
@@ -494,6 +495,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
