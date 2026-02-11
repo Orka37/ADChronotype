@@ -371,7 +371,6 @@ if st.session_state.page=="home":
     if st.session_state.predict==2:
         st.toast("Success!", icon="✅")
         st.session_state.predict=3
-    st.markdown("<div style='margin-top: 40px;'></div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px;">
             <h1 style="margin: 0; padding: 0;">ADChronotype</h1>
@@ -495,6 +494,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
