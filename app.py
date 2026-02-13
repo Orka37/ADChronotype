@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import requests
+import hashlib
 
 #---Setup---#
 
@@ -43,6 +44,9 @@ def norm_state():
             st.session_state[a] = b
 
 norm_state()
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
 
 def score_metric(label, value):
     if value=="N/A":
@@ -226,7 +230,8 @@ if not st.session_state.logged_in:
             st.toast("Logging In...", icon="🔄")
             users_df = get_data("Users")
             info_df = get_data("Info")
-            user_match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == str(p))]
+            hashed_input = hash_password(p)
+            user_match = users_df[(users_df['Username'].astype(str) == str(u)) & (users_df['Password'].astype(str) == hashed_input)]
             if not user_match.empty:
                 st.session_state.logged_in = True
                 st.session_state.current_user = u
@@ -283,7 +288,8 @@ if not st.session_state.logged_in:
             else:
                 st.toast("Creating Account...", icon="🔄")
                 SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkeLxtNljg5hbFDUOIvUmR54SSJshzvNgV_nsx8xDlwjO4KoneHotJv7thLc47n40SCA/exec"
-                payload = [new_u, new_p]
+                hashed_new_p = hash_password(new_p)
+                payload = [new_u, hashed_new_p]
                 response = requests.post(f"{SCRIPT_URL}?sheet=Users", json=payload)
                 if "Success" in response.text:
                     st.toast("Account Created!", icon="✅")
@@ -473,29 +479,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
