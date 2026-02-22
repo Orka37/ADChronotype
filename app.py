@@ -3,6 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import requests
 import hashlib
+import joblib
 
 #---Setup---#
 
@@ -89,6 +90,24 @@ def ML():
     st.session_state.score_age = 1
     st.session_state.score_bmi = 21
     st.session_state.score_ethnicity = 8
+    model = joblib.load('xgb_model.pkl')
+    eth_map = {
+        "Caucasian": 0,
+        "African American": 1,
+        "East Asian": 2,
+        "South Asian": 2,
+        "Hispanic": 3,
+        "Native American": 3,
+        "Other": 3
+    }
+    user_input_data = pd.DataFrame([[
+        st.session_state.age,
+        eth_map.get(st.session_state.ethnicity, 3),
+        st.session_state.bmi,
+        st.session_state.sleepquality
+    ]], columns=["Age", "Ethnicity", "BMI", "SleepQuality"])
+    prediction = model.predict(user_input_data)[0]
+    st.session_state.score = int(np.clip(prediction * 100, 0, 100))
 
 def save():
     st.session_state.predict=2
@@ -479,3 +498,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
