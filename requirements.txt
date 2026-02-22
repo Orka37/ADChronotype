@@ -5,3 +5,4 @@ st-gsheets-connection
 numpy
 scikit-learn
 requests
+joblib
