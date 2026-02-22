@@ -461,7 +461,7 @@ if st.session_state.page == "input":
                 weight = st.mber_input("**Weight (lbs)**", min_value=100, max_value=300, step=1, value=int(st.session_state.weight))
                 st.session_state.weight = weight
             with col4:
-                height_ft = st.mber_input("**Height (ft)**", min_value=3, max_value=8, step=1, value=int(st.session_state.height_ft))
+                height_ft = st.number_input("**Height (ft)**", min_value=3, max_value=8, step=1, value=int(st.session_state.height_ft))
                 st.session_state.height_ft = height_ft
             with col5:
                 height_inch = st.number_input("**Height (inch)**", min_value=0, max_value=11, step=1, value=int(st.session_state.height_inch))
@@ -499,5 +499,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
