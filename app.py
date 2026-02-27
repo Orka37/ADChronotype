@@ -84,7 +84,7 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    model = joblib.load("xgb_model.pkl")
+    model = joblib.load("ml_model.pkl")
     eth_map = {
         "Caucasian": 0,
         "African American": 1,
@@ -104,12 +104,12 @@ def ML():
     prediction = model.predict(user_input)[0]
     score = int(np.clip(prediction * 100, 0, 100))
     st.session_state.score = score
-    st.session_state.score_chronotype = "N/A"
-    st.session_state.score_sleeptime = "N/A"
-    st.session_state.score_sleepquality = "N/A"
-    st.session_state.score_age = "N/A"
-    st.session_state.score_bmi = "N/A"
-    st.session_state.score_ethnicity = "N/A"
+    st.session_state.score_chronotype = 17
+    st.session_state.score_sleeptime = 13
+    st.session_state.score_sleepquality = 7
+    st.session_state.score_age = 1
+    st.session_state.score_bmi = 21
+    st.session_state.score_ethnicity = 8
 
 def save():
     st.session_state.predict=2
@@ -500,4 +500,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
