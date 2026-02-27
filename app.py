@@ -84,14 +84,7 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    st.session_state.score = 67
-    st.session_state.score_chronotype = 13
-    st.session_state.score_sleeptime = 17
-    st.session_state.score_sleepquality = 7
-    st.session_state.score_age = 1
-    st.session_state.score_bmi = 21
-    st.session_state.score_ethnicity = 8
-    model = joblib.load('xgb_model.pkl')
+    model = joblib.load("xgb_model.pkl")
     eth_map = {
         "Caucasian": 0,
         "African American": 1,
@@ -101,14 +94,22 @@ def ML():
         "Native American": 3,
         "Other": 3
     }
-    user_input_data = pd.DataFrame([[
-        st.session_state.age,
-        eth_map.get(st.session_state.ethnicity, 3),
-        st.session_state.bmi,
-        st.session_state.sleepquality
-    ]], columns=["Age", "Ethnicity", "BMI", "SleepQuality"])
-    prediction = model.predict(user_input_data)[0]
-    st.session_state.score = int(np.clip(prediction * 100, 0, 100))
+    user_input = pd.DataFrame({
+        "Age": [st.session_state.age],
+        "Ethnicity": [eth_map.get(st.session_state.ethnicity, 3)],
+        "BMI": [st.session_state.bmi],
+        "SleepQuality": [st.session_state.sleepquality]
+    })
+    user_input = user_input[["Age", "Ethnicity", "BMI", "SleepQuality"]]
+    prediction = model.predict(user_input)[0]
+    score = int(np.clip(prediction * 100, 0, 100))
+    st.session_state.score = score
+    st.session_state.score_chronotype = "N/A"
+    st.session_state.score_sleeptime = "N/A"
+    st.session_state.score_sleepquality = "N/A"
+    st.session_state.score_age = "N/A"
+    st.session_state.score_bmi = "N/A"
+    st.session_state.score_ethnicity = "N/A"
 
 def save():
     st.session_state.predict=2
@@ -499,3 +500,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
