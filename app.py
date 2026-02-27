@@ -98,9 +98,10 @@ def ML():
         "Age": [st.session_state.age],
         "Ethnicity": [eth_map.get(st.session_state.ethnicity, 3)],
         "BMI": [st.session_state.bmi],
-        "SleepQuality": [st.session_state.sleepquality]
+        "SleepDuration": [st.session_state.sleeptime],
+        "Chronotype": [st.session_state.chronotype]
     })
-    user_input = user_input[["Age", "Ethnicity", "BMI", "SleepQuality"]]
+    user_input = user_input[["Age", "Ethnicity", "BMI", "SleepDuration", "Chronotype"]]
     prediction = model.predict(user_input)[0]
     score = int(np.clip(prediction * 100, 0, 100))
     st.session_state.score = score
@@ -500,5 +501,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
