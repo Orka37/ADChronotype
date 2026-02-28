@@ -84,16 +84,14 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    import pandas as pd
-    import numpy as np
-    import joblib
-
     model = joblib.load("ml_model.pkl")
 
     chronotype_map = {
-        "Morning": 0,
+        "Definite Morning": 0,
         "Intermediate": 1,
-        "Evening": 2
+        "DefiniteEvening": 2,
+        "Moderate Morning": 3,
+        "Moderate Evening": 4
     }
 
     ethnicity_map = {
@@ -514,8 +512,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
