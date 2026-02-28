@@ -112,6 +112,8 @@ def ML():
         "Ethnicity": [ethnicity_map[st.session_state.ethnicity]]
     })
 
+    features_order = ["SleepDuration", "Chronotype", "Age", "BMI", "Ethnicity"]
+    user_input = user_input[features_order]
     prediction = model.predict(user_input)[0]
 
     score = int(np.clip(prediction * 100, 0, 100))
@@ -512,3 +514,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
