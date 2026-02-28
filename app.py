@@ -85,23 +85,16 @@ def factor_metric(label, value):
 
 def ML():
     model = joblib.load("ml_model.pkl")
-    eth_map = {
-        "Caucasian": 0,
-        "African American": 1,
-        "East Asian": 2,
-        "South Asian": 2,
-        "Hispanic": 3,
-        "Native American": 3,
-        "Other": 3
-    }
+    model_columns = joblib.load("model_columns.pkl")
     user_input = pd.DataFrame({
-        "Age": [st.session_state.age],
-        "Ethnicity": [eth_map.get(st.session_state.ethnicity, 3)],
-        "BMI": [st.session_state.bmi],
         "SleepDuration": [st.session_state.sleeptime],
-        "Chronotype": [st.session_state.chronotype]
+        "Chronotype": [st.session_state.chronotype],
+        "Age": [st.session_state.age],
+        "BMI": [st.session_state.bmi],
+        "Ethnicity": [st.session_state.ethnicity]
     })
-    user_input = user_input[["Age", "Ethnicity", "BMI", "SleepDuration", "Chronotype"]]
+    user_input = pd.get_dummies(user_input, drop_first=True)
+    user_input = user_input.reindex(columns=model_columns, fill_value=0)
     prediction = model.predict(user_input)[0]
     score = int(np.clip(prediction * 100, 0, 100))
     st.session_state.score = score
@@ -501,6 +494,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
