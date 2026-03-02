@@ -84,40 +84,7 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    model = joblib.load("ml_model.pkl")
-
-    chronotype_map = {
-        "Definite Morning": 0,
-        "Intermediate": 1,
-        "DefiniteEvening": 2,
-        "Moderate Morning": 3,
-        "Moderate Evening": 4
-    }
-
-    ethnicity_map = {
-        "Caucasian": 0,
-        "African American": 1,
-        "East Asian": 2,
-        "South Asian": 3,
-        "Hispanic": 4,
-        "Native American": 5,
-        "Other": 6
-    }
-
-    user_input = pd.DataFrame({
-        "SleepDuration": [st.session_state.sleeptime],
-        "Chronotype": [chronotype_map[st.session_state.chronotype]],
-        "Age": [st.session_state.age],
-        "BMI": [st.session_state.bmi],
-        "Ethnicity": [ethnicity_map[st.session_state.ethnicity]]
-    })
-
-    features_order = ["SleepDuration", "Chronotype", "Age", "BMI", "Ethnicity"]
-    user_input = user_input[features_order]
-    prediction = model.predict(user_input)[0]
-
-    score = int(np.clip(prediction * 100, 0, 100))
-    st.session_state.score = score
+    st.session_state.score = 67
     st.session_state.score_chronotype = 17
     st.session_state.score_sleeptime = 13
     st.session_state.score_sleepquality = 7
@@ -514,4 +481,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
