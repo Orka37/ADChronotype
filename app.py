@@ -1,10 +1,8 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
-import numpy as np
 import requests
 import hashlib
-import joblib
 
 #---Setup---#
 
@@ -85,8 +83,8 @@ def factor_metric(label, value):
 
 def ML():
     st.session_state.score = 67
-    st.session_state.score_chronotype = 17
-    st.session_state.score_sleeptime = 13
+    st.session_state.score_chronotype = 13
+    st.session_state.score_sleeptime = 17
     st.session_state.score_sleepquality = 7
     st.session_state.score_age = 1
     st.session_state.score_bmi = 21
@@ -143,7 +141,7 @@ st.markdown("""
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    .stmberInput button:hover {
+    .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
     
@@ -481,5 +479,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
