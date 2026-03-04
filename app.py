@@ -430,8 +430,8 @@ if st.session_state.page == "input":
         with col1:
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**Sleep Chronotype**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
-            sleeptime = st.slider("**Sleep Time (hours)**", 0, 24, value=int(st.session_state.sleeptime))
-            waketime = st.slider("**Wake Time (hours)**", 0, 21, value=int(st.session_state.waketime))
+            sleeptime = st.time_input("**Sleep Time (hours)**", value=int(st.session_state.sleeptime, 0))
+            waketime = st.time_input("**Wake Time (hours)**", value=int(st.session_state.waketime, 0))
         with col2:
             st.subheader("👤 Personal Info")
             age = st.slider("**Age (years)**", 40, 60, value=int(st.session_state.age))
@@ -478,4 +478,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
