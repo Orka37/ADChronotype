@@ -21,8 +21,8 @@ def norm_state():
         "current_user": None,
         "page": "home",
         "chronotype": "Intermediate",
-        "sleeptime": 8,
-        "waketime": 5,
+        "sleeptime": 23,
+        "waketime": 7,
         "age": 40,
         "weight": 200,
         "height_ft": 6,
@@ -479,6 +479,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
