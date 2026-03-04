@@ -88,7 +88,7 @@ def factor_metric(label, value):
     else:
         delta_text = ""
         delta_color = "off"
-    st.metric(label=label, value=f"{sign}{value}%", delta=delta_text, delta_color=delta_color)
+    st.metric(label=label, value=f"{sign}{value:.1f}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
     import joblib
@@ -545,3 +545,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
