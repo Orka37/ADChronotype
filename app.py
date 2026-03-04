@@ -21,7 +21,7 @@ def norm_state():
         "page": "home",
         "chronotype": "Intermediate",
         "sleeptime": 8,
-        "sleepquality": 5,
+        "waketime": 5,
         "age": 40,
         "weight": 200,
         "height_ft": 6,
@@ -34,7 +34,7 @@ def norm_state():
         "score": "N/A",
         "score_chronotype": "N/A",
         "score_sleeptime": "N/A",
-        "score_sleepquality": "N/A",
+        "score_waketime": "N/A",
         "score_age": "N/A",
         "score_bmi": "N/A",
         "score_ethnicity": "N/A"
@@ -85,7 +85,7 @@ def ML():
     st.session_state.score = 67
     st.session_state.score_chronotype = 13
     st.session_state.score_sleeptime = 17
-    st.session_state.score_sleepquality = 7
+    st.session_state.score_waketime = 7
     st.session_state.score_age = 1
     st.session_state.score_bmi = 21
     st.session_state.score_ethnicity = 8
@@ -98,7 +98,7 @@ def save():
         st.session_state.consent,
         st.session_state.chronotype,
         st.session_state.sleeptime,
-        st.session_state.sleepquality,
+        st.session_state.waketime,
         st.session_state.age,
         st.session_state.bmi,
         st.session_state.ethnicity,
@@ -108,7 +108,7 @@ def save():
         st.session_state.score,
         st.session_state.score_chronotype,
         st.session_state.score_sleeptime,
-        st.session_state.score_sleepquality,
+        st.session_state.score_waketime,
         st.session_state.score_age,
         st.session_state.score_bmi,
         st.session_state.score_ethnicity
@@ -246,7 +246,7 @@ if not st.session_state.logged_in:
                             st.session_state.consent=False
                         st.session_state.chronotype = str(row['Chronotype']).strip()
                         st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
-                        st.session_state.sleepquality = int(row['Sleepquality'])
+                        st.session_state.waketime = int(row['Waketime (hrs)'])
                         st.session_state.age = int(row['Age'])
                         st.session_state.bmi = float(row['BMI'])
                         st.session_state.ethnicity = str(row['Ethnicity']).strip()
@@ -264,7 +264,7 @@ if not st.session_state.logged_in:
                         st.session_state.score = int(row['Score'])
                         st.session_state.score_chronotype = int(row['Chronotype Score'])
                         st.session_state.score_sleeptime = int(row['Sleeptime Score'])
-                        st.session_state.score_sleepquality = int(row['Sleepquality Score'])
+                        st.session_state.score_waketime = int(row['Waketime Score'])
                         st.session_state.score_age = int(row['Age Score'])
                         st.session_state.score_bmi = int(row['BMI Score'])
                         st.session_state.score_ethnicity = int(row['Ethnicity Score'])
@@ -355,7 +355,6 @@ def project_details():
 def factor_details():
     st.write("Chronotype → Your body's sleep wake preference.")
     st.write("To find your chronotype: https://qxmd.com/calculate/calculator_829/morningness-eveningness-questionnaire-meq#")
-    st.write("To find your sleep quality: https://qxmd.com/calculate/calculator_603/pittsburgh-sleep-quality-index-psqi")
     st.write("To view this again, click on the **'Help!'** button in the bottom right corner!")
     if st.button("Thanks!"):
         st.rerun()
@@ -414,8 +413,8 @@ if st.session_state.page=="home":
             col3, col4 = st.columns(2)
             with col3:
                 factor_metric("Chronotype", st.session_state.score_chronotype)
-                factor_metric("Sleep Duration", st.session_state.score_sleeptime)
-                factor_metric("Sleep Quality", st.session_state.score_sleepquality)
+                factor_metric("Sleeptime", st.session_state.score_sleeptime)
+                factor_metric("Waketime", st.session_state.score_waketime)
             with col4:
                 factor_metric("Age", st.session_state.score_age)
                 factor_metric("BMI", st.session_state.score_bmi)
@@ -431,8 +430,8 @@ if st.session_state.page == "input":
         with col1:
             st.subheader("🌙 Sleep Data")
             chronotype = st.selectbox("**Sleep Chronotype**", chronotype_options, index=chronotype_options.index(st.session_state.chronotype))
-            sleeptime = st.slider("**Sleep Duration (hours)**", 0, 24, value=int(st.session_state.sleeptime))
-            sleepquality = st.slider("**Sleep Quality (index)**", 0, 21, value=int(st.session_state.sleepquality))
+            sleeptime = st.slider("**Sleep Time (hours)**", 0, 24, value=int(st.session_state.sleeptime))
+            waketime = st.slider("**Wake Time (hours)**", 0, 21, value=int(st.session_state.waketime))
         with col2:
             st.subheader("👤 Personal Info")
             age = st.slider("**Age (years)**", 40, 60, value=int(st.session_state.age))
@@ -459,11 +458,11 @@ if st.session_state.page == "input":
     if submit:
         st.session_state.chronotype = chronotype
         st.session_state.sleeptime = sleeptime
-        st.session_state.sleepquality = sleepquality
+        st.session_state.waketime = waketime
         st.session_state.age = age
         st.session_state.bmi = BMI
         st.session_state.ethnicity = ethnicity
-        default = (chronotype == "Intermediate" and sleeptime == 8 and sleepquality == 5 and age == 40 and weight == 200 and height_ft == 6 and height_inch == 0 and ethnicity == "South Asian")
+        default = (chronotype == "Intermediate" and sleeptime == 8 and waketime == 5 and age == 40 and weight == 200 and height_ft == 6 and height_inch == 0 and ethnicity == "South Asian")
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
@@ -479,3 +478,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
