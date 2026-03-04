@@ -138,7 +138,7 @@ def ML():
     input_df = pd.DataFrame([row])[model_cols]
 
     prediction  = float(model.predict(input_df)[0])
-    overall_pct = int(round(min(max(prediction / max_score * 100, 0), 100)))
+    overall_pct = round(min(max(prediction / max_score * 100, 0), 100), 1)
     explainer   = shap.TreeExplainer(model)
     shap_vals   = explainer(input_df).values[0]
     feature_map = dict(zip(model_cols, shap_vals))
@@ -545,4 +545,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
