@@ -4,6 +4,9 @@ import pandas as pd
 import requests
 import hashlib
 import datetime
+import joblib
+import numpy as np
+import shap
 
 #---Setup---#
 
@@ -83,13 +86,54 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    st.session_state.score = 67
-    st.session_state.score_chronotype = 13
-    st.session_state.score_sleeptime = 17
-    st.session_state.score_waketime = 7
-    st.session_state.score_age = 1
-    st.session_state.score_bmi = 21
-    st.session_state.score_ethnicity = 8
+    model = joblib.load("ml_model.pkl")
+    mean_score = 16.734833953901127
+    chronotype = st.session_state.chronotype
+    ethnicity  = st.session_state.ethnicity
+    age        = st.session_state.age
+    bmi        = st.session_state.bmi
+    sleep_numeric = float(st.session_state.sleeptime)
+    wake_numeric  = float(st.session_state.waketime)
+    sleep_hrs     = (wake_numeric - sleep_numeric) % 24
+    sleep_sin = np.sin(2 * np.pi * sleep_numeric / 24)
+    sleep_cos = np.cos(2 * np.pi * sleep_numeric / 24)
+    wake_sin  = np.sin(2 * np.pi * wake_numeric  / 24)
+    wake_cos  = np.cos(2 * np.pi * wake_numeric  / 24)
+    row = {
+        "Age": age, "BMI": bmi,
+        "SleepTime_sin": sleep_sin, "SleepTime_cos": sleep_cos,
+        "WakeTime_sin":  wake_sin,  "WakeTime_cos":  wake_cos,
+        "SleepDuration": sleep_hrs,
+        "Chronotype_Definite Evening":  1 if chronotype == "Definite Evening"  else 0,
+        "Chronotype_Definite Morning":  1 if chronotype == "Definite Morning"  else 0,
+        "Chronotype_Intermediate":      1 if chronotype == "Intermediate"      else 0,
+        "Chronotype_Moderate Evening":  1 if chronotype == "Moderate Evening"  else 0,
+        "Chronotype_Moderate Morning":  1 if chronotype == "Moderate Morning"  else 0,
+        "Ethnicity_African American":   1 if ethnicity  == "African American"  else 0,
+        "Ethnicity_Caucasian":          1 if ethnicity  == "Caucasian"         else 0,
+        "Ethnicity_East Asian":         1 if ethnicity  == "East Asian"        else 0,
+        "Ethnicity_Hispanic":           1 if ethnicity  == "Hispanic"          else 0,
+        "Ethnicity_Other":              1 if ethnicity  == "Other"             else 0,
+        "Ethnicity_South Asian":        1 if ethnicity  == "South Asian"       else 0,
+        "FamilyHistory_No":  1,
+        "FamilyHistory_Yes": 0,
+    }
+    model_cols = ['Age', 'BMI', 'SleepTime_sin', 'SleepTime_cos', 'WakeTime_sin', 'WakeTime_cos', 'SleepDuration', 'Chronotype_Definite Evening', 'Chronotype_Definite Morning', 'Chronotype_Intermediate', 'Chronotype_Moderate Evening', 'Chronotype_Moderate Morning', 'Ethnicity_African American', 'Ethnicity_Caucasian', 'Ethnicity_East Asian', 'Ethnicity_Hispanic', 'Ethnicity_Other', 'Ethnicity_South Asian', 'FamilyHistory_No', 'FamilyHistory_Yes']
+    input_df = pd.DataFrame([row])[model_cols]
+    prediction = float(model.predict(input_df)[0])
+    overall_pct = round(min(max(prediction / mean_score * 100, 0), 100))
+    explainer = shap.TreeExplainer(model)
+    shap_vals  = explainer(input_df).values[0]
+    feature_map = dict(zip(model_cols, shap_vals))
+    def factor_pct(keys):
+        return round(abs(sum(feature_map.get(k, 0) for k in keys)) / mean_score * 100, 1)
+    st.session_state.score              = overall_pct
+    st.session_state.score_chronotype   = factor_pct([f"Chronotype_{chronotype}"])
+    st.session_state.score_sleeptime    = factor_pct(["SleepTime_sin", "SleepTime_cos"])
+    st.session_state.score_waketime     = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
+    st.session_state.score_age          = factor_pct(["Age"])
+    st.session_state.score_bmi          = factor_pct(["BMI"])
+    st.session_state.score_ethnicity    = factor_pct([f"Ethnicity_{ethnicity}"])
 
 def save():
     st.session_state.predict=2
@@ -426,7 +470,7 @@ if st.session_state.page=="home":
 if st.session_state.page == "input":
     with st.form("input_details"):
         chronotype_options = ["Definite Morning","Moderate Morning","Intermediate","Moderate Evening","Definite Evening"]
-        ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Native American", "Other"]
+        ethnicity_options = ["Caucasian", "South Asian", "East Asian", "Hispanic", "African American", "Other"]
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("🌙 Sleep Data")
