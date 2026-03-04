@@ -529,7 +529,7 @@ if st.session_state.page == "input":
         st.session_state.age = age
         st.session_state.bmi = BMI
         st.session_state.ethnicity = ethnicity
-        default = (chronotype == "Intermediate" and sleeptime == 8 and waketime == 5 and age == 40 and weight == 200 and height_ft == 6 and height_inch == 0 and ethnicity == "South Asian")
+        default = (chronotype == "Intermediate" and sleeptime == 20 and waketime == 7 and age == 40 and weight == 200 and height_ft == 6 and height_inch == 0 and ethnicity == "South Asian")
         if default and not st.session_state.predict_normal:
             predict_normal()
         else:
@@ -545,9 +545,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
-
