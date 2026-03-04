@@ -92,7 +92,7 @@ def ML():
     import shap
 
     model = joblib.load("ml_model.pkl")
-    mean_score = 16.734833953901127
+    mean_score = 67.36903953140605
 
     chronotype = st.session_state.chronotype
     ethnicity  = st.session_state.ethnicity
@@ -538,6 +538,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
