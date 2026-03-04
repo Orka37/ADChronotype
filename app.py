@@ -127,36 +127,36 @@ def ML():
     feature_map = dict(zip(model_cols, shap_vals))
     def factor_pct(keys):
         return round(abs(sum(feature_map.get(k, 0) for k in keys)) / mean_score * 100, 1)
-    st.session_state.score              = overall_pct
-    st.session_state.score_chronotype   = factor_pct([f"Chronotype_{chronotype}"])
-    st.session_state.score_sleeptime    = factor_pct(["SleepTime_sin", "SleepTime_cos"])
-    st.session_state.score_waketime     = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
-    st.session_state.score_age          = factor_pct(["Age"])
-    st.session_state.score_bmi          = factor_pct(["BMI"])
-    st.session_state.score_ethnicity    = factor_pct([f"Ethnicity_{ethnicity}"])
+st.session_state.score            = int(overall_pct)
+st.session_state.score_chronotype = float(factor_pct([f"Chronotype_{chronotype}"]))
+st.session_state.score_sleeptime  = float(factor_pct(["SleepTime_sin", "SleepTime_cos"]))
+st.session_state.score_waketime   = float(factor_pct(["WakeTime_sin",  "WakeTime_cos"]))
+st.session_state.score_age        = float(factor_pct(["Age"]))
+st.session_state.score_bmi        = float(factor_pct(["BMI"]))
+st.session_state.score_ethnicity  = float(factor_pct([f"Ethnicity_{ethnicity}"]))
 
 def save():
     st.session_state.predict=2
     st.toast("Predicting...", icon="🔄")
     payload = [
-        st.session_state.current_user,
-        st.session_state.consent,
-        st.session_state.chronotype,
-        st.session_state.sleeptime,
-        st.session_state.waketime,
-        st.session_state.age,
-        st.session_state.bmi,
-        st.session_state.ethnicity,
-        st.session_state.help,
-        st.session_state.predict,
-        st.session_state.predict_normal,
-        st.session_state.score,
-        st.session_state.score_chronotype,
-        st.session_state.score_sleeptime,
-        st.session_state.score_waketime,
-        st.session_state.score_age,
-        st.session_state.score_bmi,
-        st.session_state.score_ethnicity
+        str(st.session_state.current_user),
+        bool(st.session_state.consent),
+        str(st.session_state.chronotype),
+        int(st.session_state.sleeptime),
+        int(st.session_state.waketime),
+        int(st.session_state.age),
+        float(st.session_state.bmi),
+        str(st.session_state.ethnicity),
+        bool(st.session_state.help),
+        int(st.session_state.predict),
+        bool(st.session_state.predict_normal),
+        int(st.session_state.score),
+        float(st.session_state.score_chronotype),
+        float(st.session_state.score_sleeptime),
+        float(st.session_state.score_waketime),
+        float(st.session_state.score_age),
+        float(st.session_state.score_bmi),
+        float(st.session_state.score_ethnicity),
     ]
     requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
@@ -523,3 +523,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
