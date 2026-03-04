@@ -140,15 +140,15 @@ def ML():
     feature_map = dict(zip(model_cols, shap_vals))
 
     def factor_pct(keys):
-        return round(abs(sum(feature_map.get(k, 0) for k in keys)) / mean_score * 100, 1)
+        return float(round(abs(sum(feature_map.get(k, 0) for k in keys)) / mean_score * 100, 1))
 
     st.session_state.score            = int(overall_pct)
-    st.session_state.score_chronotype = float(factor_pct([f"Chronotype_{chronotype}"]))
-    st.session_state.score_sleeptime  = float(factor_pct(["SleepTime_sin", "SleepTime_cos"]))
-    st.session_state.score_waketime   = float(factor_pct(["WakeTime_sin",  "WakeTime_cos"]))
-    st.session_state.score_age        = float(factor_pct(["Age"]))
-    st.session_state.score_bmi        = float(factor_pct(["BMI"]))
-    st.session_state.score_ethnicity  = float(factor_pct([f"Ethnicity_{ethnicity}"]))
+    st.session_state.score_chronotype = round(float(factor_pct([f"Chronotype_{chronotype}"])))
+    st.session_state.score_sleeptime  = round(float(factor_pct(["SleepTime_sin", "SleepTime_cos"])))
+    st.session_state.score_waketime   = round(float(factor_pct(["WakeTime_sin",  "WakeTime_cos"])))
+    st.session_state.score_age        = round(float(factor_pct(["Age"])))
+    st.session_state.score_bmi        = round(float(factor_pct(["BMI"])))
+    st.session_state.score_ethnicity  = round(float(factor_pct([f"Ethnicity_{ethnicity}"])))
 
 def save():
     st.session_state.predict=2
@@ -538,5 +538,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
