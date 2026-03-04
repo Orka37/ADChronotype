@@ -169,7 +169,7 @@ def save():
         bool(st.session_state.help),
         int(st.session_state.predict),
         bool(st.session_state.predict_normal),
-        float(st.session_state.baseline_score),
+        float(st.session_state.score_baseline),
         int(st.session_state.score),
         float(st.session_state.score_chronotype),
         float(st.session_state.score_sleeptime),
@@ -328,12 +328,12 @@ if not st.session_state.logged_in:
                             st.session_state.predict_normal=False
                         st.session_state.score_baseline = float(row['Baseline Score'])
                         st.session_state.score = int(row['Score'])
-                        st.session_state.score_chronotype = int(row['Chronotype Score'])
-                        st.session_state.score_sleeptime = int(row['Sleeptime Score'])
-                        st.session_state.score_waketime = int(row['Waketime Score'])
-                        st.session_state.score_age = int(row['Age Score'])
-                        st.session_state.score_bmi = int(row['BMI Score'])
-                        st.session_state.score_ethnicity = int(row['Ethnicity Score'])
+                        st.session_state.score_chronotype = float(row['Chronotype Score'])
+                        st.session_state.score_sleeptime = float(row['Sleeptime Score'])
+                        st.session_state.score_waketime = float(row['Waketime Score'])
+                        st.session_state.score_age = float(row['Age Score'])
+                        st.session_state.score_bmi = float(row['BMI Score'])
+                        st.session_state.score_ethnicity = float(row['Ethnicity Score'])
                 if not st.session_state.consent:
                     go("consent")
                 st.rerun()
@@ -545,6 +545,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
