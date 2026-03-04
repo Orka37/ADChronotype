@@ -35,6 +35,7 @@ def norm_state():
         "help": False,
         "predict": 0,
         "predict_normal": False,
+        "score_baseline": "N/A",
         "score": "N/A",
         "score_chronotype": "N/A",
         "score_sleeptime": "N/A",
@@ -71,19 +72,23 @@ def score_metric(label, value):
     st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
 
 def factor_metric(label, value):
-    if value=="N/A":
-        st.metric(label=label,value=value,delta=None)
+    if value == "N/A":
+        st.metric(label=label, value=value, delta=None)
         return
-    if value > 15:
+    sign = "+" if value > 0 else ""
+    if abs(value) > 15:
         delta_text = "🔥 High Impact"
         delta_color = "inverse"
-    elif value > 10:
+    elif abs(value) > 10:
         delta_text = "⚠️ Moderate Impact"
         delta_color = "off"
-    elif value > 0:
+    elif abs(value) > 0:
         delta_text = "✅ Low Impact"
         delta_color = "normal"
-    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+    else:
+        delta_text = ""
+        delta_color = "off"
+    st.metric(label=label, value=f"{sign}{value}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
     import joblib
@@ -92,14 +97,14 @@ def ML():
     import shap
 
     model = joblib.load("ml_model.pkl")
-    mean_score = 67.36903953140605
+    max_score = 67.36903953140605
 
     chronotype = st.session_state.chronotype
     ethnicity  = st.session_state.ethnicity
     if ethnicity == "Native American":
         ethnicity = "Other"
-    age        = st.session_state.age
-    bmi        = st.session_state.bmi
+    age           = st.session_state.age
+    bmi           = st.session_state.bmi
     sleep_numeric = float(st.session_state.sleeptime)
     wake_numeric  = float(st.session_state.waketime)
     sleep_hrs     = (wake_numeric - sleep_numeric) % 24
@@ -133,22 +138,21 @@ def ML():
     input_df = pd.DataFrame([row])[model_cols]
 
     prediction  = float(model.predict(input_df)[0])
-    overall_pct = round(min(max(prediction / mean_score * 100, 0), 100))
-
+    overall_pct = int(round(min(max(prediction / max_score * 100, 0), 100)))
     explainer   = shap.TreeExplainer(model)
     shap_vals   = explainer(input_df).values[0]
     feature_map = dict(zip(model_cols, shap_vals))
-
     def factor_pct(keys):
-        return float(round(abs(sum(feature_map.get(k, 0) for k in keys)) / mean_score * 100, 1))
-
-    st.session_state.score            = int(overall_pct)
-    st.session_state.score_chronotype = round(float(factor_pct([f"Chronotype_{chronotype}"])))
-    st.session_state.score_sleeptime  = round(float(factor_pct(["SleepTime_sin", "SleepTime_cos"])))
-    st.session_state.score_waketime   = round(float(factor_pct(["WakeTime_sin",  "WakeTime_cos"])))
-    st.session_state.score_age        = round(float(factor_pct(["Age"])))
-    st.session_state.score_bmi        = round(float(factor_pct(["BMI"])))
-    st.session_state.score_ethnicity  = round(float(factor_pct([f"Ethnicity_{ethnicity}"])))
+        return float(round(sum(feature_map.get(k, 0) for k in keys) / max_score * 100, 1))
+    st.session_state.score            = overall_pct
+    st.session_state.score_chronotype = factor_pct([f"Chronotype_{chronotype}"])
+    st.session_state.score_sleeptime  = factor_pct(["SleepTime_sin", "SleepTime_cos"])
+    st.session_state.score_waketime   = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
+    st.session_state.score_age        = factor_pct(["Age"])
+    st.session_state.score_bmi        = factor_pct(["BMI"])
+    st.session_state.score_ethnicity  = factor_pct([f"Ethnicity_{ethnicity}"])
+    baseline = float(explainer.expected_value)
+    st.session_state.score_baseline = float(round(baseline / max_score * 100, 1))
 
 def save():
     st.session_state.predict=2
@@ -165,6 +169,7 @@ def save():
         bool(st.session_state.help),
         int(st.session_state.predict),
         bool(st.session_state.predict_normal),
+        float(st.session_state.baseline_score),
         int(st.session_state.score),
         float(st.session_state.score_chronotype),
         float(st.session_state.score_sleeptime),
@@ -321,6 +326,7 @@ if not st.session_state.logged_in:
                             st.session_state.predict_normal=True
                         else:
                             st.session_state.predict_normal=False
+                        st.session_state.score_baseline = float(row['Baseline Score'])
                         st.session_state.score = int(row['Score'])
                         st.session_state.score_chronotype = int(row['Chronotype Score'])
                         st.session_state.score_sleeptime = int(row['Sleeptime Score'])
@@ -470,6 +476,7 @@ if st.session_state.page=="home":
                     """, unsafe_allow_html=True)
         with col2:
             st.markdown("### Factor Contribution")
+            st.caption(f"Baseline: {st.session_state.score_baseline}% — shifted by factors below")
             col3, col4 = st.columns(2)
             with col3:
                 factor_metric("Chronotype", st.session_state.score_chronotype)
@@ -538,6 +545,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
