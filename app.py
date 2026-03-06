@@ -141,8 +141,9 @@ def ML():
         return float(round(sum(feature_map.get(k, 0) for k in keys) / max_score * 100, 1))
 
     family_shap = feature_map.get("FamilyHistory_No", 0) + feature_map.get("FamilyHistory_Yes", 0)
+    duration_shap = feature_map.get("SleepDuration", 0)
     baseline = float(explainer.expected_value)
-    st.session_state.score_baseline = float(round((baseline + family_shap) / max_score * 100, 1))
+    st.session_state.score_baseline = float(round((baseline + family_shap + duration_shap) / max_score * 100, 1))
 
     st.session_state.score = overall_pct
     st.session_state.score_chronotype = factor_pct([f"Chronotype_{chronotype}"])
@@ -554,6 +555,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
