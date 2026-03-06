@@ -69,7 +69,7 @@ def score_metric(label, value):
     else:
         delta_text = "✅ Low Risk"
         delta_color = "normal"
-    st.metric(label=label, value=f"{value}%", delta=delta_text, delta_color=delta_color)
+    st.metric(label=label, value=f"{value:.1f}%", delta=delta_text, delta_color=delta_color)
 
 def factor_metric(label, value):
     if value == "N/A":
@@ -168,8 +168,8 @@ def save():
         int(st.session_state.predict),
         bool(st.session_state.predict_normal),
         float(st.session_state.score_baseline),
-        int(st.session_state.score),
-        float(round(st.session_state.score_chronotype,1)),
+        float(st.session_state.score),
+        float(st.session_state.score_chronotype),
         float(round(st.session_state.score_sleeptime,1)),
         float(round(st.session_state.score_waketime,1)),
         float(round(st.session_state.score_age,1)),
@@ -535,4 +535,5 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
