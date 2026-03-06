@@ -273,6 +273,7 @@ st.markdown("""
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
     }
+    iframe { width: 100% !important; }
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
@@ -566,6 +567,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
