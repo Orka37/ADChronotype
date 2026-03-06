@@ -169,7 +169,7 @@ def save():
         bool(st.session_state.predict_normal),
         float(st.session_state.score_baseline),
         float(st.session_state.score),
-        float(st.session_state.score_chronotype),
+        float(round(st.session_state.score_chronotype,1)),
         float(round(st.session_state.score_sleeptime,1)),
         float(round(st.session_state.score_waketime,1)),
         float(round(st.session_state.score_age,1)),
@@ -535,5 +535,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
