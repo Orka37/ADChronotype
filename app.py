@@ -169,12 +169,12 @@ def save():
         bool(st.session_state.predict_normal),
         float(st.session_state.score_baseline),
         int(st.session_state.score),
-        float(round(st.session_state.score_chronotype),1),
-        float(round(st.session_state.score_sleeptime),1),
-        float(round(st.session_state.score_waketime),1),
-        float(round(st.session_state.score_age),1),
-        float(round(st.session_state.score_bmi),1),
-        float(round(st.session_state.score_ethnicity),1),
+        float(round(st.session_state.score_chronotype,1)),
+        float(round(st.session_state.score_sleeptime,1)),
+        float(round(st.session_state.score_waketime,1)),
+        float(round(st.session_state.score_age,1)),
+        float(round(st.session_state.score_bmi,1)),
+        float(round(st.session_state.score_ethnicity,1)),
     ]
     requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
@@ -543,6 +543,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
