@@ -356,7 +356,10 @@ if st.session_state.page=="consent":
     if not st.session_state.consent:
         st.toast("Logged In!", icon="✅")
         st.info("***You must consent, if you want to use the app!***")
-        st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
+        st.markdown("<h2 style='text-align: center;'>Project Information</h2>", unsafe_allow_html=True)
+        st.write("""This project was built by high schoolers in an attempt to educate the community regarding the effects of lifestyle factors on cognition in relation to Alzheimer's Disease.
+        
+        Procedure: This streamlit based github launched website app utilizes an eXtreme Gradient Boosting Regression ML Model to create an Alzheimer's Disease Cognitive Similarity Score""")
         if st.button("I Consent!"):
             st.session_state.consent=True
             go("home")
@@ -532,4 +535,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
