@@ -411,7 +411,7 @@ def get_started():
 
 @st.dialog("Project Details")
 def project_details():
-    st.write("This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.")
+    st.write("This was an app made by ")
     if st.button("Done!"):
         st.rerun()
 
@@ -543,6 +543,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
