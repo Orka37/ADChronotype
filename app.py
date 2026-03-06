@@ -91,11 +91,6 @@ def factor_metric(label, value):
     st.metric(label=label, value=f"{sign}{value:.1f}%", delta=delta_text, delta_color=delta_color)
 
 def ML():
-    import joblib
-    import numpy as np
-    import pandas as pd
-    import shap
-
     model = joblib.load("ml_model.pkl")
     max_score = 67.37
 
@@ -137,22 +132,25 @@ def ML():
 
     prediction = float(model.predict(input_df)[0])
     overall_pct = round(min(max(prediction / max_score * 100, 0), 100), 1)
+
     explainer = shap.TreeExplainer(model)
     shap_vals = explainer(input_df).values[0]
     feature_map = dict(zip(model_cols, shap_vals))
-    mean_score = 16.73
+
     def factor_pct(keys):
-        return float(round(sum(feature_map.get(k, 0) for k in keys) / mean_score * 100, 1))
+        return float(round(sum(feature_map.get(k, 0) for k in keys) / max_score * 100, 1))
+
+    family_shap = feature_map.get("FamilyHistory_No", 0) + feature_map.get("FamilyHistory_Yes", 0)
+    baseline = float(explainer.expected_value)
+    st.session_state.score_baseline = float(round((baseline + family_shap) / max_score * 100, 1))
+
     st.session_state.score = overall_pct
     st.session_state.score_chronotype = factor_pct([f"Chronotype_{chronotype}"])
     st.session_state.score_sleeptime = factor_pct(["SleepTime_sin", "SleepTime_cos"])
-    st.session_state.score_waketime = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
+    st.session_state.score_waketime = factor_pct(["WakeTime_sin", "WakeTime_cos"])
     st.session_state.score_age = factor_pct(["Age"])
     st.session_state.score_bmi = factor_pct(["BMI"])
     st.session_state.score_ethnicity = factor_pct([f"Ethnicity_{ethnicity}"])
-    baseline = float(explainer.expected_value)
-    family_shap = feature_map.get("FamilyHistory_No", 0) + feature_map.get("FamilyHistory_Yes", 0)
-    st.session_state.score_baseline = float(round((baseline + family_shap) / mean_score * 100, 1))
 
 def save():
     st.session_state.predict=2
@@ -556,6 +554,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
