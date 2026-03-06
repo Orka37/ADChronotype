@@ -101,8 +101,6 @@ def ML():
 
     chronotype = st.session_state.chronotype
     ethnicity  = st.session_state.ethnicity
-    if ethnicity == "Native American":
-        ethnicity = "Other"
     age = st.session_state.age
     bmi = st.session_state.bmi
     sleep_numeric = float(st.session_state.sleeptime)
@@ -171,12 +169,12 @@ def save():
         bool(st.session_state.predict_normal),
         float(st.session_state.score_baseline),
         int(st.session_state.score),
-        float(st.session_state.score_chronotype),
-        float(st.session_state.score_sleeptime),
-        float(st.session_state.score_waketime),
-        float(st.session_state.score_age),
-        float(st.session_state.score_bmi),
-        float(st.session_state.score_ethnicity),
+        float(round(st.session_state.score_chronotype),1),
+        float(round(st.session_state.score_sleeptime),1),
+        float(round(st.session_state.score_waketime),1),
+        float(round(st.session_state.score_age),1),
+        float(round(st.session_state.score_bmi),1),
+        float(round(st.session_state.score_ethnicity),1),
     ]
     requests.post(f"{SHEET_URL}?sheet=Info&action=update", json=payload)
     st.cache_data.clear()
@@ -545,6 +543,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
