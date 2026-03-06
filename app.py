@@ -389,7 +389,31 @@ if st.session_state.page=="consent":
         st.markdown("- The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.")
         st.markdown("<h4 style=''><b><i>Research Question & Hypothesis:</i></b></h4>", unsafe_allow_html=True)
         st.markdown("<h5 style=''><b><i>Research Question: How does a 40-60-year-old’s sleep chronotype affect their likeness score of getting Alzheimer’s disease?</i></b></h4>", unsafe_allow_html=True)
+        st.markdown("""The age range of 40–60 is considered the preclinical stage of
+                    Alzheimer’s Disease and is the period when the onset of
+                    neurological changes begins to occur. The only way to create a
+                    full prediction is to analyze the biology of the brain during AD, a
+                    process for which no predictable pattern is currently known.
+                    Pioneer scientists have been researching prediction methods
+                    and have struggled to do so. Hence, the research team derived
+                    a likeness score by using statistical analysis to compare an
+                    individual’s cognitive profile to that of an average AD patient.
+                    """)
         st.markdown("<h5 style=''><b><i>Hypothesis: Evening chronotypes will have the most influence on cognitive likeness for Alzheimer's Disease in middle-aged to older people.</i></b></h4>", unsafe_allow_html=True)
+        st.markdown("""Evening chronotypes experience REM maxprop later in their
+                    sleep schedules, and due to social constructs, many evening
+                    chronotype individuals may be forced to wake up early,
+                    increasing the likelihood that they wake before reaching REM
+                    maxprop. This can result in reduced memory consolidation,
+                    impaired glymphatic clearance, and lower cognitive
+                    performance. Long-term failure to reach REM maxprop may
+                    lead to a buildup of beta-amyloid plaques and tau tangles, both
+                    of which are key markers of Alzheimer’s Disease. The lack of
+                    cognitive maintenance also makes the individual's cognitive
+                    profile more similar to that of Alzheimer’s Disease patients,
+                    resulting in a higher likeness score and a greater influence of
+                    chronotype on that score.
+                    """)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
@@ -569,6 +593,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
