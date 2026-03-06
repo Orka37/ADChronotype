@@ -191,8 +191,7 @@ def save():
 st.set_page_config(
     page_title="ADChronotype",
     page_icon="🧠",
-    initial_sidebar_state="expanded",
-    layout="wide"
+    initial_sidebar_state="expanded"
 )
 
 #---Navigation---#
@@ -568,6 +567,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
