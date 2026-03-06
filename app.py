@@ -360,15 +360,23 @@ if st.session_state.page=="consent":
         st.markdown("<h2 style='text-align: center;'>Project Information</h2>", unsafe_allow_html=True)
         st.write("""This project was built by high schoolers in an attempt to educate the community regarding the effects of lifestyle factors on cognition in relation to Alzheimer's Disease.
         
-        Procedure: This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score derived via statistical analysis (z-scores, Euclidean distance, and normalization) of 4 self coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) scores for 50+ participants in our 3 week longitudunal study, in relation to the AD population.""")
+        ***Procedure:***
+        --> This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.
+        --> The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.
+        """)
         if st.button("I Consent!"):
             st.session_state.consent=True
             go("home")
             st.rerun()
         st.stop()
     else:
-        st.write("*This app estimates your cognitive similarity to a person w/ AD, based off ur features by using ML.*")
-
+        st.markdown("<h2 style='text-align: center;'>Project Information</h2>", unsafe_allow_html=True)
+        st.write("""This project was built by high schoolers in an attempt to educate the community regarding the effects of lifestyle factors on cognition in relation to Alzheimer's Disease.
+        
+        ***Procedure:***
+        --> This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.
+        --> The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.
+        """)
 #---SideBar---#
 
 with st.sidebar:
@@ -536,8 +544,3 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
-
-
-
-
-
