@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REM Sleep & Chronotype Misalignment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0e1a;
+    color: #e8eaf0;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .title-block {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .title-block h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: #f0f2ff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .title-block h1 em {
+    color: #7eb8f7;
+    font-style: italic;
+  }
+
+  .title-block p {
+    font-size: 0.95rem;
+    color: #7a8099;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+  }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .chart-card {
+    background: #111520;
+    border: 1px solid #1e2540;
+    border-radius: 16px;
+    padding: 28px 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .morning-card::before { background: linear-gradient(90deg, #f4a261, #e76f51); }
+  .evening-card::before { background: linear-gradient(90deg, #4361ee, #7b2d8b); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .chronotype-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .morning-badge { background: rgba(244,162,97,0.15); color: #f4a261; border: 1px solid rgba(244,162,97,0.3); }
+  .evening-badge { background: rgba(67,97,238,0.15); color: #7eb8f7; border: 1px solid rgba(67,97,238,0.3); }
+
+  .card-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: #e8eaf0;
+    font-weight: 400;
+  }
+
+  svg.hypnogram {
+    width: 100%;
+    height: 200px;
+    overflow: visible;
+  }
+
+  .x-axis-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: #4a5275;
+  }
+
+  .misalignment-box {
+    background: #0a0e1a;
+    border: 1px solid #1e2540;
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .pathway {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+
+  .pathway-step {
+    background: #111520;
+    border: 1px solid #1e2540;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    color: #c8ccdc;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  .pathway-step strong {
+    display: block;
+    color: #e8eaf0;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  .arrow {
+    color: #7b2d8b;
+    font-size: 1.2rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #7a8099;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .rem-label {
+    position: absolute;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #4a90d9;
+    pointer-events: none;
+  }
+
+  .caption {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #4a5275;
+    margin-top: 14px;
+    font-style: italic;
+    letter-spacing: 0.2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="title-block">
+    <h1>REM Sleep Architecture & <em>Chronotype Misalignment</em></h1>
+    <p>Evening chronotypes miss peak REM due to socially imposed wake times — disrupting glymphatic clearance of β-amyloid & tau</p>
+  </div>
+
+  <div class="charts-grid">
+    <!-- Morning Chronotype -->
+    <div class="chart-card morning-card">
+      <div class="card-header">
+        <span class="chronotype-badge morning-badge">Morning Type</span>
+        <h3>Aligned Sleep</h3>
+      </div>
+      <svg class="hypnogram" viewBox="0 0 380 180" id="morning-svg">
+        <!-- Grid lines -->
+        <line x1="40" y1="20" x2="40" y2="155" stroke="#1e2540" stroke-width="1"/>
+        <line x1="40" y1="155" x2="370" y2="155" stroke="#1e2540" stroke-width="1"/>
+        <!-- Stage labels -->
+        <text x="5" y="28" fill="#4a5275" font-size="8" font-family="DM Mono">Awake</text>
+        <text x="12" y="68" fill="#4a5275" font-size="8" font-family="DM Mono">REM</text>
+        <text x="16" y="108" fill="#4a5275" font-size="8" font-family="DM Mono">Light</text>
+        <text x="16" y="148" fill="#4a5275" font-size="8" font-family="DM Mono">Deep</text>
+        <!-- Horizontal stage lines -->
+        <line x1="40" y1="25" x2="370" y2="25" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="40" y1="65" x2="370" y2="65" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="40" y1="105" x2="370" y2="105" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+        <!-- Sleep architecture path: Morning type (10pm - 6am) -->
+        <!-- Awake → Deep quickly, small early REMs, large late REM, wake naturally -->
+        <polyline points="
+          40,25
+          55,25
+          60,105
+          75,145
+          90,105
+          100,65
+          108,105
+          118,145
+          133,105
+          145,65
+          158,105
+          172,65
+          190,105
+          205,65
+          225,65
+          248,65
+          268,65
+          290,65
+          310,65
+          330,65
+          345,65
+          358,25
+          370,25
+        "
+        fill="none" stroke="#f4a261" stroke-width="2" stroke-linejoin="round"/>
+
+        <!-- REM shading - cycles -->
+        <polygon points="100,65 108,105 90,105" fill="rgba(74,144,217,0.08)"/>
+        <!-- Cycle 2 REM -->
+        <polygon points="145,65 158,105 133,105" fill="rgba(74,144,217,0.12)"/>
+        <!-- Big late REM cycles -->
+        <polygon points="172,65 190,105 158,105" fill="rgba(74,144,217,0.18)"/>
+        <polygon points="205,65 268,65 248,65 225,65 205,65" fill="rgba(74,144,217,0.22)"/>
+        <polygon points="268,65 370,25 358,25 330,65 310,65 290,65 268,65" fill="rgba(74,144,217,0.28)"/>
+
+        <!-- REM max label -->
+        <rect x="255" y="48" width="68" height="14" rx="3" fill="rgba(74,144,217,0.15)" stroke="rgba(74,144,217,0.4)" stroke-width="0.8"/>
+        <text x="289" y="58" fill="#4a90d9" font-size="7.5" font-family="DM Mono" text-anchor="middle">REM MAX</text>
+
+        <!-- Natural wake line -->
+        <line x1="358" y1="15" x2="358" y2="160" stroke="#f4a261" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="362" y="13" fill="#f4a261" font-size="7" font-family="DM Mono">Natural</text>
+        <text x="362" y="22" fill="#f4a261" font-size="7" font-family="DM Mono">Wake ✓</text>
+      </svg>
+      <div class="x-axis-labels">
+        <span>10pm</span><span>12am</span><span>2am</span><span>4am</span><span>6am</span><span>8am</span>
+      </div>
+      <p class="caption">Natural wake aligns with REM completion — full glymphatic clearance cycle</p>
+    </div>
+
+    <!-- Evening Chronotype -->
+    <div class="chart-card evening-card">
+      <div class="card-header">
+        <span class="chronotype-badge evening-badge">Evening Type</span>
+        <h3>Misaligned Sleep</h3>
+      </div>
+      <svg class="hypnogram" viewBox="0 0 380 180" id="evening-svg">
+        <!-- Grid lines -->
+        <line x1="40" y1="20" x2="40" y2="155" stroke="#1e2540" stroke-width="1"/>
+        <line x1="40" y1="155" x2="370" y2="155" stroke="#1e2540" stroke-width="1"/>
+        <!-- Stage labels -->
+        <text x="5" y="28" fill="#4a5275" font-size="8" font-family="DM Mono">Awake</text>
+        <text x="12" y="68" fill="#4a5275" font-size="8" font-family="DM Mono">REM</text>
+        <text x="16" y="108" fill="#4a5275" font-size="8" font-family="DM Mono">Light</text>
+        <text x="16" y="148" fill="#4a5275" font-size="8" font-family="DM Mono">Deep</text>
+        <!-- Horizontal stage lines -->
+        <line x1="40" y1="25" x2="370" y2="25" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="40" y1="65" x2="370" y2="65" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="40" y1="105" x2="370" y2="105" stroke="#1e2540" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+        <!-- Evening type sleep shifted ~2hrs later: sleep at 1am, natural wake 9am -->
+        <!-- But forced wake at 7am (line at ~295) -->
+        <polyline points="
+          40,25
+          80,25
+          88,105
+          103,145
+          118,105
+          130,65
+          140,105
+          153,145
+          168,105
+          180,65
+          195,105
+          210,65
+          232,65
+          258,65
+          278,65
+          295,65
+          318,65
+          340,65
+          355,65
+          368,25
+          370,25
+        "
+        fill="none" stroke="#7eb8f7" stroke-width="2" stroke-linejoin="round"/>
+
+        <!-- REM shading -->
+        <polygon points="130,65 140,105 118,105" fill="rgba(74,144,217,0.08)"/>
+        <polygon points="180,65 195,105 168,105" fill="rgba(74,144,217,0.12)"/>
+        <polygon points="210,65 258,65 232,65 210,65" fill="rgba(74,144,217,0.18)"/>
+        <!-- Big REM that gets cut off -->
+        <polygon points="278,65 295,65 295,65 278,65" fill="rgba(74,144,217,0.05)"/>
+        <polygon points="295,65 368,25 355,65 340,65 318,65 295,65" fill="rgba(74,144,217,0.06)" stroke="rgba(255,80,80,0.3)" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+        <!-- REM max zone (after forced wake) - greyed out -->
+        <rect x="300" y="48" width="65" height="14" rx="3" fill="rgba(255,80,80,0.1)" stroke="rgba(255,80,80,0.35)" stroke-width="0.8"/>
+        <text x="332" y="58" fill="#ff6b6b" font-size="7.5" font-family="DM Mono" text-anchor="middle">REM MAX</text>
+        <!-- X through it -->
+        <line x1="300" y1="48" x2="365" y2="62" stroke="rgba(255,80,80,0.5)" stroke-width="1.2"/>
+        <line x1="365" y1="48" x2="300" y2="62" stroke="rgba(255,80,80,0.5)" stroke-width="1.2"/>
+
+        <!-- Forced wake line - red -->
+        <line x1="295" y1="15" x2="295" y2="160" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="298" y="13" fill="#ff6b6b" font-size="7" font-family="DM Mono">Forced</text>
+        <text x="298" y="22" fill="#ff6b6b" font-size="7" font-family="DM Mono">Wake ✗</text>
+
+        <!-- Cut off arrow -->
+        <text x="296" y="80" fill="#ff6b6b" font-size="14">⚠</text>
+      </svg>
+      <div class="x-axis-labels">
+        <span>10pm</span><span>12am</span><span>2am</span><span>4am</span><span>6am</span><span>8am</span>
+      </div>
+      <p class="caption">Forced 7am wake interrupts peak REM — β-amyloid & tau clearance incomplete</p>
+    </div>
+  </div>
+
+  <!-- Pathway -->
+  <div class="misalignment-box">
+    <div class="pathway">
+      <div class="pathway-step"><strong>Evening Chronotype</strong>Delayed circadian phase</div>
+      <span class="arrow">→</span>
+      <div class="pathway-step"><strong>Social Jetlag</strong>Forced early wake time</div>
+      <span class="arrow">→</span>
+      <div class="pathway-step"><strong>REM Truncation</strong>Peak REM cut short</div>
+      <span class="arrow">→</span>
+      <div class="pathway-step"><strong>↓ Glymphatic Flow</strong>Impaired during lost REM</div>
+      <span class="arrow">→</span>
+      <div class="pathway-step"><strong>β-Amyloid / Tau</strong>Accumulation risk ↑</div>
+      <span class="arrow">→</span>
+      <div class="pathway-step" style="border-color: rgba(123,45,139,0.5); background: rgba(123,45,139,0.1);"><strong style="color:#b06ed4;">AD Similarity ↑</strong>Higher cognitive risk</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#4a90d9;"></div>REM sleep</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f4a261;"></div>Morning chronotype</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7eb8f7;"></div>Evening chronotype</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff6b6b;"></div>Forced wake / REM loss</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2a3050;"></div>Deep sleep (N3)</div>
+  </div>
+</div>
+</body>
+</html>
