@@ -369,10 +369,10 @@ if st.session_state.page=="consent":
         st.stop()
     else:
         st.markdown("<h2 style='text-align: center;'>Project Information</h2>", unsafe_allow_html=True)
-        st.write("This project was built by high schoolers in an attempt to educate the community regarding the effects of lifestyle factors on cognition in relation to Alzheimer's Disease.")
-        st.write("***Procedure:***")
-        st.write("--> This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.")
-        st.write("--> The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.")
+        st.markdown("This project was built by high schoolers in an attempt to educate the community regarding the effects of lifestyle factors on cognition in relation to Alzheimer's Disease.")
+        st.markdown("***Procedure:***")
+        st.markdown("- This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.")
+        st.markdown("- The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.")
 
 #---SideBar---#
 
@@ -541,6 +541,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
