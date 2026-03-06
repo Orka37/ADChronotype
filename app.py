@@ -399,7 +399,7 @@ def get_started():
 
 @st.dialog("Project Details")
 def project_details():
-    st.write("""Notice: This app was made by high schoolers to educate the community regarding the potential effects of lifestyle factors on Alzheimer's Disease (also interpretable as overall cognition awareness).\n
+    st.write("""Notice: This app was made by high schoolers to educate the community regarding the potential effects of lifestyle factors on Alzheimer's Disease (also interpretable as overall cognition awareness).
     The prediction score is derived from an XGBoost Regression Machine Learning Model, which was trained on 101 datapoints of people's factors and their cognitive similarity score.
     Factors -> Same as what the user is asked to input!
     Cognitive Similarity Score -> Calculated via statistical analysis of an individual's scores on 4 cognitive tests (Mindcrowd Memory & Attention Test, Stroop Test, Digit Span Test) in relation to the scores of the same tests for the AD population.
@@ -535,6 +535,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
