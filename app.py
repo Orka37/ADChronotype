@@ -140,8 +140,9 @@ def ML():
     explainer = shap.TreeExplainer(model)
     shap_vals = explainer(input_df).values[0]
     feature_map = dict(zip(model_cols, shap_vals))
+    mean_score = 16.73
     def factor_pct(keys):
-        return float(round(sum(feature_map.get(k, 0) for k in keys) / max_score * 100, 1))
+        return float(round(sum(feature_map.get(k, 0) for k in keys) / mean_score * 100, 1))
     st.session_state.score = overall_pct
     st.session_state.score_chronotype = factor_pct([f"Chronotype_{chronotype}"])
     st.session_state.score_sleeptime = factor_pct(["SleepTime_sin", "SleepTime_cos"])
@@ -313,7 +314,7 @@ if not st.session_state.logged_in:
                         else:
                             st.session_state.predict_normal=False
                         st.session_state.score_baseline = float(row['Baseline Score'])
-                        st.session_state.score = int(row['Score'])
+                        st.session_state.score = float(row['Score'])
                         st.session_state.score_chronotype = float(row['Chronotype Score'])
                         st.session_state.score_sleeptime = float(row['Sleeptime Score'])
                         st.session_state.score_waketime = float(row['Waketime Score'])
@@ -535,6 +536,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
