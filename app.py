@@ -389,7 +389,7 @@ if st.session_state.page=="consent":
         st.markdown("<h4 style=''><b><i>Research Question & Hypothesis:</i></b></h4>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
-        components.html(html_content, height=800, scrolling=True)
+        components.html(html_content, height=800, width=1200, scrolling=True)
         st.markdown("<h3 style=''><b><i>Consent:</i></b></h3>", unsafe_allow_html=True)
         st.markdown("<h5 style=''><b><i>By using this app you fully consent to/acknowledge the following:</i></b></h5>", unsafe_allow_html=True)
         st.markdown("- You are conscience of all terms and conditions mentioned on this page.")
@@ -566,6 +566,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
