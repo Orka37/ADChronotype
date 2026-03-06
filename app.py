@@ -151,7 +151,8 @@ def ML():
     st.session_state.score_bmi = factor_pct(["BMI"])
     st.session_state.score_ethnicity = factor_pct([f"Ethnicity_{ethnicity}"])
     baseline = float(explainer.expected_value)
-    st.session_state.score_baseline = float(round(baseline / mean_score * 100, 1))
+    family_shap = feature_map.get("FamilyHistory_No", 0) + feature_map.get("FamilyHistory_Yes", 0)
+    st.session_state.score_baseline = float(round((baseline + family_shap) / mean_score * 100, 1))
 
 def save():
     st.session_state.predict=2
@@ -555,6 +556,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
