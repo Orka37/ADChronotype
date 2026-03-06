@@ -400,7 +400,7 @@ def get_started():
 @st.dialog("Project Details")
 def project_details():
     st.write("Notice: This app was made by high schoolers to educate the community regarding the potential effects of lifestyle factors on Alzheimer's Disease.")
-    st.write("For information on our project, please visit the 'Consent Info' tab on the navigation panel and read the 'Project Information' section.")
+    st.write("For information on our project, please visit the **'Consent Info'** tab on the navigation panel and read the **'Project Information'** section.")
     if st.button("Done!"):
         st.rerun()
 
@@ -532,3 +532,4 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
