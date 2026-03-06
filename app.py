@@ -97,22 +97,22 @@ def ML():
     import shap
 
     model = joblib.load("ml_model.pkl")
-    max_score = 67.36903953140605
+    max_score = 67.37
 
     chronotype = st.session_state.chronotype
     ethnicity  = st.session_state.ethnicity
     if ethnicity == "Native American":
         ethnicity = "Other"
-    age           = st.session_state.age
-    bmi           = st.session_state.bmi
+    age = st.session_state.age
+    bmi = st.session_state.bmi
     sleep_numeric = float(st.session_state.sleeptime)
-    wake_numeric  = float(st.session_state.waketime)
-    sleep_hrs     = (wake_numeric - sleep_numeric) % 24
+    wake_numeric = float(st.session_state.waketime)
+    sleep_hrs = (wake_numeric - sleep_numeric) % 24
 
     sleep_sin = np.sin(2 * np.pi * sleep_numeric / 24)
     sleep_cos = np.cos(2 * np.pi * sleep_numeric / 24)
-    wake_sin  = np.sin(2 * np.pi * wake_numeric  / 24)
-    wake_cos  = np.cos(2 * np.pi * wake_numeric  / 24)
+    wake_sin = np.sin(2 * np.pi * wake_numeric  / 24)
+    wake_cos = np.cos(2 * np.pi * wake_numeric  / 24)
 
     row = {
         "Age": age, "BMI": bmi,
@@ -137,20 +137,20 @@ def ML():
     model_cols = ['Age', 'BMI', 'SleepTime_sin', 'SleepTime_cos', 'WakeTime_sin', 'WakeTime_cos', 'SleepDuration', 'Chronotype_Definite Evening', 'Chronotype_Definite Morning', 'Chronotype_Intermediate', 'Chronotype_Moderate Evening', 'Chronotype_Moderate Morning', 'Ethnicity_African American', 'Ethnicity_Caucasian', 'Ethnicity_East Asian', 'Ethnicity_Hispanic', 'Ethnicity_Other', 'Ethnicity_South Asian', 'FamilyHistory_No', 'FamilyHistory_Yes']
     input_df = pd.DataFrame([row])[model_cols]
 
-    prediction  = float(model.predict(input_df)[0])
+    prediction = float(model.predict(input_df)[0])
     overall_pct = round(min(max(prediction / max_score * 100, 0), 100), 1)
-    explainer   = shap.TreeExplainer(model)
-    shap_vals   = explainer(input_df).values[0]
+    explainer = shap.TreeExplainer(model)
+    shap_vals = explainer(input_df).values[0]
     feature_map = dict(zip(model_cols, shap_vals))
     def factor_pct(keys):
         return float(round(sum(feature_map.get(k, 0) for k in keys) / max_score * 100, 1))
-    st.session_state.score            = overall_pct
+    st.session_state.score = overall_pct
     st.session_state.score_chronotype = factor_pct([f"Chronotype_{chronotype}"])
-    st.session_state.score_sleeptime  = factor_pct(["SleepTime_sin", "SleepTime_cos"])
-    st.session_state.score_waketime   = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
-    st.session_state.score_age        = factor_pct(["Age"])
-    st.session_state.score_bmi        = factor_pct(["BMI"])
-    st.session_state.score_ethnicity  = factor_pct([f"Ethnicity_{ethnicity}"])
+    st.session_state.score_sleeptime = factor_pct(["SleepTime_sin", "SleepTime_cos"])
+    st.session_state.score_waketime = factor_pct(["WakeTime_sin",  "WakeTime_cos"])
+    st.session_state.score_age = factor_pct(["Age"])
+    st.session_state.score_bmi = factor_pct(["BMI"])
+    st.session_state.score_ethnicity = factor_pct([f"Ethnicity_{ethnicity}"])
     baseline = float(explainer.expected_value)
     st.session_state.score_baseline = float(round(baseline / max_score * 100, 1))
 
@@ -545,5 +545,6 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
