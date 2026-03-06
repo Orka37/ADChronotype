@@ -467,7 +467,7 @@ if st.session_state.page=="home":
         st.session_state.predict=3
     col1, col2 = st.columns([0.5, 0.5])
     with col1:
-        st.markdown("<h1 style='text-align: right; margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='margin: 0;'>ADChronotype</h1>", unsafe_allow_html=True)
     with col2:
         if st.button("?", key="help_icon_circle", help=None):
             project_details()
@@ -567,6 +567,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
