@@ -196,27 +196,22 @@ def go(page):
 st.markdown("""
     <style>
     .stApp { background: radial-gradient(circle at top right, #1E293B, #0F172A); }
-
     .main-title {
         font-family: 'sans serif'; color: #F8FAF8; text-align: center;
         padding: 15px; background: rgba(255, 255, 255, 0.05);
         border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-
     .stNumberInput button:hover {
         background-color: rgba(168, 85, 247, 0.4) !important;
     }
-    
     div[data-testid="InputInstructions"] { display: none !important; }
-
     div.stButton > button {
         background: linear-gradient(45deg, #6366F1, #A855F7); color: white;
         border: none; padding: 6px 20px !important; min-height: 35px !important;
         border-radius: 8px !important; font-weight: 500 !important;
         transition: all 0.3s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     }
-
     footer {visibility: hidden;}
     .viewerBadge_container__1QSob {display: none !important;}
     button[title="View source"] {display: none !important;}
@@ -226,7 +221,6 @@ st.markdown("""
         padding-top: 3.5rem;
         padding-bottom: 0rem;
     }
-    
     .title-container {
         display: flex;
         align-items: center;
@@ -252,7 +246,6 @@ st.markdown("""
         background-color: #7c4dff;
         color: white;
     }
-
     [data-testid="stMetricDeltaIcon"], 
     [data-testid="stMetricDelta"] svg {
         display: none !important;
@@ -260,23 +253,18 @@ st.markdown("""
         width: 0 !important;
         height: 0 !important;
     }
-    
     div.stButton > button:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important; }
     div.stButton > button:active { transform: scale(0.95) !important; }
-
     .stMarkdown h4 a {
         display: none !important;
     }
-
     .stMarkdown h4 {
         margin-right: 0px !important;
     }
-
     div[data-testid="stNotification"] {
         background-color: rgba(99, 102, 241, 0.2) !important; color: #F8FAF8 !important;
         border: 1px solid #6366F1 !important; border-radius: 10px !important;
     }
-    
     div[data-testid="stNotification"] svg { fill: #A855F7 !important; }
     </style>
     """, unsafe_allow_html=True)
@@ -411,7 +399,11 @@ def get_started():
 
 @st.dialog("Project Details")
 def project_details():
-    st.write("This was an app made by ")
+    st.write("""Notice: This app was made by high schoolers to educate the community regarding the potential effects of lifestyle factors on Alzheimer's Disease (also interpretable as overall cognition awareness).\n
+    The prediction score is derived from an XGBoost Regression Machine Learning Model, which was trained on 101 datapoints of people's factors and their cognitive similarity score.
+    Factors -> Same as what the user is asked to input!
+    Cognitive Similarity Score -> Calculated via statistical analysis of an individual's scores on 4 cognitive tests (Mindcrowd Memory & Attention Test, Stroop Test, Digit Span Test) in relation to the scores of the same tests for the AD population.
+    """)
     if st.button("Done!"):
         st.rerun()
 
@@ -543,6 +535,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
