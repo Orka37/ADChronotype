@@ -388,8 +388,8 @@ if st.session_state.page=="consent":
         st.markdown("- This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.")
         st.markdown("- The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.")
         st.markdown("<h4 style=''><b><i>Research Question & Hypothesis:</i></b></h4>", unsafe_allow_html=True)
-        st.markdown("<h5 style=''>b><i>Research Question: How does a 40-60-year-old’s sleep chronotype affect their likeness score of getting Alzheimer’s disease?</i></b></h4>", unsafe_allow_html=True)
-        st.markdown("<h5 style=''>b><i>Hypothesis: Evening chronotypes will have the most influence on cognitive likeness for Alzheimer's Disease in middle-aged to older people.</i></b></h4>", unsafe_allow_html=True)
+        st.markdown("<h5 style=''><b><i>Research Question: How does a 40-60-year-old’s sleep chronotype affect their likeness score of getting Alzheimer’s disease?</i></b></h4>", unsafe_allow_html=True)
+        st.markdown("<h5 style=''><b><i>Hypothesis: Evening chronotypes will have the most influence on cognitive likeness for Alzheimer's Disease in middle-aged to older people.</i></b></h4>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
@@ -569,6 +569,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
