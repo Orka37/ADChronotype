@@ -370,6 +370,7 @@ if st.session_state.page=="consent":
         st.markdown("<h4 style=''><b><i>Procedure:</i></b></h4>", unsafe_allow_html=True)
         st.markdown("- This streamlit-based GitHub-launched website app utilizes an eXtreme Gradient Boosting Regression Machine Learning Model to create an Alzheimer's Disease Cognitive Similarity Score.")
         st.markdown("- The AD Cognitive Similarity Score was derived via statistical analysis that utilizes z-scores, Euclidean distance, and normalization, to compare the results of 101 gathered individuals in 4 self-coded cognitive tests (Mindcrowd Memory & Attention, Stroop Task, Digit Span) to the AD population.")
+        st.markdown("<h2 style=''><b><i>-----------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         st.markdown("<h4 style=''><b><i>Consent:</i></b></h4>", unsafe_allow_html=True)
         st.markdown("<h5 style=''><b><i>By using this app you fully consent to/acknowledge the following:</i></b></h5>", unsafe_allow_html=True)
         st.markdown("- You are conscience of all terms and conditions mentioned on this page.")
@@ -593,6 +594,7 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.button("**Exit**"):
         go("home")
+
 
 
 
