@@ -321,7 +321,7 @@ if not st.session_state.logged_in:
                             st.session_state.predict_normal=True
                         else:
                             st.session_state.predict_normal=False
-                        st.session_state.score_baseline = float(round(row['Baseline Score'],1))
+                        st.session_state.score_baseline = float(row['Baseline Score'])
                         st.session_state.score = float(row['Score'])
                         st.session_state.score_chronotype = float(row['Chronotype Score'])
                         st.session_state.score_sleeptime = float(row['Sleeptime Score'])
@@ -556,7 +556,7 @@ if st.session_state.page=="home":
                     """, unsafe_allow_html=True)
         with col2:
             st.markdown("### Factor Contribution")
-            st.caption(f"Baseline: {st.session_state.score_baseline}% — shifted by factors below")
+            st.caption(f"Baseline: {round(st.session_state.score_baseline,1)}% — shifted by factors below")
             col3, col4 = st.columns(2)
             with col3:
                 factor_metric("Chronotype", st.session_state.score_chronotype)
