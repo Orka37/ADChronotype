@@ -175,7 +175,7 @@ def save():
         bool(st.session_state.help),
         int(st.session_state.predict),
         bool(st.session_state.predict_normal),
-        float(st.session_state.score_baseline),
+        float(round(st.session_state.score_baseline,1)),
         float(st.session_state.score),
         float(round(st.session_state.score_chronotype,1)),
         float(round(st.session_state.score_sleeptime,1)),
@@ -321,7 +321,7 @@ if not st.session_state.logged_in:
                             st.session_state.predict_normal=True
                         else:
                             st.session_state.predict_normal=False
-                        st.session_state.score_baseline = round(float(row['Baseline Score']), 1)
+                        st.session_state.score_baseline = float(round(row['Baseline Score'],1))
                         st.session_state.score = float(row['Score'])
                         st.session_state.score_chronotype = float(row['Chronotype Score'])
                         st.session_state.score_sleeptime = float(row['Sleeptime Score'])
