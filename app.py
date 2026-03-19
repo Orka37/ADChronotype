@@ -149,7 +149,7 @@ def ML():
     
     family_shap = feature_map.get("FamilyHistory_No", 0) + feature_map.get("FamilyHistory_Yes", 0)
     duration_shap = feature_map.get("SleepDuration", 0)
-    baseline = float(explainer.expected_value)
+    baseline = float(round(explainer.expected_value,1))
     st.session_state.score_baseline = float(round((baseline + family_shap + duration_shap + inactive_shap) / max_score * 100, 1))
 
     st.session_state.score = overall_pct
