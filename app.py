@@ -556,14 +556,11 @@ if st.session_state.page=="home":
                     """, unsafe_allow_html=True)
         with col2:
             st.markdown("### Factor Contribution")
-            if st.session_state.score_baseline == "N/A":
+            val = st.session_state.score_baseline
+            if val == "N/A":
                 st.caption("Baseline: N/A — shifted by factors below")
             else:
-                value = float(st.session_state.score_baseline)
-                if value.is_integer():
-                    st.caption(f"Baseline: {int(value)}% — shifted by factors below")
-                else:
-                    st.caption(f"Baseline: {value}% — shifted by factors below")
+                st.caption(f"Baseline: {float(val):.1f}% — shifted by factors below")
             col3, col4 = st.columns(2)
             with col3:
                 factor_metric("Chronotype", st.session_state.score_chronotype)
