@@ -629,37 +629,36 @@ if st.session_state.page=="tips":
     st.info("WORK IN PROGRESS!")
     if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_sleeptime > 3:
         st.markdown("### Sleeptime Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_waketime > 3:
         st.markdown("### Waketime Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_age > 3:
         st.markdown("### Age Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_bmi > 3:
         st.markdown("### BMI Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_ethnicity > 3:
         st.markdown("### Ethnicity Tips")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
