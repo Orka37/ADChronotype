@@ -627,7 +627,7 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.warning("Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
-    if st.session_state.score_chronotype > 0:
+    if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
         st.markdown(
         "###### Your biological chronotype is an intrinsic genetic trait, meaning the goal should not be to forcefully change your internal clock,"
@@ -636,7 +636,7 @@ if st.session_state.page=="tips":
         "and securing bright, natural sunlight exposure immediately upon waking to anchor your circadian rhythm and prevent phase-delay drift."
         )
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_sleeptime > 0 or st.session_state.score_waketime > 0:
+    if st.session_state.score_sleeptime > 3 or st.session_state.score_waketime > 3:
         st.markdown("### Sleep Tips")
         st.markdown("##### Links to improve what time you sleep!")
         st.markdown("Go to [CDC](https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html) to search for tips.")
@@ -644,7 +644,7 @@ if st.session_state.page=="tips":
         st.markdown("Go to [Science Daily](https://www.sciencedaily.com/releases/2025/01/250127124458.html) to search for tips.")
         st.markdown("Go to [ALZ](https://www.alz.org/alzheimers-dementia/research_progress/sleep-and-alzheimers) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_age > 0:
+    if st.session_state.score_age > 3:
         st.markdown("### Age Tips")
         st.markdown(
         "###### While biological age is an unalterable variable, its statistical weight highlights the critical importance of building 'Cognitive Reserve.'"
@@ -653,14 +653,14 @@ if st.session_state.page=="tips":
         "influences late-life neurodegenerative risks."
         )
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_bmi > 0:
+    if st.session_state.score_bmi > 3:
         st.markdown("### BMI Tips")
         st.markdown("##### Links to improve your BMI!")
         st.markdown("Go to [CDC](https://www.cdc.gov/healthyweight/index.html) to search for tips.")
         st.markdown("Go to [Alzheimers Society](https://www.alzheimers.org.uk/about-dementia/managing-the-risk-of-dementia/reduce-your-risk-of-dementia/obesity) to search for tips.")
         st.markdown("Go to [Harvard Health](https://www.health.harvard.edu/mind-and-mood/the-mind-diet) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_ethnicity > 0:
+    if st.session_state.score_ethnicity > 3:
         st.markdown("### Ethnicity Tips")
         st.markdown(
         "###### Epidemiological data shows that genetic baselines and systemic disparities can cause metabolic risk factors to impact cognitive health"
