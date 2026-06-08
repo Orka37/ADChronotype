@@ -626,14 +626,14 @@ if st.session_state.page == "input":
 
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
-    st.markdown("# Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
+    st.markdown("###### Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
     if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
         st.write("https://www.sleepfoundation.org/circadian-rhythm/chronotype")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_sleeptime > 3:
         st.markdown("### Sleeptime Tips")
-        st.markdown("## Links to improve what time you sleep!")
+        st.markdown("#### Links to improve what time you sleep!")
         st.markdown("Go to [Sleep Foundation](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_waketime > 3:
