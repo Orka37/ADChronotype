@@ -554,22 +554,22 @@ if st.session_state.page=="home":
                         </span>
                     </div>
                     """, unsafe_allow_html=True)
-        with col2:
-            st.markdown("### Factor Contribution")
-            val = st.session_state.score_baseline
-            if val == "N/A":
-                st.caption("Baseline: N/A — shifted by factors below")
-            else:
-                st.caption(f"Baseline: {float(val):.1f}% — shifted by factors below")
-            col3, col4 = st.columns(2)
-            with col3:
-                factor_metric("Chronotype", st.session_state.score_chronotype)
-                factor_metric("Sleeptime", st.session_state.score_sleeptime)
-                factor_metric("Waketime", st.session_state.score_waketime)
-            with col4:
-                factor_metric("Age", st.session_state.score_age)
-                factor_metric("BMI", st.session_state.score_bmi)
-                factor_metric("Ethnicity", st.session_state.score_ethnicity)
+    with col2:
+        st.markdown("### Factor Contribution")
+        val = st.session_state.score_baseline
+        if val == "N/A":
+            st.caption("Baseline: N/A — shifted by factors below")
+        else:
+            st.caption(f"Baseline: {float(val):.1f}% — shifted by factors below")
+        col3, col4 = st.columns(2)
+        with col3:
+            factor_metric("Chronotype", st.session_state.score_chronotype)
+            factor_metric("Sleeptime", st.session_state.score_sleeptime)
+            factor_metric("Waketime", st.session_state.score_waketime)
+        with col4:
+            factor_metric("Age", st.session_state.score_age)
+            factor_metric("BMI", st.session_state.score_bmi)
+            factor_metric("Ethnicity", st.session_state.score_ethnicity)
 
 #---Input---#
 
