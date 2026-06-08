@@ -533,12 +533,12 @@ if st.session_state.page=="home":
     with col1:
         st.markdown("### Score")
         score_metric("Alzheimer's Likeness Score", st.session_state.score)
-        st.warning("""
+        if st.session_state.predict > 1:
+            st.warning("""
             Note: THIS IS NOT A CLINICAL DIAGNOSIS!
             
             This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
-        """) 
-        if st.session_state.predict > 1:
+        """)
             if st.session_state.bmi < 18.5:
                 label, color = "Underweight", "#3498db"
             elif 18.5 <= st.session_state.bmi < 25:
