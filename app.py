@@ -626,7 +626,7 @@ if st.session_state.page == "input":
 
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
-    st.info("Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
+    st.warning("Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
     if st.session_state.score_chronotype > 0:
         st.markdown("### Chronotype Tips")
         st.markdown(
@@ -636,16 +636,13 @@ if st.session_state.page=="tips":
         "and securing bright, natural sunlight exposure immediately upon waking to anchor your circadian rhythm and prevent phase-delay drift."
         )
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_sleeptime > 0:
-        st.markdown("### Sleeptime Tips")
+    if st.session_state.score_sleeptime > 0 or st.session_state.score_waketime > 0:
+        st.markdown("### Sleep Tips")
         st.markdown("##### Links to improve what time you sleep!")
-        st.markdown("Go to [Sleep Foundation](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for tips.")
-        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_waketime > 0:
-        st.markdown("### Waketime Tips")
-        with open("rem_chronotype_diagram.html", "r") as f:
-            html_content = f.read()
-        components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("Go to [CDC](https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html) to search for tips.")
+        st.markdown("Go to [News in Health](https://newsinhealth.nih.gov/2013/11/sleep-your-brain) to search for tips.")
+        st.markdown("Go to [Science Daily](https://www.sciencedaily.com/releases/2025/01/250127124458.html) to search for tips.")
+        st.markdown("Go to [ALZ](https://www.alz.org/alzheimers-dementia/research_progress/sleep-and-alzheimers) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_age > 0:
         st.markdown("### Age Tips")
@@ -658,9 +655,10 @@ if st.session_state.page=="tips":
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_bmi > 0:
         st.markdown("### BMI Tips")
-        with open("rem_chronotype_diagram.html", "r") as f:
-            html_content = f.read()
-        components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("##### Links to improve your BMI!")
+        st.markdown("Go to [CDC](https://www.cdc.gov/healthyweight/index.html) to search for tips.")
+        st.markdown("Go to [Alzheimers Society](https://www.alzheimers.org.uk/about-dementia/managing-the-risk-of-dementia/reduce-your-risk-of-dementia/obesity) to search for tips.")
+        st.markdown("Go to [Harvard Health](https://www.health.harvard.edu/mind-and-mood/the-mind-diet) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_ethnicity > 0:
         st.markdown("### Ethnicity Tips")
