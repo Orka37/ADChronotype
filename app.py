@@ -629,11 +629,12 @@ if st.session_state.page=="tips":
     st.markdown("###### Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
     if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
-        st.write("https://www.sleepfoundation.org/circadian-rhythm/chronotype")
+        st.markdown("##### Links to improve what time you sleep!")
+        st.markdown("Go to [Sleep Foundation](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_sleeptime > 3:
         st.markdown("### Sleeptime Tips")
-        st.markdown("#### Links to improve what time you sleep!")
+        st.markdown("##### Links to improve what time you sleep!")
         st.markdown("Go to [Sleep Foundation](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for tips.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_waketime > 3:
@@ -644,9 +645,10 @@ if st.session_state.page=="tips":
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_age > 3:
         st.markdown("### Age Tips")
-        with open("rem_chronotype_diagram.html", "r") as f:
-            html_content = f.read()
-        components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("""##### While biological age is an unalterable variable, its statistical weight highlights the critical importance of building 'Cognitive Reserve.'
+        If you are in the upper bracket of our preclinical window (ages 50–60), it is vital to outpace natural cognitive aging by introducing high-novelty mental exercises
+        (such as learning a new language or instrument) and strictly managing cardiovascular health (blood pressure and cholesterol), as mid-life vascular health directly
+        influences late-life neurodegenerative risks.""")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_bmi > 3:
         st.markdown("### BMI Tips")
