@@ -627,6 +627,7 @@ if st.session_state.page == "input":
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
     st.warning("Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
+    st.info("Tips show for the factors which have a greater than 3 contribution value!")
     if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
         st.markdown(
