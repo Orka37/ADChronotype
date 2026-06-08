@@ -629,8 +629,12 @@ if st.session_state.page=="tips":
     st.markdown("###### Note: We aren't affiliated with any of the websites and can't be held accountable for anything relating them. We provide the links as we believe they make for good tips to improve the respective lifestyle factor.")
     if st.session_state.score_chronotype > 0:
         st.markdown("### Chronotype Tips")
-        st.markdown("##### Links to improve what time you sleep!")
-        st.markdown("Go to [Sleep Foundation](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for tips.")
+        st.markdown(
+        "###### Your biological chronotype is an intrinsic genetic trait, meaning the goal should not be to forcefully change your internal clock,
+        "but to minimize 'Social Jetlag.' If you scored as an Evening-Type, try to cluster your most complex, high-stakes cognitive tasks later in"
+        "the day when your cortical alertness peaks. Additionally, protect your sleep window by using blue-light blocking infrastructure at night"
+        "and securing bright, natural sunlight exposure immediately upon waking to anchor your circadian rhythm and prevent phase-delay drift."
+        )
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_sleeptime > 0:
         st.markdown("### Sleeptime Tips")
@@ -660,6 +664,9 @@ if st.session_state.page=="tips":
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_ethnicity > 0:
         st.markdown("### Ethnicity Tips")
-        with open("rem_chronotype_diagram.html", "r") as f:
-            html_content = f.read()
-        components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown(
+        "###### Epidemiological data shows that genetic baselines and systemic disparities can cause metabolic risk factors to impact cognitive health"
+        "differently across diverse populations. Use this demographic baseline as a tool for precision prevention: ensure your primary care physician"
+        "closely monitors risk vectors that heavily overlap with cognitive decline—specifically Type 2 diabetes, metabolic syndrome, and hypertension"
+        "—as managing these secondary conditions is a highly effective, actionable way to mitigate demographic risk spikes."
+        )
