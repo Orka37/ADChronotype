@@ -630,7 +630,7 @@ if st.session_state.page=="tips":
     if st.session_state.score_chronotype > 0:
         st.markdown("### Chronotype Tips")
         st.markdown(
-        "###### Your biological chronotype is an intrinsic genetic trait, meaning the goal should not be to forcefully change your internal clock,
+        "###### Your biological chronotype is an intrinsic genetic trait, meaning the goal should not be to forcefully change your internal clock,"
         "but to minimize 'Social Jetlag.' If you scored as an Evening-Type, try to cluster your most complex, high-stakes cognitive tasks later in"
         "the day when your cortical alertness peaks. Additionally, protect your sleep window by using blue-light blocking infrastructure at night"
         "and securing bright, natural sunlight exposure immediately upon waking to anchor your circadian rhythm and prevent phase-delay drift."
