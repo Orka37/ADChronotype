@@ -539,21 +539,23 @@ if st.session_state.page=="home":
             This is simply a statistical assessment of how similar your cognitive profile is to Alzheimer's Disease Patients.
         """) 
         if st.session_state.predict > 1:
-                if st.session_state.bmi < 18.5:
-                    label, color = "Underweight", "#3498db"
-                elif 18.5 <= st.session_state.bmi < 25:
-                    label, color = "Healthy Weight", "#2ecc71"
-                elif 25 <= st.session_state.bmi < 30:
-                    label, color = "Overweight", "#f1c40f"
-                else:
-                    label, color = "Obese", "#e67e22"
-                st.markdown(f"""
-                    <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center; margin-bottom: 20px;">
-                        <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
-                            Current BMI: {st.session_state.bmi} — {label}
-                        </span>
-                    </div>
-                    """, unsafe_allow_html=True)
+            if st.session_state.bmi < 18.5:
+                label, color = "Underweight", "#3498db"
+            elif 18.5 <= st.session_state.bmi < 25:
+                label, color = "Healthy Weight", "#2ecc71"
+            elif 25 <= st.session_state.bmi < 30:
+                label, color = "Overweight", "#f1c40f"
+            else:
+                label, color = "Obese", "#e67e22"
+            st.markdown(f"""
+                <div style="padding:10px; border-radius:10px; background-color: {color}22; border: 1px solid {color}; text-align: center; margin-bottom: 20px;">
+                    <span style="color: {color}; font-weight: bold; font-size: 1.1rem;">
+                        Current BMI: {st.session_state.bmi} — {label}
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
+            if st.button("View Tips", use_container_width=True):
+                go("tips")
     with col2:
         st.markdown("### Factor Contribution")
         val = st.session_state.score_baseline
