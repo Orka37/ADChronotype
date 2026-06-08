@@ -643,14 +643,14 @@ if st.session_state.page=="tips":
             html_content = f.read()
         components.html(html_content, height=800, width=1200, scrolling=True)
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_age > 3:
+    if st.session_state.score_age > 0:
         st.markdown("### Age Tips")
         st.markdown("""##### While biological age is an unalterable variable, its statistical weight highlights the critical importance of building 'Cognitive Reserve.'
         If you are in the upper bracket of our preclinical window (ages 50–60), it is vital to outpace natural cognitive aging by introducing high-novelty mental exercises
         (such as learning a new language or instrument) and strictly managing cardiovascular health (blood pressure and cholesterol), as mid-life vascular health directly
         influences late-life neurodegenerative risks.""")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
-    if st.session_state.score_bmi > 3:
+    if st.session_state.score_bmi > 0:
         st.markdown("### BMI Tips")
         with open("rem_chronotype_diagram.html", "r") as f:
             html_content = f.read()
