@@ -626,16 +626,13 @@ if st.session_state.page == "input":
 
 if st.session_state.page=="tips":
     st.markdown("<h1 style='text-align: center;'>Tips to Lower Your Score</h1>", unsafe_allow_html=True)
-    st.info("WORK IN PROGRESS!")
     if st.session_state.score_chronotype > 3:
         st.markdown("### Chronotype Tips")
         st.write("https://www.sleepfoundation.org/circadian-rhythm/chronotype")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_sleeptime > 3:
         st.markdown("### Sleeptime Tips")
-        with open("rem_chronotype_diagram.html", "r") as f:
-            html_content = f.read()
-        components.html(html_content, height=800, width=1200, scrolling=True)
+        st.markdown("Go to [Google](https://www.sleepfoundation.org/circadian-rhythm/chronotype) to search for answers.")
         st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
     if st.session_state.score_waketime > 3:
         st.markdown("### Waketime Tips")
