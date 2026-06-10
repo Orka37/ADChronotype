@@ -315,7 +315,7 @@ if not st.session_state.logged_in:
                         st.session_state.weight = int(row['Weight'])
                         st.session_state.height_ft = int(row['Height_ft'])
                         st.session_state.height_inch = int(row['Height_inch'])
-                        st.session_state.ethnicity = str(row['Ethnicity']).strip()
+                        st.session_state.ethnicity = str(row['Ethnicity'])
                         help_val = str(row['Help']).strip().upper()
                         if help_val == "TRUE":
                             st.session_state.help=True
