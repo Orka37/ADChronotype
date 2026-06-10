@@ -671,3 +671,4 @@ if st.session_state.page=="tips":
         "closely monitors risk vectors that heavily overlap with cognitive decline—specifically Type 2 diabetes, metabolic syndrome, and hypertension"
         "—as managing these secondary conditions is a highly effective, actionable way to mitigate demographic risk spikes."
         )
+        st.markdown("<h2 style=''><b><i>---------------------------------------------------------------</i></b></h2>", unsafe_allow_html=True)
