@@ -171,6 +171,9 @@ def save():
         int(st.session_state.waketime),
         int(st.session_state.age),
         float(st.session_state.bmi),
+        int(st.session_state.weight),
+        int(st.session_state.height_ft),
+        int(st.session_state.height_inch),
         str(st.session_state.ethnicity),
         bool(st.session_state.help),
         int(st.session_state.predict),
@@ -304,11 +307,14 @@ if not st.session_state.logged_in:
                             st.session_state.consent=True
                         else:
                             st.session_state.consent=False
-                        st.session_state.chronotype = str(row['Chronotype']).strip()
+                        st.session_state.chronotype = str(row['Chronotype'])
                         st.session_state.sleeptime = int(row['Sleeptime (hrs)'])
                         st.session_state.waketime = int(row['Waketime (hrs)'])
                         st.session_state.age = int(row['Age'])
                         st.session_state.bmi = float(row['BMI'])
+                        st.session_state.weight = int(row['Weight'])
+                        st.session_state.height_ft = int(row['Height_ft'])
+                        st.session_state.height_inch = int(row['Height_inch'])
                         st.session_state.ethnicity = str(row['Ethnicity']).strip()
                         help_val = str(row['Help']).strip().upper()
                         if help_val == "TRUE":
